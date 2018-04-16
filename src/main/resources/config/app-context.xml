@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans default-autowire="byName"
-       xmlns="http://www.springframework.org/schema/beans"
+<beans
+        xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:task="http://www.springframework.org/schema/task"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
@@ -15,7 +15,7 @@
 
     <context:component-scan base-package="com.ing.school">
         <context:exclude-filter type="annotation"
-                                expression="org.springframework.stereotype.Controller"></context:exclude-filter>
+                                expression="org.springframework.web.bind.annotation.RestController"/>
     </context:component-scan>
 
     <context:annotation-config/>

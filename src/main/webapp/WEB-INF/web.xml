@@ -26,10 +26,7 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
-    <!--
-        SQL调用依赖需要加载一个配置文件
-        /config/spring/common/appcontext-ds-monitor.xml，这个文件是在zebra-ds-monitor-client这个jar包下。
-    -->
+
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
