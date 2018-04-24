@@ -110,13 +110,13 @@ status枚举如下:
   "url":"/api/record/apply/list",
   "method":"post",
   "request":{
-    "id":5,
-    "schoolName":"xxxxxx",
-    "applyTime":1687812312//unix时间戳
+
   },
   "response":{
     "data":[{
-
+      "id":5,
+      "schoolName":"xxxxxx",
+      "applyTime":1687812312//unix时间戳
     },{}],
     "message":"请求成功",
     "status":1
@@ -406,7 +406,7 @@ status枚举如下:
     "applyCondition":"xxxx",
     "activity":"xxxx",
     "applyCase":"xxxx",
-    "accommodation":"xxxx",
+    "accommodation":"xxxx"
   }
 }
 ```
@@ -436,6 +436,244 @@ status枚举如下:
   "method":"post",
   "request":{
     "resolver":"school"//normal 不处理,直接返回链接,school 学校excel上传
+  }
+}
+```
+### 3.创建账号
+```json
+{
+  "url":"/api/manage/account/add",
+  "method":"post",
+  "request":{
+    "account":"xxx",
+    "password":"xxxxx"
+  },
+  "response":{
+    "data":"",
+    "status":1
+  }
+}
+```
+
+### 4.广告位设置
+```json
+{
+  "url":"/api/manage/config/ad",
+  "method":"post",
+  "request":{
+    "text":"xxxxxx"
+  },
+  "response":{
+    "data":"",
+    "status":1
+  }
+}
+```
+### 5.客户列表页
+```json
+{
+  "url":"/api/manage/user/getUserList",
+  "method":"post",
+  "request":{
+  },
+  "response":{
+    "data":[
+    {
+      "id":5,
+      "name":"xxx",
+      "age":22,
+      "phone":"xxxx"
+    },{}
+    ]
+  }
+}
+```
+
+### 6.客户详情页
+```json
+{
+  "url":"/api/manage/user/userInfo/{userId}",
+  "method":"post",
+  "request":{
+
+  },
+  "response":{
+    "nickName":"xxx",
+    "telephone":"17621181235",
+    "age":15,
+    "genderCode":"2",
+    "address":"xxxxxxx",
+    "englishLevelCode":"2",//TOEFL或IELTS的code
+    "englishLevelScore":45.55,
+    "applyList":[
+      {
+      "id":5,
+      "schoolName":"xxxxxx",
+      "applyTime":1687812312//unix时间戳
+      },{}
+    ]
+  }
+}
+```
+
+### 7.所有申请列表页
+```json
+{
+  "url":"/api/manage/apply/getApplyList",
+   "method":"post",
+  "request":{
+    "sortOrder":"desc",//按照申请时间正序、倒序排序-asc升序 desc降序 默认降序
+    "startTime":"yyyy-MM-dd",
+    "endTime":"yyyy-MM-dd"//开始时间 结束时间筛选
+  },
+  "response":{
+    "data":[
+      {
+        "id":5,
+        "userId":7,
+        "name":"xxx",
+        "age":"xxx",
+        "schoolId":6,
+        "schoolName":"xxxx",
+        "schoolEnglishName":"xxxx",
+        "telephone":"111111111111"
+      }
+    ]
+  }
+}
+```
+
+### 8.申请详情页
+```json
+{
+  "url":"/api/manage/apply/getApplyInfo/{applyId}",
+  "method":"post",
+  "request":{
+
+  },
+  "response":{
+    "data":{
+        "schoolId":11,
+        "schoolName":"学校名称",
+        "schoolTypeCode":"2222",//学校类型枚举
+        "studentName":"学生姓名",
+        "age":22,
+        "genderCode":"性别枚举值",
+        "telephone":"17621181236",
+        "address":"地址",
+        "attendanceGrades":"我也不知道这是啥,跟着图片写的",
+        "attendanceDate":"2017-03-24",//使用datepicker组件 传格式化日期
+        "currentSchoolEmail":"123@sdu.com.cn",
+        "currentSchoolPhone":"1123124123123",
+        "currentSchoolAddress":"这是地址",
+        "currentSchoolName":"这是学校姓名",
+        "wechatId":"微信号",
+        "skypeId":"skypeId",
+        "passportNumber":"xxxx",
+        "applyingGradeCode":"xx",//申请年级枚举值,
+        "currentGradeCode":"xx",
+        "studentEmail":"1@1.com",
+        "secondLanguageCode":"2",//第二语言枚举
+        "nativeLanguageCode":"1",
+        "cityzenshipCode":"xx",
+        "homePhone":"111111111",
+        "countryCode":"xxx",
+        "zip":"ccc",
+        "cityCode":"xx",
+        "stateCode":"xx",
+        "applyTime":15098824213,//Unix时间戳
+        "englishLevelTypeCode":"4",
+        "englishLevelScore":"S+"
+    }
+  }
+}
+```
+
+### 9.学校信息完善
+```json
+{
+  "url":"/api/manage/school/addSchoolInfo",
+  "method":"post",
+  "request":{
+    "schoolId":4,
+    "synopsis":"xxx",
+    "badge":"xxxx",
+    "applicationGuide":"xxx",
+    "classes":"xxxx",
+    "advantage":"xxxx",
+    "afterGraduation":"xxxx",
+    "applyCondition":"xxxx",
+    "activity":"xxxx",
+    "applyCase":"xxxx",
+    "accommodation":"xxxx"
+  },
+  "response":{
+    "data":"",
+    "status":1
+  }
+}
+```
+
+### 10.学校列表（列表仅展示基础信息）
+```json
+{
+  "url":"/api/manage/school/schoolList",
+  "method":"post",
+  "request":{
+
+  },
+  "response":{
+    "data":[
+      {
+        "id":5,
+        "schoolName":"xxxx",
+        "schoolEnglishName":"xxx",
+        "continentName":"xx",
+        "countryName":"xxxx",
+        "stateName":"xxx",
+        "cityName":"xxx",
+        "schoolTypeName":"xxx",
+        "schoolGenderTypeName":"xxx",
+        "religionTypeName":"xxx",
+        "hasEsl":true
+      }
+    ],
+    "status":1
+  }
+}
+```
+
+### 11.学校详情
+```json
+{
+  "url":"/api/manage/school/getSchoolInfo/{schoolId}",
+  "method":"post",
+  "request":{
+
+  },
+  "response":{
+    "data":{
+        "schoolName":"xxxx",
+        "schoolEnglishName":"xxx",
+        "continentName":"xx",
+        "countryName":"xxxx",
+        "stateName":"xxx",
+        "cityName":"xxx",
+        "schoolTypeName":"xxx",
+        "schoolGenderTypeName":"xxx",
+        "religionTypeName":"xxx",
+        "hasEsl":true,
+        "synopsis":"xxx",
+        "badge":"xxxx",
+        "applicationGuide":"xxx",
+        "classes":"xxxx",
+        "advantage":"xxxx",
+        "afterGraduation":"xxxx",
+        "applyCondition":"xxxx",
+        "activity":"xxxx",
+        "applyCase":"xxxx",
+        "accommodation":"xxxx"
+    }
   }
 }
 ```
