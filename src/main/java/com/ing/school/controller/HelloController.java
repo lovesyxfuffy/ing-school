@@ -13,16 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/test")
-public class HelloController implements ApplicationContextAware{
+public class HelloController {
 
-    @RequestMapping(value = "hello",method = RequestMethod.GET)
-    public Result hello(){
+    @RequestMapping(value = "hello", method = RequestMethod.GET)
+    public Result hello() {
         return Result.builder().data("hello").successTrue().build();
     }
 
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        applicationContext.getBean(HelloController.class);
-        System.out.println(1);
-    }
+
 }

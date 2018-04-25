@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ing.school.dao.mapper.CommonDictMapper" >
+  <resultMap id="BaseResultMap" type="com.ing.school.dao.po.CommonDict" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="enumName" property="enumName" jdbcType="VARCHAR" />
+    <result column="category" property="category" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="parentCode" property="parentCode" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="sortorder" property="sortorder" jdbcType="INTEGER" />
+    <result column="Description" property="description" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, enumName, category, status, code, parentCode, name, sortorder, Description
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from commonDict
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from commonDict
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ing.school.dao.po.CommonDict" >
+    insert into commonDict (id, enumName, category, 
+      status, code, parentCode, 
+      name, sortorder, Description
+      )
+    values (#{id,jdbcType=INTEGER}, #{enumName,jdbcType=VARCHAR}, #{category,jdbcType=VARCHAR}, 
+      #{status,jdbcType=TINYINT}, #{code,jdbcType=VARCHAR}, #{parentCode,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{sortorder,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ing.school.dao.po.CommonDict" >
+    insert into commonDict
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="enumName != null" >
+        enumName,
+      </if>
+      <if test="category != null" >
+        category,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="parentCode != null" >
+        parentCode,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="sortorder != null" >
+        sortorder,
+      </if>
+      <if test="description != null" >
+        Description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="enumName != null" >
+        #{enumName,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null" >
+        #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="parentCode != null" >
+        #{parentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sortorder != null" >
+        #{sortorder,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ing.school.dao.po.CommonDict" >
+    update commonDict
+    <set >
+      <if test="enumName != null" >
+        enumName = #{enumName,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null" >
+        category = #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="parentCode != null" >
+        parentCode = #{parentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sortorder != null" >
+        sortorder = #{sortorder,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        Description = #{description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ing.school.dao.po.CommonDict" >
+    update commonDict
+    set enumName = #{enumName,jdbcType=VARCHAR},
+      category = #{category,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      code = #{code,jdbcType=VARCHAR},
+      parentCode = #{parentCode,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      sortorder = #{sortorder,jdbcType=INTEGER},
+      Description = #{description,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
