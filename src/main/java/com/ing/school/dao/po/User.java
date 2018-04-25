@@ -17,6 +17,8 @@ public class User {
 
     private String address;
 
+    private String avatarUrl;
+
     private Integer englishLevelType;
 
     private Integer englishLevelScore;
@@ -83,6 +85,14 @@ public class User {
 
     public void setAddress(String address) {
         this.address = address == null ? null : address.trim();
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl == null ? null : avatarUrl.trim();
     }
 
     public Integer getEnglishLevelType() {

@@ -191,7 +191,7 @@ status枚举如下:
 ### 7.获取个人信息接口
 ```json
 {
-  "url":"/api/record/apply/get/{id}",
+  "url":"/api/record/user/get/{id}",
   "method":"post",
   "request":{},
   "response":{
@@ -202,6 +202,7 @@ status枚举如下:
     "age":15,
     "genderCode":"2",
     "address":"xxxxxxx",
+    "avatarUrl":"xxxxxxx",//头像url
     "englishLevelCode":"2",//TOEFL或IELTS的code
     "englishLevelScore":45.55
   }
@@ -221,6 +222,7 @@ status枚举如下:
     "age":15,
     "genderCode":"2",
     "address":"xxxxxxx",
+    "avatarUrl":"xxxxxxx",//头像url
     "englishLevelCode":"2",//TOEFL或IELTS的code
     "englishLevelScore":45.55
   },
@@ -272,39 +274,25 @@ status枚举如下:
     "url":"/api/config/choicestSchool",
     "method":"post",
     "request":{
-      "schoolId":4,
-      "mainPicture":"",
-      "schoolName":"xxxx",
-      "schoolEnglishName":"xxxx",
-      "choicestContent":"xxx"
+
     },
     "response":{
-
+      "data":[
+        {
+            "schoolId":4,
+            "mainPicture":"",
+            "schoolName":"xxxx",
+            "schoolEnglishName":"xxxx",
+            "choicestContent":"xxx"
+        }
+      ]
     }
 }
 ```
 
-### 11.footer内容获取
+### 11.footer内容获取(已废弃)
 ```json
-{
-  "url":"/api/config/footer",
-  "method":"post",
-  "request":{
-  },
-  "response":{
-    "data":{
-        "contactAddress":"我们的地址",
-        "phone":"我们的电话",
-        "email":"我们的邮箱",
-        "wechat":"我们的微信",
-        "qrCode1":"二维码url",
-        "qrTitle1":"二维码标题1",
-        "qrCode2":"第二个二维码url",
-        "qrTitle2":"第二个二维码标题"
-    },
-    "status":1
-  }
-}
+
 ```
 
 ### 12.广告位获取
@@ -358,7 +346,6 @@ status枚举如下:
   "url":"/api/user/perfect",
   "method":"post",
   "request":{
-    "userId":4,
     "name":"xxx",
     "idcard":"xxxxx",
     "genderCode":"2",
