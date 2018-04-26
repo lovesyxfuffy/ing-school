@@ -427,34 +427,37 @@ status枚举如下:
   "request":{
   },
   "response":{
-        "studentName":"学生姓名",
-        "age":22,
-        "genderCode":"性别枚举值",
-        "telephone":"17621181236",
-        "address":"地址",
-        "attendanceGrades":"我也不知道这是啥,跟着图片写的",
-        "attendanceDate":"2017-03-24",//使用datepicker组件 传格式化日期
-        "currentSchoolEmail":"123@sdu.com.cn",
-        "currentSchoolPhone":"1123124123123",
-        "currentSchoolAddress":"这是地址",
-        "currentSchoolName":"这是学校姓名",
-        "wechatId":"微信号",
-        "skypeId":"skypeId",
-        "passportNumber":"xxxx",
-        "applyingGradeCode":"xx",//申请年级枚举值,
-        "currentGradeCode":"xx",
-        "studentEmail":"1@1.com",
-        "secondLanguageCode":"2",//第二语言枚举
-        "nativeLanguageCode":"1",
-        "cityzenshipCode":"xx",
-        "homePhone":"111111111",
-        "countryCode":"xxx",
-        "zip":"ccc",
-        "cityCode":"xx",
-        "stateCode":"xx",
-        "applyTime":15098824213,//Unix时间戳
-        "englishLevelTypeCode":"4",
-        "englishLevelScore":"S+"
+        "data":{
+                "studentName":"学生姓名",
+                "age":22,
+                "genderCode":"性别枚举值",
+                "telephone":"17621181236",
+                "address":"地址",
+                "attendanceGrades":"我也不知道这是啥,跟着图片写的",
+                "attendanceDate":"2017-03-24",//使用datepicker组件 传格式化日期
+                "currentSchoolEmail":"123@sdu.com.cn",
+                "currentSchoolPhone":"1123124123123",
+                "currentSchoolAddress":"这是地址",
+                "currentSchoolName":"这是学校姓名",
+                "wechatId":"微信号",
+                "skypeId":"skypeId",
+                "passportNumber":"xxxx",
+                "applyingGradeCode":"xx",//申请年级枚举值,
+                "currentGradeCode":"xx",
+                "studentEmail":"1@1.com",
+                "secondLanguageCode":"2",//第二语言枚举
+                "nativeLanguageCode":"1",
+                "cityzenshipCode":"xx",
+                "homePhone":"111111111",
+                "countryCode":"xxx",
+                "zip":"ccc",
+                "cityCode":"xx",
+                "stateCode":"xx",
+                "applyTime":15098824213,//Unix时间戳
+                "englishLevelTypeCode":"4",
+                "englishLevelScore":"S+"
+        },
+        "status":1
   }
 }
 ```
