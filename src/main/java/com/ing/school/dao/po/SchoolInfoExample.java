@@ -224,6 +224,76 @@ public class SchoolInfoExample {
             return (Criteria) this;
         }
 
+        public Criteria andHeadPictureUrlIsNull() {
+            addCriterion("headPictureUrl is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeadPictureUrlIsNotNull() {
+            addCriterion("headPictureUrl is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeadPictureUrlEqualTo(String value) {
+            addCriterion("headPictureUrl =", value, "headPictureUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeadPictureUrlNotEqualTo(String value) {
+            addCriterion("headPictureUrl <>", value, "headPictureUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeadPictureUrlGreaterThan(String value) {
+            addCriterion("headPictureUrl >", value, "headPictureUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeadPictureUrlGreaterThanOrEqualTo(String value) {
+            addCriterion("headPictureUrl >=", value, "headPictureUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeadPictureUrlLessThan(String value) {
+            addCriterion("headPictureUrl <", value, "headPictureUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeadPictureUrlLessThanOrEqualTo(String value) {
+            addCriterion("headPictureUrl <=", value, "headPictureUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeadPictureUrlLike(String value) {
+            addCriterion("headPictureUrl like", value, "headPictureUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeadPictureUrlNotLike(String value) {
+            addCriterion("headPictureUrl not like", value, "headPictureUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeadPictureUrlIn(List<String> values) {
+            addCriterion("headPictureUrl in", values, "headPictureUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeadPictureUrlNotIn(List<String> values) {
+            addCriterion("headPictureUrl not in", values, "headPictureUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeadPictureUrlBetween(String value1, String value2) {
+            addCriterion("headPictureUrl between", value1, value2, "headPictureUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeadPictureUrlNotBetween(String value1, String value2) {
+            addCriterion("headPictureUrl not between", value1, value2, "headPictureUrl");
+            return (Criteria) this;
+        }
+
         public Criteria andClassessIsNull() {
             addCriterion("classess is null");
             return (Criteria) this;

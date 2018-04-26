@@ -55,7 +55,10 @@ status枚举如下:
 {
   "url":"/api/record/collectionList",
   "method":"post",
-  "request":{},
+  "request":{
+    "pageNo":1,
+    "pageSize":20
+  },
   "response":{
     "tableBody":[{
       "collectionId":5,
@@ -113,11 +116,18 @@ status枚举如下:
 
   },
   "response":{
-    "data":[{
-      "id":5,
-      "schoolName":"xxxxxx",
-      "applyTime":1687812312//unix时间戳
-    },{}],
+    "data":{
+        "tableBody":[{
+          "id":5,
+          "schoolName":"xxxxxx",
+          "applyTime":1687812312//unix时间戳
+        },{}],
+        "page":{
+            "pageNo":1,
+            "pageSize":20,//一页多少,
+            "total":502//总条数
+        }
+    },
     "message":"请求成功",
     "status":1
   }
@@ -195,16 +205,19 @@ status枚举如下:
   "method":"post",
   "request":{},
   "response":{
-    "name":"xxxxx",
-    "nickName":"xxx",
-    "idcard":"xxxxxx",
-    "telephone":"17621181235",
-    "age":15,
-    "genderCode":"2",
-    "address":"xxxxxxx",
-    "avatarUrl":"xxxxxxx",//头像url
-    "englishLevelCode":"2",//TOEFL或IELTS的code
-    "englishLevelScore":45.55
+    "data":{
+        "name":"xxxxx",
+        "nickName":"xxx",
+        "idcard":"xxxxxx",
+        "telephone":"17621181235",
+        "age":15,
+        "genderCode":"2",
+        "address":"xxxxxxx",
+        "avatarUrl":"xxxxxxx",//头像url
+        "englishLevelCode":"2",//TOEFL或IELTS的code
+        "englishLevelScore":45.55
+    },
+    "status":1
   }
 
 }
@@ -242,26 +255,34 @@ status枚举如下:
   "url":"/api/search/schoolList",
   "method":"post",
   "request":{
-    "continentCode":"xx",
-    "countryCode":"xx",
-    "stateCode":"xx",
-    "schoolGenderTypeCode":"xx",
-    "schoolTypeCode":"xx",
-    "religionTypeCode":"xx",
+    "keyword":"xxxx",//搜索框里内容
+    "continentCode":[],
+    "countryCode":[],
+    "stateCode":[],
+    "schoolGenderTypeCode":[],
+    "schoolTypeCode":[],
+    "religionTypeCode":[],
     "hasEsl":true,
-    "costIntervalCode":"xx"
+    "costIntervalCode":[]
   },
   "response":{
-       "data":[
-       {
-          "id":3,
-          "schoolName":"xxxx",
-          "countryName":"美国·纽约",//国家+大洲名称放到一个字段
-          "mainPicture":"xxxxxxxx",//小图url
-          "positionX":27.44,//纬度 正数表示北半球,负数南半球（google map api和baidu map api都是如此）
-          "positionY":-116.84//经度 正数表示东经 负数表示西经 同google map api和baidu
-       },{}
-       ],
+       "data":{
+          "tableBody":[
+             {
+                "id":3,
+                "schoolName":"xxxx",
+                "countryName":"美国·纽约",//国家+大洲名称放到一个字段
+                "mainPicture":"xxxxxxxx",//小图url
+                "positionX":27.44,//纬度 正数表示北半球,负数南半球（google map api和baidu map api都是如此）
+                "positionY":-116.84//经度 正数表示东经 负数表示西经 同google map api和baidu
+             },{}
+        ],
+        "page":{
+          "pageNo":1,
+          "pageSize":20,
+          "total":40
+        }
+       },
        "message":"请求成功",
        "status":1
    }
@@ -381,6 +402,7 @@ status枚举如下:
   "url":"/api/record/get/schoolInfo/{schoolId}",
   "request":{},
   "response":{
+    "headPictureUrl":"xxxxxxx",
     "schoolName":"xxxx",
     "schoolEnglishName":"xxxx",
     "isCollected":false,//是否被收藏
@@ -462,16 +484,25 @@ status枚举如下:
   "url":"/api/manage/user/getUserList",
   "method":"post",
   "request":{
+    "pageNo":3,
+    "pageSize":1
   },
   "response":{
-    "data":[
-    {
-      "id":5,
-      "name":"xxx",
-      "age":22,
-      "phone":"xxxx"
-    },{}
-    ]
+    "data":{
+      "tableBody":[
+        {
+        "id":5,
+        "name":"xxx",
+        "age":22,
+        "phone":"xxxx"
+        },{}
+        ],
+        "page":{
+          "pageNo":1,
+          "pageSize":2,
+          "total":500
+        }
+    }
   }
 }
 ```
@@ -514,18 +545,25 @@ status枚举如下:
     "endTime":"yyyy-MM-dd"//开始时间 结束时间筛选
   },
   "response":{
-    "data":[
-      {
-        "id":5,
-        "userId":7,
-        "name":"xxx",
-        "age":"xxx",
-        "schoolId":6,
-        "schoolName":"xxxx",
-        "schoolEnglishName":"xxxx",
-        "telephone":"111111111111"
-      }
-    ]
+    "data":{
+      "tableBody":[
+            {
+              "id":5,
+              "userId":7,
+              "name":"xxx",
+              "age":"xxx",
+              "schoolId":6,
+              "schoolName":"xxxx",
+              "schoolEnglishName":"xxxx",
+              "telephone":"111111111111"
+            }
+        ],
+        "page":{
+          "pageNo":1,
+          "pageSize":20,
+          "total":20
+        }
+    }
   }
 }
 ```
@@ -610,21 +648,28 @@ status枚举如下:
 
   },
   "response":{
-    "data":[
-      {
-        "id":5,
-        "schoolName":"xxxx",
-        "schoolEnglishName":"xxx",
-        "continentName":"xx",
-        "countryName":"xxxx",
-        "stateName":"xxx",
-        "cityName":"xxx",
-        "schoolTypeName":"xxx",
-        "schoolGenderTypeName":"xxx",
-        "religionTypeName":"xxx",
-        "hasEsl":true
+    "data":{
+      "tableBody":[
+            {
+              "id":5,
+              "schoolName":"xxxx",
+              "schoolEnglishName":"xxx",
+              "continentName":"xx",
+              "countryName":"xxxx",
+              "stateName":"xxx",
+              "cityName":"xxx",
+              "schoolTypeName":"xxx",
+              "schoolGenderTypeName":"xxx",
+              "religionTypeName":"xxx",
+              "hasEsl":true
+            }
+          ],
+      "page":{
+        "pageNo":2,
+        "pageSize":20,
+        "total":21
       }
-    ],
+    },
     "status":1
   }
 }

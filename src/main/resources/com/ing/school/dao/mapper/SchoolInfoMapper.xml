@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.ing.school.dao.po.SchoolInfo" >
     <result column="id" property="id" jdbcType="INTEGER" />
     <result column="schoolId" property="schoolId" jdbcType="INTEGER" />
+    <result column="headPictureUrl" property="headPictureUrl" jdbcType="VARCHAR" />
     <result column="classess" property="classess" jdbcType="VARCHAR" />
     <result column="afterGraduation" property="afterGraduation" jdbcType="VARCHAR" />
   </resultMap>
@@ -47,7 +48,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, schoolId, classess, afterGraduation
+    id, schoolId, headPictureUrl, classess, afterGraduation
   </sql>
   <sql id="Blob_Column_List" >
     synopsis, badge, applicationGuide, advantage, applyCondition, activity, applyCase, 
@@ -86,16 +87,16 @@
     </if>
   </select>
   <insert id="insert" parameterType="com.ing.school.dao.po.SchoolInfo" >
-    insert into schoolInfo (id, schoolId, classess, 
-      afterGraduation, synopsis, badge, 
-      applicationGuide, advantage, applyCondition, 
-      activity, applyCase, accommodation
-      )
-    values (#{id,jdbcType=INTEGER}, #{schoolId,jdbcType=INTEGER}, #{classess,jdbcType=VARCHAR}, 
-      #{afterGraduation,jdbcType=VARCHAR}, #{synopsis,jdbcType=LONGVARCHAR}, #{badge,jdbcType=LONGVARCHAR}, 
-      #{applicationGuide,jdbcType=LONGVARCHAR}, #{advantage,jdbcType=LONGVARCHAR}, #{applyCondition,jdbcType=LONGVARCHAR}, 
-      #{activity,jdbcType=LONGVARCHAR}, #{applyCase,jdbcType=LONGVARCHAR}, #{accommodation,jdbcType=LONGVARCHAR}
-      )
+    insert into schoolInfo (id, schoolId, headPictureUrl, 
+      classess, afterGraduation, synopsis, 
+      badge, applicationGuide, advantage, 
+      applyCondition, activity, applyCase, 
+      accommodation)
+    values (#{id,jdbcType=INTEGER}, #{schoolId,jdbcType=INTEGER}, #{headPictureUrl,jdbcType=VARCHAR}, 
+      #{classess,jdbcType=VARCHAR}, #{afterGraduation,jdbcType=VARCHAR}, #{synopsis,jdbcType=LONGVARCHAR}, 
+      #{badge,jdbcType=LONGVARCHAR}, #{applicationGuide,jdbcType=LONGVARCHAR}, #{advantage,jdbcType=LONGVARCHAR}, 
+      #{applyCondition,jdbcType=LONGVARCHAR}, #{activity,jdbcType=LONGVARCHAR}, #{applyCase,jdbcType=LONGVARCHAR}, 
+      #{accommodation,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.ing.school.dao.po.SchoolInfo" >
     insert into schoolInfo
@@ -105,6 +106,9 @@
       </if>
       <if test="schoolId != null" >
         schoolId,
+      </if>
+      <if test="headPictureUrl != null" >
+        headPictureUrl,
       </if>
       <if test="classess != null" >
         classess,
@@ -143,6 +147,9 @@
       </if>
       <if test="schoolId != null" >
         #{schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="headPictureUrl != null" >
+        #{headPictureUrl,jdbcType=VARCHAR},
       </if>
       <if test="classess != null" >
         #{classess,jdbcType=VARCHAR},

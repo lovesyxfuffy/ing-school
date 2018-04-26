@@ -11,15 +11,11 @@ public interface ApplyMapper {
 
     int insertSelective(Apply record);
 
-    List<Apply> selectByExampleWithBLOBs(ApplyExample example);
-
     List<Apply> selectByExample(ApplyExample example);
 
     Apply selectByPrimaryKey(Integer id);
 
     int updateByPrimaryKeySelective(Apply record);
-
-    int updateByPrimaryKeyWithBLOBs(Apply record);
 
     int updateByPrimaryKey(Apply record);
 }

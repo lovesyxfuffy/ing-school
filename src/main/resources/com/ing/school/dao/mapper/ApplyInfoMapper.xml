@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ing.school.dao.mapper.ApplyInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.ing.school.dao.po.ApplyInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="userId" property="userId" jdbcType="INTEGER" />
+    <result column="studentName" property="studentName" jdbcType="VARCHAR" />
+    <result column="age" property="age" jdbcType="INTEGER" />
+    <result column="genderCode" property="genderCode" jdbcType="VARCHAR" />
+    <result column="telephone" property="telephone" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="attendanceDate" property="attendanceDate" jdbcType="TIMESTAMP" />
+    <result column="englishLevelTypeCode" property="englishLevelTypeCode" jdbcType="VARCHAR" />
+    <result column="englishLevelScore" property="englishLevelScore" jdbcType="INTEGER" />
+    <result column="currentSchoolEmail" property="currentSchoolEmail" jdbcType="VARCHAR" />
+    <result column="currentSchoolPhone" property="currentSchoolPhone" jdbcType="VARCHAR" />
+    <result column="currentSchoolAddress" property="currentSchoolAddress" jdbcType="VARCHAR" />
+    <result column="currentSchoolName" property="currentSchoolName" jdbcType="VARCHAR" />
+    <result column="wechatId" property="wechatId" jdbcType="VARCHAR" />
+    <result column="skypeId" property="skypeId" jdbcType="VARCHAR" />
+    <result column="passportNumber" property="passportNumber" jdbcType="VARCHAR" />
+    <result column="applyingGradeCode" property="applyingGradeCode" jdbcType="VARCHAR" />
+    <result column="currendGradeCode" property="currendGradeCode" jdbcType="VARCHAR" />
+    <result column="studentEmail" property="studentEmail" jdbcType="VARCHAR" />
+    <result column="secondLanguageCode" property="secondLanguageCode" jdbcType="VARCHAR" />
+    <result column="nativeLanguageCode" property="nativeLanguageCode" jdbcType="VARCHAR" />
+    <result column="cityzenshipCode" property="cityzenshipCode" jdbcType="VARCHAR" />
+    <result column="homePhone" property="homePhone" jdbcType="VARCHAR" />
+    <result column="countryCode" property="countryCode" jdbcType="VARCHAR" />
+    <result column="zip" property="zip" jdbcType="VARCHAR" />
+    <result column="cityCode" property="cityCode" jdbcType="VARCHAR" />
+    <result column="stateCode" property="stateCode" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.ing.school.dao.po.ApplyInfo" extends="BaseResultMap" >
+    <result column="attendanceGrades" property="attendanceGrades" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, userId, studentName, age, genderCode, telephone, address, attendanceDate, englishLevelTypeCode, 
+    englishLevelScore, currentSchoolEmail, currentSchoolPhone, currentSchoolAddress, 
+    currentSchoolName, wechatId, skypeId, passportNumber, applyingGradeCode, currendGradeCode, 
+    studentEmail, secondLanguageCode, nativeLanguageCode, cityzenshipCode, homePhone, 
+    countryCode, zip, cityCode, stateCode
+  </sql>
+  <sql id="Blob_Column_List" >
+    attendanceGrades
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.ing.school.dao.po.ApplyInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from applyInfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ing.school.dao.po.ApplyInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from applyInfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from applyInfo
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from applyInfo
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ing.school.dao.po.ApplyInfo" >
+    insert into applyInfo (id, userId, studentName, 
+      age, genderCode, telephone, 
+      address, attendanceDate, englishLevelTypeCode, 
+      englishLevelScore, currentSchoolEmail, 
+      currentSchoolPhone, currentSchoolAddress, 
+      currentSchoolName, wechatId, skypeId, 
+      passportNumber, applyingGradeCode, currendGradeCode, 
+      studentEmail, secondLanguageCode, nativeLanguageCode, 
+      cityzenshipCode, homePhone, countryCode, 
+      zip, cityCode, stateCode, 
+      attendanceGrades)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{studentName,jdbcType=VARCHAR}, 
+      #{age,jdbcType=INTEGER}, #{genderCode,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{attendanceDate,jdbcType=TIMESTAMP}, #{englishLevelTypeCode,jdbcType=VARCHAR}, 
+      #{englishLevelScore,jdbcType=INTEGER}, #{currentSchoolEmail,jdbcType=VARCHAR}, 
+      #{currentSchoolPhone,jdbcType=VARCHAR}, #{currentSchoolAddress,jdbcType=VARCHAR}, 
+      #{currentSchoolName,jdbcType=VARCHAR}, #{wechatId,jdbcType=VARCHAR}, #{skypeId,jdbcType=VARCHAR}, 
+      #{passportNumber,jdbcType=VARCHAR}, #{applyingGradeCode,jdbcType=VARCHAR}, #{currendGradeCode,jdbcType=VARCHAR}, 
+      #{studentEmail,jdbcType=VARCHAR}, #{secondLanguageCode,jdbcType=VARCHAR}, #{nativeLanguageCode,jdbcType=VARCHAR}, 
+      #{cityzenshipCode,jdbcType=VARCHAR}, #{homePhone,jdbcType=VARCHAR}, #{countryCode,jdbcType=VARCHAR}, 
+      #{zip,jdbcType=VARCHAR}, #{cityCode,jdbcType=VARCHAR}, #{stateCode,jdbcType=VARCHAR}, 
+      #{attendanceGrades,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ing.school.dao.po.ApplyInfo" >
+    insert into applyInfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        userId,
+      </if>
+      <if test="studentName != null" >
+        studentName,
+      </if>
+      <if test="age != null" >
+        age,
+      </if>
+      <if test="genderCode != null" >
+        genderCode,
+      </if>
+      <if test="telephone != null" >
+        telephone,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="attendanceDate != null" >
+        attendanceDate,
+      </if>
+      <if test="englishLevelTypeCode != null" >
+        englishLevelTypeCode,
+      </if>
+      <if test="englishLevelScore != null" >
+        englishLevelScore,
+      </if>
+      <if test="currentSchoolEmail != null" >
+        currentSchoolEmail,
+      </if>
+      <if test="currentSchoolPhone != null" >
+        currentSchoolPhone,
+      </if>
+      <if test="currentSchoolAddress != null" >
+        currentSchoolAddress,
+      </if>
+      <if test="currentSchoolName != null" >
+        currentSchoolName,
+      </if>
+      <if test="wechatId != null" >
+        wechatId,
+      </if>
+      <if test="skypeId != null" >
+        skypeId,
+      </if>
+      <if test="passportNumber != null" >
+        passportNumber,
+      </if>
+      <if test="applyingGradeCode != null" >
+        applyingGradeCode,
+      </if>
+      <if test="currendGradeCode != null" >
+        currendGradeCode,
+      </if>
+      <if test="studentEmail != null" >
+        studentEmail,
+      </if>
+      <if test="secondLanguageCode != null" >
+        secondLanguageCode,
+      </if>
+      <if test="nativeLanguageCode != null" >
+        nativeLanguageCode,
+      </if>
+      <if test="cityzenshipCode != null" >
+        cityzenshipCode,
+      </if>
+      <if test="homePhone != null" >
+        homePhone,
+      </if>
+      <if test="countryCode != null" >
+        countryCode,
+      </if>
+      <if test="zip != null" >
+        zip,
+      </if>
+      <if test="cityCode != null" >
+        cityCode,
+      </if>
+      <if test="stateCode != null" >
+        stateCode,
+      </if>
+      <if test="attendanceGrades != null" >
+        attendanceGrades,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="studentName != null" >
+        #{studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null" >
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="genderCode != null" >
+        #{genderCode,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="attendanceDate != null" >
+        #{attendanceDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="englishLevelTypeCode != null" >
+        #{englishLevelTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="englishLevelScore != null" >
+        #{englishLevelScore,jdbcType=INTEGER},
+      </if>
+      <if test="currentSchoolEmail != null" >
+        #{currentSchoolEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="currentSchoolPhone != null" >
+        #{currentSchoolPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="currentSchoolAddress != null" >
+        #{currentSchoolAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="currentSchoolName != null" >
+        #{currentSchoolName,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatId != null" >
+        #{wechatId,jdbcType=VARCHAR},
+      </if>
+      <if test="skypeId != null" >
+        #{skypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="passportNumber != null" >
+        #{passportNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="applyingGradeCode != null" >
+        #{applyingGradeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="currendGradeCode != null" >
+        #{currendGradeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="studentEmail != null" >
+        #{studentEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="secondLanguageCode != null" >
+        #{secondLanguageCode,jdbcType=VARCHAR},
+      </if>
+      <if test="nativeLanguageCode != null" >
+        #{nativeLanguageCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cityzenshipCode != null" >
+        #{cityzenshipCode,jdbcType=VARCHAR},
+      </if>
+      <if test="homePhone != null" >
+        #{homePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="countryCode != null" >
+        #{countryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="zip != null" >
+        #{zip,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null" >
+        #{cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stateCode != null" >
+        #{stateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="attendanceGrades != null" >
+        #{attendanceGrades,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ing.school.dao.po.ApplyInfo" >
+    update applyInfo
+    <set >
+      <if test="userId != null" >
+        userId = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="studentName != null" >
+        studentName = #{studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null" >
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="genderCode != null" >
+        genderCode = #{genderCode,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="attendanceDate != null" >
+        attendanceDate = #{attendanceDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="englishLevelTypeCode != null" >
+        englishLevelTypeCode = #{englishLevelTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="englishLevelScore != null" >
+        englishLevelScore = #{englishLevelScore,jdbcType=INTEGER},
+      </if>
+      <if test="currentSchoolEmail != null" >
+        currentSchoolEmail = #{currentSchoolEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="currentSchoolPhone != null" >
+        currentSchoolPhone = #{currentSchoolPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="currentSchoolAddress != null" >
+        currentSchoolAddress = #{currentSchoolAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="currentSchoolName != null" >
+        currentSchoolName = #{currentSchoolName,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatId != null" >
+        wechatId = #{wechatId,jdbcType=VARCHAR},
+      </if>
+      <if test="skypeId != null" >
+        skypeId = #{skypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="passportNumber != null" >
+        passportNumber = #{passportNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="applyingGradeCode != null" >
+        applyingGradeCode = #{applyingGradeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="currendGradeCode != null" >
+        currendGradeCode = #{currendGradeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="studentEmail != null" >
+        studentEmail = #{studentEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="secondLanguageCode != null" >
+        secondLanguageCode = #{secondLanguageCode,jdbcType=VARCHAR},
+      </if>
+      <if test="nativeLanguageCode != null" >
+        nativeLanguageCode = #{nativeLanguageCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cityzenshipCode != null" >
+        cityzenshipCode = #{cityzenshipCode,jdbcType=VARCHAR},
+      </if>
+      <if test="homePhone != null" >
+        homePhone = #{homePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="countryCode != null" >
+        countryCode = #{countryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="zip != null" >
+        zip = #{zip,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null" >
+        cityCode = #{cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stateCode != null" >
+        stateCode = #{stateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="attendanceGrades != null" >
+        attendanceGrades = #{attendanceGrades,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ing.school.dao.po.ApplyInfo" >
+    update applyInfo
+    set userId = #{userId,jdbcType=INTEGER},
+      studentName = #{studentName,jdbcType=VARCHAR},
+      age = #{age,jdbcType=INTEGER},
+      genderCode = #{genderCode,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      attendanceDate = #{attendanceDate,jdbcType=TIMESTAMP},
+      englishLevelTypeCode = #{englishLevelTypeCode,jdbcType=VARCHAR},
+      englishLevelScore = #{englishLevelScore,jdbcType=INTEGER},
+      currentSchoolEmail = #{currentSchoolEmail,jdbcType=VARCHAR},
+      currentSchoolPhone = #{currentSchoolPhone,jdbcType=VARCHAR},
+      currentSchoolAddress = #{currentSchoolAddress,jdbcType=VARCHAR},
+      currentSchoolName = #{currentSchoolName,jdbcType=VARCHAR},
+      wechatId = #{wechatId,jdbcType=VARCHAR},
+      skypeId = #{skypeId,jdbcType=VARCHAR},
+      passportNumber = #{passportNumber,jdbcType=VARCHAR},
+      applyingGradeCode = #{applyingGradeCode,jdbcType=VARCHAR},
+      currendGradeCode = #{currendGradeCode,jdbcType=VARCHAR},
+      studentEmail = #{studentEmail,jdbcType=VARCHAR},
+      secondLanguageCode = #{secondLanguageCode,jdbcType=VARCHAR},
+      nativeLanguageCode = #{nativeLanguageCode,jdbcType=VARCHAR},
+      cityzenshipCode = #{cityzenshipCode,jdbcType=VARCHAR},
+      homePhone = #{homePhone,jdbcType=VARCHAR},
+      countryCode = #{countryCode,jdbcType=VARCHAR},
+      zip = #{zip,jdbcType=VARCHAR},
+      cityCode = #{cityCode,jdbcType=VARCHAR},
+      stateCode = #{stateCode,jdbcType=VARCHAR},
+      attendanceGrades = #{attendanceGrades,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ing.school.dao.po.ApplyInfo" >
+    update applyInfo
+    set userId = #{userId,jdbcType=INTEGER},
+      studentName = #{studentName,jdbcType=VARCHAR},
+      age = #{age,jdbcType=INTEGER},
+      genderCode = #{genderCode,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      attendanceDate = #{attendanceDate,jdbcType=TIMESTAMP},
+      englishLevelTypeCode = #{englishLevelTypeCode,jdbcType=VARCHAR},
+      englishLevelScore = #{englishLevelScore,jdbcType=INTEGER},
+      currentSchoolEmail = #{currentSchoolEmail,jdbcType=VARCHAR},
+      currentSchoolPhone = #{currentSchoolPhone,jdbcType=VARCHAR},
+      currentSchoolAddress = #{currentSchoolAddress,jdbcType=VARCHAR},
+      currentSchoolName = #{currentSchoolName,jdbcType=VARCHAR},
+      wechatId = #{wechatId,jdbcType=VARCHAR},
+      skypeId = #{skypeId,jdbcType=VARCHAR},
+      passportNumber = #{passportNumber,jdbcType=VARCHAR},
+      applyingGradeCode = #{applyingGradeCode,jdbcType=VARCHAR},
+      currendGradeCode = #{currendGradeCode,jdbcType=VARCHAR},
+      studentEmail = #{studentEmail,jdbcType=VARCHAR},
+      secondLanguageCode = #{secondLanguageCode,jdbcType=VARCHAR},
+      nativeLanguageCode = #{nativeLanguageCode,jdbcType=VARCHAR},
+      cityzenshipCode = #{cityzenshipCode,jdbcType=VARCHAR},
+      homePhone = #{homePhone,jdbcType=VARCHAR},
+      countryCode = #{countryCode,jdbcType=VARCHAR},
+      zip = #{zip,jdbcType=VARCHAR},
+      cityCode = #{cityCode,jdbcType=VARCHAR},
+      stateCode = #{stateCode,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

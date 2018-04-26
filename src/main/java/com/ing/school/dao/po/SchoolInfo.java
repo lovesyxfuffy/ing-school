@@ -5,6 +5,8 @@ public class SchoolInfo {
 
     private Integer schoolId;
 
+    private String headPictureUrl;
+
     private String classess;
 
     private String afterGraduation;
@@ -39,6 +41,14 @@ public class SchoolInfo {
 
     public void setSchoolId(Integer schoolId) {
         this.schoolId = schoolId;
+    }
+
+    public String getHeadPictureUrl() {
+        return headPictureUrl;
+    }
+
+    public void setHeadPictureUrl(String headPictureUrl) {
+        this.headPictureUrl = headPictureUrl == null ? null : headPictureUrl.trim();
     }
 
     public String getClassess() {
