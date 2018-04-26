@@ -156,7 +156,6 @@ status枚举如下:
   "url":"/api/operator/apply/add",
   "method":"post",
   "request":{
-     "id":15,
       "schoolId":11,
       "schoolName":"学校名称",
       "schoolTypeCode":"2222",//学校类型枚举
@@ -571,7 +570,7 @@ status枚举如下:
 ### 8.申请详情页
 ```json
 {
-  "url":"/api/manage/apply/getApplyInfo/{applyId}",
+  "url":"/api/manage/apply/getApplyInfo/{applyId}",//applyId空传 获取当前用户信息
   "method":"post",
   "request":{
 
