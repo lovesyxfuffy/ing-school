@@ -41,6 +41,7 @@
     <!-- define the SqlSessionFactory -->
     <bean id="web-sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="classpath:config/mybatis-base.xml"/>
         <property name="mapperLocations">
             <array>
                 <value>classpath:com/ing/school/dao/mapper/*.xml</value>

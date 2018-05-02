@@ -47,6 +47,43 @@ status枚举如下:
   }
 }
 ```
+#### 枚举category整理
+<table>
+<th>枚举描述</th><th>category</th>
+<tr>
+<td>院校性质</td><td>schoolType</td>
+</tr>
+<tr>
+<td>性别</td><td>gender</td>
+</tr>
+<tr>
+<td>外语等级类型（雅思托福）</td><td>englishLevelType</td>
+</tr>
+<tr>
+<td>年级枚举</td><td>grade</td>
+</tr>
+<tr>
+<td>语种枚举</td><td>language</td>
+</tr>
+<tr>
+<td>国家枚举</td><td>country</td>
+</tr>
+<tr>
+<td>洲/省枚举</td><td>state</td>
+</tr>
+<tr>
+<td>城市枚举</td><td>city</td>
+</tr>
+<tr>
+<td>大洲枚举</td><td>continent</td>
+</tr>
+<tr>
+<td>院校性质（男校女校不限）</td><td>schoolGenderType</td>
+</tr>
+<tr>
+<td>院校宗教性质</td><td>religionType</td>
+</tr>
+</table>
 
 ## 2.前台接口
 
@@ -387,6 +424,20 @@ status枚举如下:
   "request":{
     "telephone":"17654321234",
     "checkCode":"223456"
+  },
+  "response":{
+    "data":"",
+    "status":1
+  }
+}
+```
+
+### 16.5 登出
+```json
+{
+  "url":"/api/user/logout",
+  "method":"post",
+  "request":{
   },
   "response":{
     "data":"",

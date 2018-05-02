@@ -20,6 +20,7 @@
 
     <context:annotation-config/>
 
+    <bean id="gson" class="com.google.gson.Gson" />
 
     <aop:aspectj-autoproxy proxy-target-class="true"/>
 
