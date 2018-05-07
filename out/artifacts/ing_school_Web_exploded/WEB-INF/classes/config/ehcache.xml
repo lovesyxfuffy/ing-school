@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd">
+
+    <diskStore path="/data/appdatas/EhCache"/>
+    <defaultCache eternal="false" maxElementsInMemory="10000" overflowToDisk="false"
+                  diskPersistent="false"
+                  timeToIdleSeconds="0" timeToLiveSeconds="600" memoryStoreEvictionPolicy="LRU"/>
+
+    <!-- 一个小时过期的缓存 -->
+    <cache name="LRUCache-1h" eternal="false" maxElementsInMemory="10000" overflowToDisk="false"
+           maxElementsOnDisk="1000"
+           diskPersistent="false" diskExpiryThreadIntervalSeconds="100" timeToIdleSeconds="0"
+           timeToLiveSeconds="3600"
+           memoryStoreEvictionPolicy="LRU"/>
+
+    <!-- 一天过期的缓存 -->
+    <cache name="LRUCache-1d" copyOnRead="true" eternal="false" maxElementsInMemory="50000"
+           overflowToDisk="false" maxElementsOnDisk="50000"
+           diskPersistent="false" diskExpiryThreadIntervalSeconds="100" timeToIdleSeconds="0"
+           timeToLiveSeconds="86400"
+           memoryStoreEvictionPolicy="LRU"/>
+
+    <!-- 5分钟过期的缓存 -->
+    <cache name="LRUCache-5m" eternal="false" maxElementsInMemory="4000" overflowToDisk="false"
+           maxElementsOnDisk="1000"
+           diskPersistent="false" diskExpiryThreadIntervalSeconds="100" timeToIdleSeconds="0"
+           timeToLiveSeconds="300"
+           memoryStoreEvictionPolicy="LRU"/>
+
+    <!-- 10分钟过期的缓存 -->
+    <cache name="LRUCache-10m" eternal="false" maxElementsInMemory="4000" overflowToDisk="false"
+           maxElementsOnDisk="1000"
+           diskPersistent="false" diskExpiryThreadIntervalSeconds="100" timeToIdleSeconds="0"
+           timeToLiveSeconds="600"
+           memoryStoreEvictionPolicy="LRU"/>
+
+</ehcache>

@@ -5,6 +5,8 @@ import java.util.Date;
 public class ApplyInfo {
     private Integer id;
 
+    private Integer applyId;
+
     private Integer userId;
 
     private String studentName;
@@ -67,6 +69,14 @@ public class ApplyInfo {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getApplyId() {
+        return applyId;
+    }
+
+    public void setApplyId(Integer applyId) {
+        this.applyId = applyId;
     }
 
     public Integer getUserId() {

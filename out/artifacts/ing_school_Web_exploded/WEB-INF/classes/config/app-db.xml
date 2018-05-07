@@ -7,7 +7,6 @@
        http://www.springframework.org/schema/tx
        http://www.springframework.org/schema/tx/spring-tx-2.0.xsd ">
 
-
     <bean id="propertyConfigurer"
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="location" value="classpath:config/jdbc.properties"/>
@@ -49,7 +48,7 @@
             </array>
         </property>
         <property name="typeAliasesPackage"
-                  value="com.ing.school.dao.po.*"/>
+                  value="com.ing.school.dao.po"/>
     </bean>
 
     <!-- scan for mappers and let them be autowired -->

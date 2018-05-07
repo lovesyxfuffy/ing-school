@@ -7,7 +7,11 @@ import com.ing.school.dao.po.User;
 import com.ing.school.dao.po.UserExample;
 import com.ing.school.service.UserService;
 import com.ing.school.utls.CacheUtils;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,8 +20,8 @@ import java.util.Random;
 /**
  * Created by yujingyang on 2018/4/28.
  */
-@Service
-public class UserServiceImpl implements UserService {
+@Component
+public class UserServiceImpl implements UserService,ApplicationContextAware{
     @Autowired
     UserMapper userMapper;
 
@@ -54,4 +58,12 @@ public class UserServiceImpl implements UserService {
     }
 
 
+    public void getUserInfo(){
+
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        applicationContext.getBean(UserService.class);
+    }
 }

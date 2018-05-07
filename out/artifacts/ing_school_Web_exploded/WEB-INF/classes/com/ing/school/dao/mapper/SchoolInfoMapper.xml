@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ing.school.dao.mapper.SchoolInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.ing.school.dao.po.SchoolInfo" >
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="schoolId" property="schoolId" jdbcType="INTEGER" />
+    <result column="headPictureUrl" property="headPictureUrl" jdbcType="VARCHAR" />
+    <result column="classess" property="classess" jdbcType="VARCHAR" />
+    <result column="afterGraduation" property="afterGraduation" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.ing.school.dao.po.SchoolInfo" extends="BaseResultMap" >
+    <result column="synopsis" property="synopsis" jdbcType="LONGVARCHAR" />
+    <result column="badge" property="badge" jdbcType="LONGVARCHAR" />
+    <result column="applicationGuide" property="applicationGuide" jdbcType="LONGVARCHAR" />
+    <result column="advantage" property="advantage" jdbcType="LONGVARCHAR" />
+    <result column="applyCondition" property="applyCondition" jdbcType="LONGVARCHAR" />
+    <result column="activity" property="activity" jdbcType="LONGVARCHAR" />
+    <result column="applyCase" property="applyCase" jdbcType="LONGVARCHAR" />
+    <result column="accommodation" property="accommodation" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, schoolId, headPictureUrl, classess, afterGraduation
+  </sql>
+  <sql id="Blob_Column_List" >
+    synopsis, badge, applicationGuide, advantage, applyCondition, activity, applyCase, 
+    accommodation
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.ing.school.dao.po.SchoolInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from schoolInfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ing.school.dao.po.SchoolInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from schoolInfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <insert id="insert" parameterType="com.ing.school.dao.po.SchoolInfo" >
+    insert into schoolInfo (id, schoolId, headPictureUrl, 
+      classess, afterGraduation, synopsis, 
+      badge, applicationGuide, advantage, 
+      applyCondition, activity, applyCase, 
+      accommodation)
+    values (#{id,jdbcType=INTEGER}, #{schoolId,jdbcType=INTEGER}, #{headPictureUrl,jdbcType=VARCHAR}, 
+      #{classess,jdbcType=VARCHAR}, #{afterGraduation,jdbcType=VARCHAR}, #{synopsis,jdbcType=LONGVARCHAR}, 
+      #{badge,jdbcType=LONGVARCHAR}, #{applicationGuide,jdbcType=LONGVARCHAR}, #{advantage,jdbcType=LONGVARCHAR}, 
+      #{applyCondition,jdbcType=LONGVARCHAR}, #{activity,jdbcType=LONGVARCHAR}, #{applyCase,jdbcType=LONGVARCHAR}, 
+      #{accommodation,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ing.school.dao.po.SchoolInfo" >
+    insert into schoolInfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="schoolId != null" >
+        schoolId,
+      </if>
+      <if test="headPictureUrl != null" >
+        headPictureUrl,
+      </if>
+      <if test="classess != null" >
+        classess,
+      </if>
+      <if test="afterGraduation != null" >
+        afterGraduation,
+      </if>
+      <if test="synopsis != null" >
+        synopsis,
+      </if>
+      <if test="badge != null" >
+        badge,
+      </if>
+      <if test="applicationGuide != null" >
+        applicationGuide,
+      </if>
+      <if test="advantage != null" >
+        advantage,
+      </if>
+      <if test="applyCondition != null" >
+        applyCondition,
+      </if>
+      <if test="activity != null" >
+        activity,
+      </if>
+      <if test="applyCase != null" >
+        applyCase,
+      </if>
+      <if test="accommodation != null" >
+        accommodation,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="schoolId != null" >
+        #{schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="headPictureUrl != null" >
+        #{headPictureUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="classess != null" >
+        #{classess,jdbcType=VARCHAR},
+      </if>
+      <if test="afterGraduation != null" >
+        #{afterGraduation,jdbcType=VARCHAR},
+      </if>
+      <if test="synopsis != null" >
+        #{synopsis,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="badge != null" >
+        #{badge,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="applicationGuide != null" >
+        #{applicationGuide,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="advantage != null" >
+        #{advantage,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="applyCondition != null" >
+        #{applyCondition,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="activity != null" >
+        #{activity,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="applyCase != null" >
+        #{applyCase,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="accommodation != null" >
+        #{accommodation,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

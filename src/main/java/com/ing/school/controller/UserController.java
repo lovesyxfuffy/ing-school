@@ -23,6 +23,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
+
     @Autowired
     UserService userService;
 
@@ -42,7 +43,8 @@ public class UserController {
         cookie.setMaxAge(LoginConstants.EXPIRE_TIME);
         cookie.setPath("/");
         response.addCookie(cookie);
-        return Result.builder().data("").successTrue().build();
+        //暂时请求体返回token
+        return Result.builder().data(token).successTrue().build();
     }
 
     @RequestMapping(value = "/logout",method = RequestMethod.POST)

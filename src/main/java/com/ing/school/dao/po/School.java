@@ -1,5 +1,6 @@
 package com.ing.school.dao.po;
 
+
 public class School {
     private Integer id;
 

@@ -69,7 +69,7 @@
     values (#{id,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" keyProperty="id" useGeneratedKeys="true" parameterType="com.ing.school.dao.po.Account" >
+  <insert id="insertSelective" parameterType="com.ing.school.dao.po.Account" >
     insert into account
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

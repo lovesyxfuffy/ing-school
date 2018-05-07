@@ -101,7 +101,7 @@ status枚举如下:
       "collectionId":5,
       "schoolName":"xxxx学校",
       "address":"xxxxxxxxxx",
-      "mainPictureUrl":"xxxxxxxxxxxxx",
+      "mainPicture":"xxxxxxxxxxxxx",
       "positionX":145.64,//经度
       "positionY":44.56//纬度
     },{}],
@@ -150,7 +150,8 @@ status枚举如下:
   "url":"/api/record/apply/list",
   "method":"post",
   "request":{
-
+      "pageNo":1,
+      "pageSize":20//一页多少,
   },
   "response":{
     "data":{

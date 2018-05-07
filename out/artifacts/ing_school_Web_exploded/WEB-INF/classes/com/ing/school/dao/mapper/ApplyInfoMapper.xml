@@ -3,7 +3,6 @@
 <mapper namespace="com.ing.school.dao.mapper.ApplyInfoMapper" >
   <resultMap id="BaseResultMap" type="com.ing.school.dao.po.ApplyInfo" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="applyId" property="applyId" jdbcType="INTEGER" />
     <result column="userId" property="userId" jdbcType="INTEGER" />
     <result column="studentName" property="studentName" jdbcType="VARCHAR" />
     <result column="age" property="age" jdbcType="INTEGER" />
@@ -65,11 +64,11 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, applyId, userId, studentName, age, genderCode, telephone, address, attendanceDate, 
-    englishLevelTypeCode, englishLevelScore, currentSchoolEmail, currentSchoolPhone, 
-    currentSchoolAddress, currentSchoolName, wechatId, skypeId, passportNumber, applyingGradeCode, 
-    currendGradeCode, studentEmail, secondLanguageCode, nativeLanguageCode, cityzenshipCode, 
-    homePhone, countryCode, zip, cityCode, stateCode
+    id, userId, studentName, age, genderCode, telephone, address, attendanceDate, englishLevelTypeCode, 
+    englishLevelScore, currentSchoolEmail, currentSchoolPhone, currentSchoolAddress, 
+    currentSchoolName, wechatId, skypeId, passportNumber, applyingGradeCode, currendGradeCode, 
+    studentEmail, secondLanguageCode, nativeLanguageCode, cityzenshipCode, homePhone, 
+    countryCode, zip, cityCode, stateCode
   </sql>
   <sql id="Blob_Column_List" >
     attendanceGrades
@@ -119,27 +118,25 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.ing.school.dao.po.ApplyInfo" >
-    insert into applyInfo (id, applyId, userId, 
-      studentName, age, genderCode, 
-      telephone, address, attendanceDate, 
-      englishLevelTypeCode, englishLevelScore, 
-      currentSchoolEmail, currentSchoolPhone, 
-      currentSchoolAddress, currentSchoolName, 
-      wechatId, skypeId, passportNumber, 
-      applyingGradeCode, currendGradeCode, studentEmail, 
-      secondLanguageCode, nativeLanguageCode, 
+    insert into applyInfo (id, userId, studentName, 
+      age, genderCode, telephone, 
+      address, attendanceDate, englishLevelTypeCode, 
+      englishLevelScore, currentSchoolEmail, 
+      currentSchoolPhone, currentSchoolAddress, 
+      currentSchoolName, wechatId, skypeId, 
+      passportNumber, applyingGradeCode, currendGradeCode, 
+      studentEmail, secondLanguageCode, nativeLanguageCode, 
       cityzenshipCode, homePhone, countryCode, 
       zip, cityCode, stateCode, 
       attendanceGrades)
-    values (#{id,jdbcType=INTEGER}, #{applyId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
-      #{studentName,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, #{genderCode,jdbcType=VARCHAR}, 
-      #{telephone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{attendanceDate,jdbcType=TIMESTAMP}, 
-      #{englishLevelTypeCode,jdbcType=VARCHAR}, #{englishLevelScore,jdbcType=INTEGER}, 
-      #{currentSchoolEmail,jdbcType=VARCHAR}, #{currentSchoolPhone,jdbcType=VARCHAR}, 
-      #{currentSchoolAddress,jdbcType=VARCHAR}, #{currentSchoolName,jdbcType=VARCHAR}, 
-      #{wechatId,jdbcType=VARCHAR}, #{skypeId,jdbcType=VARCHAR}, #{passportNumber,jdbcType=VARCHAR}, 
-      #{applyingGradeCode,jdbcType=VARCHAR}, #{currendGradeCode,jdbcType=VARCHAR}, #{studentEmail,jdbcType=VARCHAR}, 
-      #{secondLanguageCode,jdbcType=VARCHAR}, #{nativeLanguageCode,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{studentName,jdbcType=VARCHAR}, 
+      #{age,jdbcType=INTEGER}, #{genderCode,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{attendanceDate,jdbcType=TIMESTAMP}, #{englishLevelTypeCode,jdbcType=VARCHAR}, 
+      #{englishLevelScore,jdbcType=INTEGER}, #{currentSchoolEmail,jdbcType=VARCHAR}, 
+      #{currentSchoolPhone,jdbcType=VARCHAR}, #{currentSchoolAddress,jdbcType=VARCHAR}, 
+      #{currentSchoolName,jdbcType=VARCHAR}, #{wechatId,jdbcType=VARCHAR}, #{skypeId,jdbcType=VARCHAR}, 
+      #{passportNumber,jdbcType=VARCHAR}, #{applyingGradeCode,jdbcType=VARCHAR}, #{currendGradeCode,jdbcType=VARCHAR}, 
+      #{studentEmail,jdbcType=VARCHAR}, #{secondLanguageCode,jdbcType=VARCHAR}, #{nativeLanguageCode,jdbcType=VARCHAR}, 
       #{cityzenshipCode,jdbcType=VARCHAR}, #{homePhone,jdbcType=VARCHAR}, #{countryCode,jdbcType=VARCHAR}, 
       #{zip,jdbcType=VARCHAR}, #{cityCode,jdbcType=VARCHAR}, #{stateCode,jdbcType=VARCHAR}, 
       #{attendanceGrades,jdbcType=LONGVARCHAR})
@@ -149,9 +146,6 @@
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
-      </if>
-      <if test="applyId != null" >
-        applyId,
       </if>
       <if test="userId != null" >
         userId,
@@ -242,9 +236,6 @@
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="applyId != null" >
-        #{applyId,jdbcType=INTEGER},
-      </if>
       <if test="userId != null" >
         #{userId,jdbcType=INTEGER},
       </if>
@@ -334,9 +325,6 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.ing.school.dao.po.ApplyInfo" >
     update applyInfo
     <set >
-      <if test="applyId != null" >
-        applyId = #{applyId,jdbcType=INTEGER},
-      </if>
       <if test="userId != null" >
         userId = #{userId,jdbcType=INTEGER},
       </if>
@@ -426,8 +414,7 @@
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ing.school.dao.po.ApplyInfo" >
     update applyInfo
-    set applyId = #{applyId,jdbcType=INTEGER},
-      userId = #{userId,jdbcType=INTEGER},
+    set userId = #{userId,jdbcType=INTEGER},
       studentName = #{studentName,jdbcType=VARCHAR},
       age = #{age,jdbcType=INTEGER},
       genderCode = #{genderCode,jdbcType=VARCHAR},
@@ -459,8 +446,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.ing.school.dao.po.ApplyInfo" >
     update applyInfo
-    set applyId = #{applyId,jdbcType=INTEGER},
-      userId = #{userId,jdbcType=INTEGER},
+    set userId = #{userId,jdbcType=INTEGER},
       studentName = #{studentName,jdbcType=VARCHAR},
       age = #{age,jdbcType=INTEGER},
       genderCode = #{genderCode,jdbcType=VARCHAR},

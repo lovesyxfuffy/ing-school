@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.ing.school.dao.mapper.CollectionMapper" >
-  <resultMap id="BaseResultMap" type="com.ing.school.dao.po.Collection" >
+<mapper namespace="com.ing.school.dao.mapper.ApplyMapper" >
+  <resultMap id="BaseResultMap" type="com.ing.school.dao.po.Apply" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="userId" property="userId" jdbcType="INTEGER" />
     <result column="schoolId" property="schoolId" jdbcType="INTEGER" />
-    <result column="collectionTime" property="collectionTime" jdbcType="TIMESTAMP" />
+    <result column="schoolTypeCode" property="schoolTypeCode" jdbcType="VARCHAR" />
+    <result column="schoolName" property="schoolName" jdbcType="VARCHAR" />
+    <result column="applyTime" property="applyTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -37,16 +39,16 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, userId, schoolId, collectionTime
+    id, userId, schoolId, schoolTypeCode, schoolName, applyTime
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ing.school.dao.po.CollectionExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ing.school.dao.po.ApplyExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     'false' as QUERYID,
     <include refid="Base_Column_List" />
-    from collection
+    from apply
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -57,21 +59,23 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from collection
+    from apply
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from collection
+    delete from apply
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.ing.school.dao.po.Collection" >
-    insert into collection (id, userId, schoolId, 
-      collectionTime)
+  <insert id="insert" parameterType="com.ing.school.dao.po.Apply" >
+    insert into apply (id, userId, schoolId, 
+      schoolTypeCode, schoolName, applyTime
+      )
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{schoolId,jdbcType=INTEGER}, 
-      #{collectionTime,jdbcType=TIMESTAMP})
+      #{schoolTypeCode,jdbcType=VARCHAR}, #{schoolName,jdbcType=VARCHAR}, #{applyTime,jdbcType=TIMESTAMP}
+      )
   </insert>
-  <insert id="insertSelective" keyProperty="id" useGeneratedKeys="true" parameterType="com.ing.school.dao.po.Collection" >
-    insert into collection
+  <insert id="insertSelective" parameterType="com.ing.school.dao.po.Apply" >
+    insert into apply
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
@@ -82,8 +86,14 @@
       <if test="schoolId != null" >
         schoolId,
       </if>
-      <if test="collectionTime != null" >
-        collectionTime,
+      <if test="schoolTypeCode != null" >
+        schoolTypeCode,
+      </if>
+      <if test="schoolName != null" >
+        schoolName,
+      </if>
+      <if test="applyTime != null" >
+        applyTime,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -96,13 +106,19 @@
       <if test="schoolId != null" >
         #{schoolId,jdbcType=INTEGER},
       </if>
-      <if test="collectionTime != null" >
-        #{collectionTime,jdbcType=TIMESTAMP},
+      <if test="schoolTypeCode != null" >
+        #{schoolTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolName != null" >
+        #{schoolName,jdbcType=VARCHAR},
+      </if>
+      <if test="applyTime != null" >
+        #{applyTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.ing.school.dao.po.Collection" >
-    update collection
+  <update id="updateByPrimaryKeySelective" parameterType="com.ing.school.dao.po.Apply" >
+    update apply
     <set >
       <if test="userId != null" >
         userId = #{userId,jdbcType=INTEGER},
@@ -110,17 +126,25 @@
       <if test="schoolId != null" >
         schoolId = #{schoolId,jdbcType=INTEGER},
       </if>
-      <if test="collectionTime != null" >
-        collectionTime = #{collectionTime,jdbcType=TIMESTAMP},
+      <if test="schoolTypeCode != null" >
+        schoolTypeCode = #{schoolTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolName != null" >
+        schoolName = #{schoolName,jdbcType=VARCHAR},
+      </if>
+      <if test="applyTime != null" >
+        applyTime = #{applyTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.ing.school.dao.po.Collection" >
-    update collection
+  <update id="updateByPrimaryKey" parameterType="com.ing.school.dao.po.Apply" >
+    update apply
     set userId = #{userId,jdbcType=INTEGER},
       schoolId = #{schoolId,jdbcType=INTEGER},
-      collectionTime = #{collectionTime,jdbcType=TIMESTAMP}
+      schoolTypeCode = #{schoolTypeCode,jdbcType=VARCHAR},
+      schoolName = #{schoolName,jdbcType=VARCHAR},
+      applyTime = #{applyTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

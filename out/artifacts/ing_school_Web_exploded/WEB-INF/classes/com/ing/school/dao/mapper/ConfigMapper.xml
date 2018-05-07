@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ing.school.dao.mapper.ConfigMapper" >
+  <resultMap id="BaseResultMap" type="com.ing.school.dao.po.Config" >
+    <id column="config_key" property="config_key" jdbcType="VARCHAR" />
+    <result column="config_value" property="config_value" jdbcType="VARCHAR" />
+    <result column="config_name" property="config_name" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="add_time" property="add_time" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="update_time" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    config_key, config_value, config_name, type, add_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from config
+    where config_key = #{config_key,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from config
+    where config_key = #{config_key,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.ing.school.dao.po.Config" >
+    insert into config (config_key, config_value, config_name, 
+      type, add_time, update_time
+      )
+    values (#{config_key,jdbcType=VARCHAR}, #{config_value,jdbcType=VARCHAR}, #{config_name,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR}, #{add_time,jdbcType=TIMESTAMP}, #{update_time,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ing.school.dao.po.Config" >
+    insert into config
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="config_key != null" >
+        config_key,
+      </if>
+      <if test="config_value != null" >
+        config_value,
+      </if>
+      <if test="config_name != null" >
+        config_name,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="add_time != null" >
+        add_time,
+      </if>
+      <if test="update_time != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="config_key != null" >
+        #{config_key,jdbcType=VARCHAR},
+      </if>
+      <if test="config_value != null" >
+        #{config_value,jdbcType=VARCHAR},
+      </if>
+      <if test="config_name != null" >
+        #{config_name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="add_time != null" >
+        #{add_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="update_time != null" >
+        #{update_time,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ing.school.dao.po.Config" >
+    update config
+    <set >
+      <if test="config_value != null" >
+        config_value = #{config_value,jdbcType=VARCHAR},
+      </if>
+      <if test="config_name != null" >
+        config_name = #{config_name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="add_time != null" >
+        add_time = #{add_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="update_time != null" >
+        update_time = #{update_time,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where config_key = #{config_key,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ing.school.dao.po.Config" >
+    update config
+    set config_value = #{config_value,jdbcType=VARCHAR},
+      config_name = #{config_name,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      add_time = #{add_time,jdbcType=TIMESTAMP},
+      update_time = #{update_time,jdbcType=TIMESTAMP}
+    where config_key = #{config_key,jdbcType=VARCHAR}
+  </update>
+</mapper>

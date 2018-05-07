@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ing.school.dao.mapper.SchoolMapper" >
+  <resultMap id="BaseResultMap" type="com.ing.school.dao.po.School" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="schoolName" property="schoolName" jdbcType="VARCHAR" />
+    <result column="schoolEnglishName" property="schoolEnglishName" jdbcType="VARCHAR" />
+    <result column="continentCode" property="continentCode" jdbcType="VARCHAR" />
+    <result column="countryCode" property="countryCode" jdbcType="VARCHAR" />
+    <result column="stateCode" property="stateCode" jdbcType="VARCHAR" />
+    <result column="cityCode" property="cityCode" jdbcType="VARCHAR" />
+    <result column="schoolTypeCode" property="schoolTypeCode" jdbcType="VARCHAR" />
+    <result column="schoolGenderTypeCode" property="schoolGenderTypeCode" jdbcType="VARCHAR" />
+    <result column="religionTypeCode" property="religionTypeCode" jdbcType="VARCHAR" />
+    <result column="mainPicture" property="mainPicture" jdbcType="VARCHAR" />
+    <result column="positionX" property="positionX" jdbcType="DOUBLE" />
+    <result column="positionY" property="positionY" jdbcType="DOUBLE" />
+    <result column="hasEsl" property="hasEsl" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, schoolName, schoolEnglishName, continentCode, countryCode, stateCode, cityCode, 
+    schoolTypeCode, schoolGenderTypeCode, religionTypeCode, mainPicture, positionX, positionY, 
+    hasEsl
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ing.school.dao.po.SchoolExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from school
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from school
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from school
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ing.school.dao.po.School" >
+    insert into school (id, schoolName, schoolEnglishName, 
+      continentCode, countryCode, stateCode, 
+      cityCode, schoolTypeCode, schoolGenderTypeCode, 
+      religionTypeCode, mainPicture, positionX, 
+      positionY, hasEsl)
+    values (#{id,jdbcType=INTEGER}, #{schoolName,jdbcType=VARCHAR}, #{schoolEnglishName,jdbcType=VARCHAR}, 
+      #{continentCode,jdbcType=VARCHAR}, #{countryCode,jdbcType=VARCHAR}, #{stateCode,jdbcType=VARCHAR}, 
+      #{cityCode,jdbcType=VARCHAR}, #{schoolTypeCode,jdbcType=VARCHAR}, #{schoolGenderTypeCode,jdbcType=VARCHAR}, 
+      #{religionTypeCode,jdbcType=VARCHAR}, #{mainPicture,jdbcType=VARCHAR}, #{positionX,jdbcType=DOUBLE}, 
+      #{positionY,jdbcType=DOUBLE}, #{hasEsl,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ing.school.dao.po.School" >
+    insert into school
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="schoolName != null" >
+        schoolName,
+      </if>
+      <if test="schoolEnglishName != null" >
+        schoolEnglishName,
+      </if>
+      <if test="continentCode != null" >
+        continentCode,
+      </if>
+      <if test="countryCode != null" >
+        countryCode,
+      </if>
+      <if test="stateCode != null" >
+        stateCode,
+      </if>
+      <if test="cityCode != null" >
+        cityCode,
+      </if>
+      <if test="schoolTypeCode != null" >
+        schoolTypeCode,
+      </if>
+      <if test="schoolGenderTypeCode != null" >
+        schoolGenderTypeCode,
+      </if>
+      <if test="religionTypeCode != null" >
+        religionTypeCode,
+      </if>
+      <if test="mainPicture != null" >
+        mainPicture,
+      </if>
+      <if test="positionX != null" >
+        positionX,
+      </if>
+      <if test="positionY != null" >
+        positionY,
+      </if>
+      <if test="hasEsl != null" >
+        hasEsl,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="schoolName != null" >
+        #{schoolName,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolEnglishName != null" >
+        #{schoolEnglishName,jdbcType=VARCHAR},
+      </if>
+      <if test="continentCode != null" >
+        #{continentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="countryCode != null" >
+        #{countryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stateCode != null" >
+        #{stateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null" >
+        #{cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolTypeCode != null" >
+        #{schoolTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolGenderTypeCode != null" >
+        #{schoolGenderTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="religionTypeCode != null" >
+        #{religionTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="mainPicture != null" >
+        #{mainPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="positionX != null" >
+        #{positionX,jdbcType=DOUBLE},
+      </if>
+      <if test="positionY != null" >
+        #{positionY,jdbcType=DOUBLE},
+      </if>
+      <if test="hasEsl != null" >
+        #{hasEsl,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ing.school.dao.po.School" >
+    update school
+    <set >
+      <if test="schoolName != null" >
+        schoolName = #{schoolName,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolEnglishName != null" >
+        schoolEnglishName = #{schoolEnglishName,jdbcType=VARCHAR},
+      </if>
+      <if test="continentCode != null" >
+        continentCode = #{continentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="countryCode != null" >
+        countryCode = #{countryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stateCode != null" >
+        stateCode = #{stateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null" >
+        cityCode = #{cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolTypeCode != null" >
+        schoolTypeCode = #{schoolTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolGenderTypeCode != null" >
+        schoolGenderTypeCode = #{schoolGenderTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="religionTypeCode != null" >
+        religionTypeCode = #{religionTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="mainPicture != null" >
+        mainPicture = #{mainPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="positionX != null" >
+        positionX = #{positionX,jdbcType=DOUBLE},
+      </if>
+      <if test="positionY != null" >
+        positionY = #{positionY,jdbcType=DOUBLE},
+      </if>
+      <if test="hasEsl != null" >
+        hasEsl = #{hasEsl,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ing.school.dao.po.School" >
+    update school
+    set schoolName = #{schoolName,jdbcType=VARCHAR},
+      schoolEnglishName = #{schoolEnglishName,jdbcType=VARCHAR},
+      continentCode = #{continentCode,jdbcType=VARCHAR},
+      countryCode = #{countryCode,jdbcType=VARCHAR},
+      stateCode = #{stateCode,jdbcType=VARCHAR},
+      cityCode = #{cityCode,jdbcType=VARCHAR},
+      schoolTypeCode = #{schoolTypeCode,jdbcType=VARCHAR},
+      schoolGenderTypeCode = #{schoolGenderTypeCode,jdbcType=VARCHAR},
+      religionTypeCode = #{religionTypeCode,jdbcType=VARCHAR},
+      mainPicture = #{mainPicture,jdbcType=VARCHAR},
+      positionX = #{positionX,jdbcType=DOUBLE},
+      positionY = #{positionY,jdbcType=DOUBLE},
+      hasEsl = #{hasEsl,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

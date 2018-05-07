@@ -10,21 +10,29 @@
                            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
                            http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd"
         xmlns:context="http://www.springframework.org/schema/context"
+        xmlns:cache="http://www.springframework.org/schema/cache"
         xmlns:aop="http://www.springframework.org/schema/aop">
 
 
-    <context:component-scan base-package="com.ing.school">
-        <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
-        <context:include-filter type="annotation" expression="org.springframework.stereotype.Component"/>
-    </context:component-scan>
 
-    <context:annotation-config/>
+    <!-- 启用缓存注解开关 -->
+    <cache:annotation-driven cache-manager="cacheManager"/>
+
+
 
     <bean id="gson" class="com.google.gson.Gson"/>
 
-    <aop:aspectj-autoproxy expose-proxy="true" proxy-target-class="true"/>
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
 
     <task:annotation-driven/>
+
+    <bean id="ehcache" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+        <property name="configLocation" value="classpath*:config/ehcache.xml"/>
+    </bean>
+
+    <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
+        <property name="cacheManager" ref="ehcache"/>
+    </bean>
 
 
 </beans>
