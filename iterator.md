@@ -99,6 +99,7 @@ status枚举如下:
   "response":{
     "tableBody":[{
       "collectionId":5,
+      "id":4,//school id
       "schoolName":"xxxx学校",
       "address":"xxxxxxxxxx",
       "mainPicture":"xxxxxxxxxxxxx",
