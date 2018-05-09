@@ -15,7 +15,7 @@ public class CommonController {
     CommonService commonService;
 
     @RequestMapping(value = "/enum/{category}", method = RequestMethod.POST)
-    public Result getEnumByCategory(@RequestParam("parentCode") String parentCode, @PathVariable("category") String category) {
+    public Result getEnumByCategory(@RequestParam(value = "parentCode",required = false) String parentCode, @PathVariable("category") String category) {
         return Result.builder().data(commonService.getEnumByCategory(category, parentCode)).successTrue().build();
     }
 }

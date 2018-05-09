@@ -714,63 +714,73 @@ public class UserExample {
             return (Criteria) this;
         }
 
-        public Criteria andEnglishLevelTypeIsNull() {
-            addCriterion("englishLevelType is null");
+        public Criteria andEnglishLevelTypeCodeIsNull() {
+            addCriterion("englishLevelTypeCode is null");
             return (Criteria) this;
         }
 
-        public Criteria andEnglishLevelTypeIsNotNull() {
-            addCriterion("englishLevelType is not null");
+        public Criteria andEnglishLevelTypeCodeIsNotNull() {
+            addCriterion("englishLevelTypeCode is not null");
             return (Criteria) this;
         }
 
-        public Criteria andEnglishLevelTypeEqualTo(Integer value) {
-            addCriterion("englishLevelType =", value, "englishLevelType");
+        public Criteria andEnglishLevelTypeCodeEqualTo(String value) {
+            addCriterion("englishLevelTypeCode =", value, "englishLevelTypeCode");
             return (Criteria) this;
         }
 
-        public Criteria andEnglishLevelTypeNotEqualTo(Integer value) {
-            addCriterion("englishLevelType <>", value, "englishLevelType");
+        public Criteria andEnglishLevelTypeCodeNotEqualTo(String value) {
+            addCriterion("englishLevelTypeCode <>", value, "englishLevelTypeCode");
             return (Criteria) this;
         }
 
-        public Criteria andEnglishLevelTypeGreaterThan(Integer value) {
-            addCriterion("englishLevelType >", value, "englishLevelType");
+        public Criteria andEnglishLevelTypeCodeGreaterThan(String value) {
+            addCriterion("englishLevelTypeCode >", value, "englishLevelTypeCode");
             return (Criteria) this;
         }
 
-        public Criteria andEnglishLevelTypeGreaterThanOrEqualTo(Integer value) {
-            addCriterion("englishLevelType >=", value, "englishLevelType");
+        public Criteria andEnglishLevelTypeCodeGreaterThanOrEqualTo(String value) {
+            addCriterion("englishLevelTypeCode >=", value, "englishLevelTypeCode");
             return (Criteria) this;
         }
 
-        public Criteria andEnglishLevelTypeLessThan(Integer value) {
-            addCriterion("englishLevelType <", value, "englishLevelType");
+        public Criteria andEnglishLevelTypeCodeLessThan(String value) {
+            addCriterion("englishLevelTypeCode <", value, "englishLevelTypeCode");
             return (Criteria) this;
         }
 
-        public Criteria andEnglishLevelTypeLessThanOrEqualTo(Integer value) {
-            addCriterion("englishLevelType <=", value, "englishLevelType");
+        public Criteria andEnglishLevelTypeCodeLessThanOrEqualTo(String value) {
+            addCriterion("englishLevelTypeCode <=", value, "englishLevelTypeCode");
             return (Criteria) this;
         }
 
-        public Criteria andEnglishLevelTypeIn(List<Integer> values) {
-            addCriterion("englishLevelType in", values, "englishLevelType");
+        public Criteria andEnglishLevelTypeCodeLike(String value) {
+            addCriterion("englishLevelTypeCode like", value, "englishLevelTypeCode");
             return (Criteria) this;
         }
 
-        public Criteria andEnglishLevelTypeNotIn(List<Integer> values) {
-            addCriterion("englishLevelType not in", values, "englishLevelType");
+        public Criteria andEnglishLevelTypeCodeNotLike(String value) {
+            addCriterion("englishLevelTypeCode not like", value, "englishLevelTypeCode");
             return (Criteria) this;
         }
 
-        public Criteria andEnglishLevelTypeBetween(Integer value1, Integer value2) {
-            addCriterion("englishLevelType between", value1, value2, "englishLevelType");
+        public Criteria andEnglishLevelTypeCodeIn(List<String> values) {
+            addCriterion("englishLevelTypeCode in", values, "englishLevelTypeCode");
             return (Criteria) this;
         }
 
-        public Criteria andEnglishLevelTypeNotBetween(Integer value1, Integer value2) {
-            addCriterion("englishLevelType not between", value1, value2, "englishLevelType");
+        public Criteria andEnglishLevelTypeCodeNotIn(List<String> values) {
+            addCriterion("englishLevelTypeCode not in", values, "englishLevelTypeCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnglishLevelTypeCodeBetween(String value1, String value2) {
+            addCriterion("englishLevelTypeCode between", value1, value2, "englishLevelTypeCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnglishLevelTypeCodeNotBetween(String value1, String value2) {
+            addCriterion("englishLevelTypeCode not between", value1, value2, "englishLevelTypeCode");
             return (Criteria) this;
         }
 

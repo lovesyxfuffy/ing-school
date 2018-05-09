@@ -1,6 +1,7 @@
 package com.ing.school.service.impl;
 
 import com.ing.school.constants.LoginConstants;
+import com.ing.school.controller.auth.AuthUtil;
 import com.ing.school.controller.auth.UserInfo;
 import com.ing.school.dao.mapper.UserMapper;
 import com.ing.school.dao.po.User;
@@ -59,7 +60,8 @@ public class UserServiceImpl implements UserService,ApplicationContextAware{
 
 
     public void getUserInfo(){
-
+        User user = userMapper.selectByPrimaryKey(AuthUtil.getUserId());
+        
     }
 
     @Override

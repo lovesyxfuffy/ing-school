@@ -11,7 +11,7 @@
     <result column="age" property="age" jdbcType="INTEGER" />
     <result column="address" property="address" jdbcType="VARCHAR" />
     <result column="avatarUrl" property="avatarUrl" jdbcType="VARCHAR" />
-    <result column="englishLevelType" property="englishLevelType" jdbcType="INTEGER" />
+    <result column="englishLevelTypeCode" property="englishLevelTypeCode" jdbcType="VARCHAR" />
     <result column="englishLevelScore" property="englishLevelScore" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -44,7 +44,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, name, nickname, telephone, idcard, genderCode, age, address, avatarUrl, englishLevelType, 
+    id, name, nickname, telephone, idcard, genderCode, age, address, avatarUrl, englishLevelTypeCode, 
     englishLevelScore
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ing.school.dao.po.UserExample" >
@@ -76,11 +76,13 @@
     insert into user (id, name, nickname, 
       telephone, idcard, genderCode, 
       age, address, avatarUrl, 
-      englishLevelType, englishLevelScore)
+      englishLevelTypeCode, englishLevelScore
+      )
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
       #{telephone,jdbcType=CHAR}, #{idcard,jdbcType=VARCHAR}, #{genderCode,jdbcType=VARCHAR}, 
       #{age,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, #{avatarUrl,jdbcType=VARCHAR}, 
-      #{englishLevelType,jdbcType=INTEGER}, #{englishLevelScore,jdbcType=INTEGER})
+      #{englishLevelTypeCode,jdbcType=VARCHAR}, #{englishLevelScore,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.ing.school.dao.po.User" >
     insert into user
@@ -112,8 +114,8 @@
       <if test="avatarUrl != null" >
         avatarUrl,
       </if>
-      <if test="englishLevelType != null" >
-        englishLevelType,
+      <if test="englishLevelTypeCode != null" >
+        englishLevelTypeCode,
       </if>
       <if test="englishLevelScore != null" >
         englishLevelScore,
@@ -147,8 +149,8 @@
       <if test="avatarUrl != null" >
         #{avatarUrl,jdbcType=VARCHAR},
       </if>
-      <if test="englishLevelType != null" >
-        #{englishLevelType,jdbcType=INTEGER},
+      <if test="englishLevelTypeCode != null" >
+        #{englishLevelTypeCode,jdbcType=VARCHAR},
       </if>
       <if test="englishLevelScore != null" >
         #{englishLevelScore,jdbcType=INTEGER},
@@ -182,8 +184,8 @@
       <if test="avatarUrl != null" >
         avatarUrl = #{avatarUrl,jdbcType=VARCHAR},
       </if>
-      <if test="englishLevelType != null" >
-        englishLevelType = #{englishLevelType,jdbcType=INTEGER},
+      <if test="englishLevelTypeCode != null" >
+        englishLevelTypeCode = #{englishLevelTypeCode,jdbcType=VARCHAR},
       </if>
       <if test="englishLevelScore != null" >
         englishLevelScore = #{englishLevelScore,jdbcType=INTEGER},
@@ -201,7 +203,7 @@
       age = #{age,jdbcType=INTEGER},
       address = #{address,jdbcType=VARCHAR},
       avatarUrl = #{avatarUrl,jdbcType=VARCHAR},
-      englishLevelType = #{englishLevelType,jdbcType=INTEGER},
+      englishLevelTypeCode = #{englishLevelTypeCode,jdbcType=VARCHAR},
       englishLevelScore = #{englishLevelScore,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>

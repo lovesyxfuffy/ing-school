@@ -6,6 +6,7 @@ import com.ing.school.controller.auth.AuthUtil;
 import com.ing.school.controller.auth.UserInfo;
 import com.ing.school.controller.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,16 +20,20 @@ import java.io.PrintWriter;
 /**
  * Created by yujingyang on 2018/5/2.
  */
+@Component
 public class LoginInterceptor implements HandlerInterceptor {
 
     private static final String LOGIN_PATH = "/api/user/login";
+
+    private static final String CHECK_CODE_PATH = "/api/user/getCheckCode";
+
 
     @Autowired
     Gson gson;
 
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
-        if (LOGIN_PATH.equals(httpServletRequest.getRequestURI()) && "POST".equals(httpServletRequest.getMethod()))
+        if ((CHECK_CODE_PATH.equals(httpServletRequest.getRequestURI()) || LOGIN_PATH.equals(httpServletRequest.getRequestURI())) && "POST".equals(httpServletRequest.getMethod()))
             return true;
         String loginCookie = getCookie(httpServletRequest, LoginConstants.SCHOOL_COOKIE);
         HttpSession session = httpServletRequest.getSession();

@@ -40,7 +40,12 @@
         <property name="maxUploadSize" value="20000000"/>
     </bean>
 
-
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/api/**"/>
+            <bean class="com.ing.school.controller.interceptor.LoginInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
     <mvc:default-servlet-handler/>
 
 </beans>

@@ -19,7 +19,7 @@ public class User {
 
     private String avatarUrl;
 
-    private Integer englishLevelType;
+    private String englishLevelTypeCode;
 
     private Integer englishLevelScore;
 
@@ -95,12 +95,12 @@ public class User {
         this.avatarUrl = avatarUrl == null ? null : avatarUrl.trim();
     }
 
-    public Integer getEnglishLevelType() {
-        return englishLevelType;
+    public String getEnglishLevelTypeCode() {
+        return englishLevelTypeCode;
     }
 
-    public void setEnglishLevelType(Integer englishLevelType) {
-        this.englishLevelType = englishLevelType;
+    public void setEnglishLevelTypeCode(String englishLevelTypeCode) {
+        this.englishLevelTypeCode = englishLevelTypeCode == null ? null : englishLevelTypeCode.trim();
     }
 
     public Integer getEnglishLevelScore() {

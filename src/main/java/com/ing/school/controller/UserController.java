@@ -44,7 +44,7 @@ public class UserController {
         cookie.setPath("/");
         response.addCookie(cookie);
         //暂时请求体返回token
-        return Result.builder().data(token).successTrue().build();
+        return Result.builder().data("").successTrue().build();
     }
 
     @RequestMapping(value = "/logout",method = RequestMethod.POST)
@@ -61,7 +61,7 @@ public class UserController {
     public Result getCheckCode(@RequestParam("telephone") String telephone) {
         String checkCode = userService.pushPermissionCode(telephone);
         CacheUtils.put(LoginConstants.TELEPHONE_KEY + telephone, checkCode);
-        return Result.builder().data("").successTrue().build();
+        return Result.builder().data(checkCode).successTrue().build();
     }
 
 
