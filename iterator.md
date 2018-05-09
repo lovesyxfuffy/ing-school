@@ -236,10 +236,10 @@ status枚举如下:
   }
 }
 ```
-### 7.获取个人信息接口
+### 7.获取个人信息接口（获取当前登录人）
 ```json
 {
-  "url":"/api/record/user/get/{id}",
+  "url":"/api/record/user/get",
   "method":"post",
   "request":{},
   "response":{
@@ -261,13 +261,12 @@ status枚举如下:
 }
 ```
 
-### 8.编辑个人信息接口
+### 8.编辑个人信息接口 *（url变更-参数去掉id-取登录人id）
 ```json
 {
-  "url":"/api/operator/user/add",
+  "url":"/api/operator/user/edit",
   "method":"post",
   "request":{
-    "id":6,
     "nickName":"xxx",
     "telephone":"17621181235",
     "age":15,
@@ -279,7 +278,6 @@ status枚举如下:
   },
  "response":{
      "data":{
-       "id":15
      },
      "message":"请求成功",
      "status":1
@@ -287,10 +285,10 @@ status枚举如下:
 }
 ```
 
-### 9.搜索
+### 9.搜索 *(URL变更)
 ```json
 {
-  "url":"/api/search/schoolList",
+  "url":"/api/operator/search/schoolList",
   "method":"post",
   "request":{
     "keyword":"xxxx",//搜索框里内容

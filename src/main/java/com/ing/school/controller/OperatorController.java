@@ -3,6 +3,7 @@ package com.ing.school.controller;
 import com.ing.school.controller.utils.Result;
 import com.ing.school.dao.po.Apply;
 import com.ing.school.dao.po.ApplyInfo;
+import com.ing.school.dao.po.User;
 import com.ing.school.service.RecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -38,5 +39,10 @@ public class OperatorController {
         Map<String, Integer> resultMap = new HashMap<>();
         resultMap.put("id", applyId);
         return Result.builder().data(resultMap).successTrue().build();
+    }
+
+    @RequestMapping(value = "/user/edit",method = RequestMethod.POST)
+    public Result editUser(User user){
+        return Result.builder().data("").successTrue().build();
     }
 }

@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Random;
@@ -22,7 +21,7 @@ import java.util.Random;
  * Created by yujingyang on 2018/4/28.
  */
 @Component
-public class UserServiceImpl implements UserService,ApplicationContextAware{
+public class UserServiceImpl implements UserService, ApplicationContextAware {
     @Autowired
     UserMapper userMapper;
 
@@ -59,9 +58,15 @@ public class UserServiceImpl implements UserService,ApplicationContextAware{
     }
 
 
-    public void getUserInfo(){
-        User user = userMapper.selectByPrimaryKey(AuthUtil.getUserId());
-        
+    @Override
+    public User getUserInfo() {
+        return userMapper.selectByPrimaryKey(AuthUtil.getUserId());
+    }
+
+    @Override
+    public void editUserInfo(User user) {
+        user.setId(AuthUtil.getUserId());
+        userMapper.updateByPrimaryKeySelective(user);
     }
 
     @Override
