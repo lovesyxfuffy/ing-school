@@ -3,6 +3,7 @@ package com.ing.school.controller;
 import com.ing.school.constants.LoginConstants;
 import com.ing.school.controller.auth.UserInfo;
 import com.ing.school.controller.utils.Result;
+import com.ing.school.dao.po.User;
 import com.ing.school.service.UserService;
 import com.ing.school.utls.CacheUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +47,7 @@ public class UserController {
         return Result.builder().data("").successTrue().build();
     }
 
-    @RequestMapping(value = "/user/register", method = RequestMethod.POST)
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
     public Result register(@RequestParam("telephone") String telephone, @RequestParam("checkCode") String checkCode,
                            HttpServletResponse response, HttpSession httpSession) {
         UserInfo userInfo = userService.createUser(telephone, checkCode);
@@ -62,6 +63,12 @@ public class UserController {
         cookie.setPath("/");
         response.addCookie(cookie);
         //暂时请求体返回token
+        return Result.builder().data("").successTrue().build();
+    }
+
+    @RequestMapping(value = "/perfect",method = RequestMethod.POST)
+    public Result perfectUser(User user){
+        userService.editUserInfo(user);
         return Result.builder().data("").successTrue().build();
     }
 
