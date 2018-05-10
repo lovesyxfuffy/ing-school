@@ -1,8 +1,8 @@
 package com.ing.school.controller;
 
 import com.ing.school.constants.LoginConstants;
-import com.ing.school.controller.auth.AuthUtil;
 import com.ing.school.controller.auth.UserInfo;
+import com.ing.school.controller.utils.Result;
 import com.ing.school.service.UserService;
 import com.ing.school.utls.CacheUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import com.ing.school.controller.utils.Result;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -47,8 +46,27 @@ public class UserController {
         return Result.builder().data("").successTrue().build();
     }
 
-    @RequestMapping(value = "/logout",method = RequestMethod.POST)
-    public Result logout(HttpServletResponse response){
+    @RequestMapping(value = "/user/register", method = RequestMethod.POST)
+    public Result register(@RequestParam("telephone") String telephone, @RequestParam("checkCode") String checkCode,
+                           HttpServletResponse response, HttpSession httpSession) {
+        UserInfo userInfo = userService.createUser(telephone, checkCode);
+        if (userInfo == null)
+            return Result.builder().data("注册失败,验证码不正确").failedFalse().build();
+
+        String token = UUID.randomUUID().toString().replace("-", "");
+        httpSession.setAttribute(token, userInfo);
+        httpSession.setMaxInactiveInterval(LoginConstants.EXPIRE_TIME);
+        Cookie cookie = new Cookie(LoginConstants.SCHOOL_COOKIE, token);
+
+        cookie.setMaxAge(LoginConstants.EXPIRE_TIME);
+        cookie.setPath("/");
+        response.addCookie(cookie);
+        //暂时请求体返回token
+        return Result.builder().data("").successTrue().build();
+    }
+
+    @RequestMapping(value = "/logout", method = RequestMethod.POST)
+    public Result logout(HttpServletResponse response) {
 
         Cookie cookie = new Cookie(LoginConstants.SCHOOL_COOKIE, null);
         cookie.setMaxAge(LoginConstants.EXPIRE_TIME);

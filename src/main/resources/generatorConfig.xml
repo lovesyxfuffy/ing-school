@@ -128,17 +128,17 @@
 
         <!--</table>-->
 
-        <!--<table tableName="school" domainObjectName="School"-->
-               <!--enableCountByExample="false"-->
-               <!--enableUpdateByExample="false"-->
-               <!--enableDeleteByExample="false"-->
-               <!--enableSelectByExample="true"-->
-               <!--selectByExampleQueryId="false">-->
-            <!--<property name="useActualColumnNames" value="true"/>-->
-            <!--<ignoreColumn column="UpdateTime"></ignoreColumn>-->
-            <!--<ignoreColumn column="AddTime"></ignoreColumn>-->
+        <table tableName="school" domainObjectName="School"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="true"
+               selectByExampleQueryId="false">
+            <property name="useActualColumnNames" value="true"/>
+            <ignoreColumn column="UpdateTime"></ignoreColumn>
+            <ignoreColumn column="AddTime"></ignoreColumn>
 
-        <!--</table>-->
+        </table>
         <!--<table tableName="schoolInfo" domainObjectName="SchoolInfo"-->
                <!--enableCountByExample="false"-->
                <!--enableUpdateByExample="false"-->
@@ -150,17 +150,17 @@
             <!--<ignoreColumn column="AddTime"></ignoreColumn>-->
 
         <!--</table>-->
-        <table tableName="user" domainObjectName="User"
-               enableCountByExample="false"
-               enableUpdateByExample="false"
-               enableDeleteByExample="false"
-               enableSelectByExample="true"
-               selectByExampleQueryId="false">
-            <property name="useActualColumnNames" value="true"/>
-            <ignoreColumn column="UpdateTime"></ignoreColumn>
-            <ignoreColumn column="AddTime"></ignoreColumn>
+        <!--<table tableName="user" domainObjectName="User"-->
+               <!--enableCountByExample="false"-->
+               <!--enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false"-->
+               <!--enableSelectByExample="true"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--<property name="useActualColumnNames" value="true"/>-->
+            <!--<ignoreColumn column="UpdateTime"></ignoreColumn>-->
+            <!--<ignoreColumn column="AddTime"></ignoreColumn>-->
 
-        </table>
+        <!--</table>-->
 
 
     </context>

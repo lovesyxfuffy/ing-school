@@ -12,6 +12,7 @@
     <result column="schoolTypeCode" property="schoolTypeCode" jdbcType="VARCHAR" />
     <result column="schoolGenderTypeCode" property="schoolGenderTypeCode" jdbcType="VARCHAR" />
     <result column="religionTypeCode" property="religionTypeCode" jdbcType="VARCHAR" />
+    <result column="cost" property="cost" jdbcType="INTEGER" />
     <result column="mainPicture" property="mainPicture" jdbcType="VARCHAR" />
     <result column="positionX" property="positionX" jdbcType="DOUBLE" />
     <result column="positionY" property="positionY" jdbcType="DOUBLE" />
@@ -48,8 +49,8 @@
   </sql>
   <sql id="Base_Column_List" >
     id, schoolName, schoolEnglishName, continentCode, countryCode, stateCode, cityCode, 
-    schoolTypeCode, schoolGenderTypeCode, religionTypeCode, mainPicture, positionX, positionY, 
-    hasEsl
+    schoolTypeCode, schoolGenderTypeCode, religionTypeCode, cost, mainPicture, positionX, 
+    positionY, hasEsl
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ing.school.dao.po.SchoolExample" >
     select
@@ -80,15 +81,17 @@
     insert into school (id, schoolName, schoolEnglishName, 
       continentCode, countryCode, stateCode, 
       cityCode, schoolTypeCode, schoolGenderTypeCode, 
-      religionTypeCode, mainPicture, positionX, 
-      positionY, hasEsl)
+      religionTypeCode, cost, mainPicture, 
+      positionX, positionY, hasEsl
+      )
     values (#{id,jdbcType=INTEGER}, #{schoolName,jdbcType=VARCHAR}, #{schoolEnglishName,jdbcType=VARCHAR}, 
       #{continentCode,jdbcType=VARCHAR}, #{countryCode,jdbcType=VARCHAR}, #{stateCode,jdbcType=VARCHAR}, 
       #{cityCode,jdbcType=VARCHAR}, #{schoolTypeCode,jdbcType=VARCHAR}, #{schoolGenderTypeCode,jdbcType=VARCHAR}, 
-      #{religionTypeCode,jdbcType=VARCHAR}, #{mainPicture,jdbcType=VARCHAR}, #{positionX,jdbcType=DOUBLE}, 
-      #{positionY,jdbcType=DOUBLE}, #{hasEsl,jdbcType=BIT})
+      #{religionTypeCode,jdbcType=VARCHAR}, #{cost,jdbcType=INTEGER}, #{mainPicture,jdbcType=VARCHAR}, 
+      #{positionX,jdbcType=DOUBLE}, #{positionY,jdbcType=DOUBLE}, #{hasEsl,jdbcType=BIT}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.ing.school.dao.po.School" >
+  <insert id="insertSelective" keyProperty="id" useGeneratedKeys="true" parameterType="com.ing.school.dao.po.School" >
     insert into school
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -120,6 +123,9 @@
       </if>
       <if test="religionTypeCode != null" >
         religionTypeCode,
+      </if>
+      <if test="cost != null" >
+        cost,
       </if>
       <if test="mainPicture != null" >
         mainPicture,
@@ -165,6 +171,9 @@
       <if test="religionTypeCode != null" >
         #{religionTypeCode,jdbcType=VARCHAR},
       </if>
+      <if test="cost != null" >
+        #{cost,jdbcType=INTEGER},
+      </if>
       <if test="mainPicture != null" >
         #{mainPicture,jdbcType=VARCHAR},
       </if>
@@ -209,6 +218,9 @@
       <if test="religionTypeCode != null" >
         religionTypeCode = #{religionTypeCode,jdbcType=VARCHAR},
       </if>
+      <if test="cost != null" >
+        cost = #{cost,jdbcType=INTEGER},
+      </if>
       <if test="mainPicture != null" >
         mainPicture = #{mainPicture,jdbcType=VARCHAR},
       </if>
@@ -235,6 +247,7 @@
       schoolTypeCode = #{schoolTypeCode,jdbcType=VARCHAR},
       schoolGenderTypeCode = #{schoolGenderTypeCode,jdbcType=VARCHAR},
       religionTypeCode = #{religionTypeCode,jdbcType=VARCHAR},
+      cost = #{cost,jdbcType=INTEGER},
       mainPicture = #{mainPicture,jdbcType=VARCHAR},
       positionX = #{positionX,jdbcType=DOUBLE},
       positionY = #{positionY,jdbcType=DOUBLE},

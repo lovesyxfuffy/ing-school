@@ -794,52 +794,52 @@ public class UserExample {
             return (Criteria) this;
         }
 
-        public Criteria andEnglishLevelScoreEqualTo(Integer value) {
+        public Criteria andEnglishLevelScoreEqualTo(Double value) {
             addCriterion("englishLevelScore =", value, "englishLevelScore");
             return (Criteria) this;
         }
 
-        public Criteria andEnglishLevelScoreNotEqualTo(Integer value) {
+        public Criteria andEnglishLevelScoreNotEqualTo(Double value) {
             addCriterion("englishLevelScore <>", value, "englishLevelScore");
             return (Criteria) this;
         }
 
-        public Criteria andEnglishLevelScoreGreaterThan(Integer value) {
+        public Criteria andEnglishLevelScoreGreaterThan(Double value) {
             addCriterion("englishLevelScore >", value, "englishLevelScore");
             return (Criteria) this;
         }
 
-        public Criteria andEnglishLevelScoreGreaterThanOrEqualTo(Integer value) {
+        public Criteria andEnglishLevelScoreGreaterThanOrEqualTo(Double value) {
             addCriterion("englishLevelScore >=", value, "englishLevelScore");
             return (Criteria) this;
         }
 
-        public Criteria andEnglishLevelScoreLessThan(Integer value) {
+        public Criteria andEnglishLevelScoreLessThan(Double value) {
             addCriterion("englishLevelScore <", value, "englishLevelScore");
             return (Criteria) this;
         }
 
-        public Criteria andEnglishLevelScoreLessThanOrEqualTo(Integer value) {
+        public Criteria andEnglishLevelScoreLessThanOrEqualTo(Double value) {
             addCriterion("englishLevelScore <=", value, "englishLevelScore");
             return (Criteria) this;
         }
 
-        public Criteria andEnglishLevelScoreIn(List<Integer> values) {
+        public Criteria andEnglishLevelScoreIn(List<Double> values) {
             addCriterion("englishLevelScore in", values, "englishLevelScore");
             return (Criteria) this;
         }
 
-        public Criteria andEnglishLevelScoreNotIn(List<Integer> values) {
+        public Criteria andEnglishLevelScoreNotIn(List<Double> values) {
             addCriterion("englishLevelScore not in", values, "englishLevelScore");
             return (Criteria) this;
         }
 
-        public Criteria andEnglishLevelScoreBetween(Integer value1, Integer value2) {
+        public Criteria andEnglishLevelScoreBetween(Double value1, Double value2) {
             addCriterion("englishLevelScore between", value1, value2, "englishLevelScore");
             return (Criteria) this;
         }
 
-        public Criteria andEnglishLevelScoreNotBetween(Integer value1, Integer value2) {
+        public Criteria andEnglishLevelScoreNotBetween(Double value1, Double value2) {
             addCriterion("englishLevelScore not between", value1, value2, "englishLevelScore");
             return (Criteria) this;
         }

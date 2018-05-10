@@ -21,7 +21,7 @@ public class User {
 
     private String englishLevelTypeCode;
 
-    private Integer englishLevelScore;
+    private Double englishLevelScore;
 
     public Integer getId() {
         return id;
@@ -103,11 +103,11 @@ public class User {
         this.englishLevelTypeCode = englishLevelTypeCode == null ? null : englishLevelTypeCode.trim();
     }
 
-    public Integer getEnglishLevelScore() {
+    public Double getEnglishLevelScore() {
         return englishLevelScore;
     }
 
-    public void setEnglishLevelScore(Integer englishLevelScore) {
+    public void setEnglishLevelScore(Double englishLevelScore) {
         this.englishLevelScore = englishLevelScore;
     }
 }

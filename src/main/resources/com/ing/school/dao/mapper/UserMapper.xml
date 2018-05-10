@@ -12,7 +12,7 @@
     <result column="address" property="address" jdbcType="VARCHAR" />
     <result column="avatarUrl" property="avatarUrl" jdbcType="VARCHAR" />
     <result column="englishLevelTypeCode" property="englishLevelTypeCode" jdbcType="VARCHAR" />
-    <result column="englishLevelScore" property="englishLevelScore" jdbcType="INTEGER" />
+    <result column="englishLevelScore" property="englishLevelScore" jdbcType="DOUBLE" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -76,15 +76,13 @@
     insert into user (id, name, nickname, 
       telephone, idcard, genderCode, 
       age, address, avatarUrl, 
-      englishLevelTypeCode, englishLevelScore
-      )
+      englishLevelTypeCode, englishLevelScore)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
       #{telephone,jdbcType=CHAR}, #{idcard,jdbcType=VARCHAR}, #{genderCode,jdbcType=VARCHAR}, 
       #{age,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, #{avatarUrl,jdbcType=VARCHAR}, 
-      #{englishLevelTypeCode,jdbcType=VARCHAR}, #{englishLevelScore,jdbcType=INTEGER}
-      )
+      #{englishLevelTypeCode,jdbcType=VARCHAR}, #{englishLevelScore,jdbcType=DOUBLE})
   </insert>
-  <insert id="insertSelective" parameterType="com.ing.school.dao.po.User" >
+  <insert id="insertSelective" keyProperty="id" useGeneratedKeys="true" parameterType="com.ing.school.dao.po.User" >
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -153,7 +151,7 @@
         #{englishLevelTypeCode,jdbcType=VARCHAR},
       </if>
       <if test="englishLevelScore != null" >
-        #{englishLevelScore,jdbcType=INTEGER},
+        #{englishLevelScore,jdbcType=DOUBLE},
       </if>
     </trim>
   </insert>
@@ -188,7 +186,7 @@
         englishLevelTypeCode = #{englishLevelTypeCode,jdbcType=VARCHAR},
       </if>
       <if test="englishLevelScore != null" >
-        englishLevelScore = #{englishLevelScore,jdbcType=INTEGER},
+        englishLevelScore = #{englishLevelScore,jdbcType=DOUBLE},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -204,7 +202,7 @@
       address = #{address,jdbcType=VARCHAR},
       avatarUrl = #{avatarUrl,jdbcType=VARCHAR},
       englishLevelTypeCode = #{englishLevelTypeCode,jdbcType=VARCHAR},
-      englishLevelScore = #{englishLevelScore,jdbcType=INTEGER}
+      englishLevelScore = #{englishLevelScore,jdbcType=DOUBLE}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

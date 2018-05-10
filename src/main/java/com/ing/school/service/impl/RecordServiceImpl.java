@@ -2,6 +2,7 @@ package com.ing.school.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.ing.school.constants.CostIntervalEnum;
 import com.ing.school.constants.EnumConstants;
 import com.ing.school.controller.auth.AuthUtil;
 import com.ing.school.dao.mapper.ApplyInfoMapper;
@@ -10,14 +11,17 @@ import com.ing.school.dao.mapper.CollectionMapper;
 import com.ing.school.dao.mapper.SchoolMapper;
 import com.ing.school.dao.po.*;
 import com.ing.school.dto.PageDto;
+import com.ing.school.dto.SearchDto;
 import com.ing.school.service.CommonService;
 import com.ing.school.service.RecordService;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -129,7 +133,73 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
         return apply.getId();
     }
 
-    
+    @Override
+    public List<Map> search(SearchDto searchDto) {
+        SchoolExample schoolExample = new SchoolExample();
+        SchoolExample.Criteria criteria = schoolExample.createCriteria();
+        if (!StringUtils.isEmpty(searchDto.getKeyword())) {
+            criteria.andSchoolNameLike("%" + searchDto.getKeyword() + "%");
+        }
+        if (CollectionUtils.isNotEmpty(searchDto.getContinentCode())) {
+            criteria.andContinentCodeIn(searchDto.getContinentCode());
+        }
+        if (CollectionUtils.isNotEmpty(searchDto.getCountryCode())) {
+            criteria.andCountryCodeIn(searchDto.getCountryCode());
+        }
+        if (CollectionUtils.isNotEmpty(searchDto.getStateCode())) {
+            criteria.andStateCodeIn(searchDto.getStateCode());
+        }
+        if (CollectionUtils.isNotEmpty(searchDto.getSchoolGenderTypeCode())) {
+            criteria.andSchoolGenderTypeCodeIn(searchDto.getSchoolGenderTypeCode());
+        }
+        if (CollectionUtils.isNotEmpty(searchDto.getSchoolTypeCode())) {
+            criteria.andSchoolTypeCodeIn(searchDto.getSchoolTypeCode());
+        }
+        if (CollectionUtils.isNotEmpty(searchDto.getReligionTypeCode())) {
+            criteria.andReligionTypeCodeIn(searchDto.getReligionTypeCode());
+        }
+        if (searchDto.getHasEsl() != null) {
+            criteria.andHasEslEqualTo(searchDto.getHasEsl());
+        }
+        StringBuilder stb = new StringBuilder("and (");
+        if (CollectionUtils.isNotEmpty(searchDto.getCostIntervalCode())) {
+            List<String> costIntervalEnumList = searchDto.getCostIntervalCode();
+            for (String code : costIntervalEnumList) {
+                CostIntervalEnum enumItem = CostIntervalEnum.getEnumByCode(code);
+                if (enumItem == null)
+                    continue;
+                Integer upper = enumItem.getCostUpper();
+                Integer floor = enumItem.getCostFloor();
+                if (upper != null) {
+                    stb.append(" school.cost <= ").append(upper);
+                    if (floor != null)
+                        stb.append(" and school.cost >= ").append(floor);
+                } else if (floor != null)
+                    stb.append(" school.cost >= ").append(floor);
+                stb.append(" or ");
+            }
+            stb.append(" 1=1 )");
+            criteria.addCriterion(stb.toString());
+        }
+        PageHelper.startPage(searchDto.getPageNo(), searchDto.getPageSize());
+        List<School> schoolList = schoolMapper.selectByExample(schoolExample);
+        Map<String, String> countryMap = commonService.getEnumByCategory(EnumConstants.COUNTRY);
+        Map<String, String> cityMap = commonService.getEnumByCategory(EnumConstants.CITY);
+        List<Map> resultList = new ArrayList<>(schoolList.size());
+        for (School school : schoolList) {
+            Map<String, Object> resultMap = new HashMap<>();
+            resultMap.put("id", school.getId());
+            resultMap.put("schoolName", school.getSchoolName());
+            resultMap.put("countryName", countryMap.get(school.getCountryCode())+cityMap.get(school.getCityCode()));
+            resultMap.put("mainPicture", school.getMainPicture());
+            resultMap.put("positionX", school.getPositionX());
+            resultMap.put("positionY", school.getPositionY());
+            resultList.add(resultMap);
+        }
+        return resultList;
+
+    }
+
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {

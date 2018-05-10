@@ -83,6 +83,10 @@ status枚举如下:
 <tr>
 <td>院校宗教性质</td><td>religionType</td>
 </tr>
+<tr>
+<td>花费区间</td><td>costInterval</td>
+</tr>
+
 </table>
 
 ## 2.前台接口
@@ -299,7 +303,9 @@ status枚举如下:
     "schoolTypeCode":[],
     "religionTypeCode":[],
     "hasEsl":true,
-    "costIntervalCode":[]
+    "costIntervalCode":[],
+    "pageNo":5,
+    "pageSize":10
   },
   "response":{
        "data":{

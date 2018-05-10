@@ -23,7 +23,7 @@ public class ApplyInfo {
 
     private String englishLevelTypeCode;
 
-    private Integer englishLevelScore;
+    private Double englishLevelScore;
 
     private String currentSchoolEmail;
 
@@ -143,11 +143,11 @@ public class ApplyInfo {
         this.englishLevelTypeCode = englishLevelTypeCode == null ? null : englishLevelTypeCode.trim();
     }
 
-    public Integer getEnglishLevelScore() {
+    public Double getEnglishLevelScore() {
         return englishLevelScore;
     }
 
-    public void setEnglishLevelScore(Integer englishLevelScore) {
+    public void setEnglishLevelScore(Double englishLevelScore) {
         this.englishLevelScore = englishLevelScore;
     }
 

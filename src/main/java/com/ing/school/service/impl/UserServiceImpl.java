@@ -59,6 +59,22 @@ public class UserServiceImpl implements UserService, ApplicationContextAware {
 
 
     @Override
+    public UserInfo createUser(String telephone, String checkCode){
+        String telephoneKey = LoginConstants.TELEPHONE_KEY + telephone;
+        String checkCodeCache = CacheUtils.get(telephoneKey);
+        CacheUtils.remove(telephoneKey);
+        if (checkCodeCache != null && checkCodeCache.equals(checkCode)) {
+            User user = new User();
+            user.setTelephone(telephone);
+            userMapper.insertSelective(user);
+            UserInfo userInfo = new UserInfo();
+            userInfo.setUserId(user.getId());
+            return userInfo;
+        }
+        return null;
+    }
+
+    @Override
     public User getUserInfo() {
         return userMapper.selectByPrimaryKey(AuthUtil.getUserId());
     }

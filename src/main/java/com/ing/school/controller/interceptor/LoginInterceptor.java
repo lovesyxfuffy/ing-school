@@ -23,9 +23,9 @@ import java.io.PrintWriter;
 @Component
 public class LoginInterceptor implements HandlerInterceptor {
 
-    private static final String LOGIN_PATH = "/api/user/login";
+    private static final String LOGIN_PATH = "/api/user";
 
-    private static final String CHECK_CODE_PATH = "/api/user/getCheckCode";
+    private static final String COMMON_PATH = "/api/common";
 
 
     @Autowired
@@ -33,7 +33,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
-        if ((CHECK_CODE_PATH.equals(httpServletRequest.getRequestURI()) || LOGIN_PATH.equals(httpServletRequest.getRequestURI())) && "POST".equals(httpServletRequest.getMethod()))
+        if (((httpServletRequest.getRequestURI().startsWith(LOGIN_PATH)) || httpServletRequest.getRequestURI().startsWith(COMMON_PATH)) && "POST".equals(httpServletRequest.getMethod()))
             return true;
         String loginCookie = getCookie(httpServletRequest, LoginConstants.SCHOOL_COOKIE);
         HttpSession session = httpServletRequest.getSession();

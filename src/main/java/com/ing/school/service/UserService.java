@@ -11,6 +11,9 @@ public interface UserService {
 
     UserInfo login(String telephone, String checkCode);
 
+
+    UserInfo createUser(String telephone, String checkCode);
+
     User getUserInfo();
 
     void editUserInfo(User user);

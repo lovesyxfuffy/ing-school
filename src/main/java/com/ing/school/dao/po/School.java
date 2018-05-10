@@ -1,6 +1,5 @@
 package com.ing.school.dao.po;
 
-
 public class School {
     private Integer id;
 
@@ -21,6 +20,8 @@ public class School {
     private String schoolGenderTypeCode;
 
     private String religionTypeCode;
+
+    private Integer cost;
 
     private String mainPicture;
 
@@ -108,6 +109,14 @@ public class School {
 
     public void setReligionTypeCode(String religionTypeCode) {
         this.religionTypeCode = religionTypeCode == null ? null : religionTypeCode.trim();
+    }
+
+    public Integer getCost() {
+        return cost;
+    }
+
+    public void setCost(Integer cost) {
+        this.cost = cost;
     }
 
     public String getMainPicture() {

@@ -12,7 +12,7 @@
     <result column="address" property="address" jdbcType="VARCHAR" />
     <result column="attendanceDate" property="attendanceDate" jdbcType="TIMESTAMP" />
     <result column="englishLevelTypeCode" property="englishLevelTypeCode" jdbcType="VARCHAR" />
-    <result column="englishLevelScore" property="englishLevelScore" jdbcType="INTEGER" />
+    <result column="englishLevelScore" property="englishLevelScore" jdbcType="DOUBLE" />
     <result column="currentSchoolEmail" property="currentSchoolEmail" jdbcType="VARCHAR" />
     <result column="currentSchoolPhone" property="currentSchoolPhone" jdbcType="VARCHAR" />
     <result column="currentSchoolAddress" property="currentSchoolAddress" jdbcType="VARCHAR" />
@@ -134,7 +134,7 @@
     values (#{id,jdbcType=INTEGER}, #{applyId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
       #{studentName,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, #{genderCode,jdbcType=VARCHAR}, 
       #{telephone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{attendanceDate,jdbcType=TIMESTAMP}, 
-      #{englishLevelTypeCode,jdbcType=VARCHAR}, #{englishLevelScore,jdbcType=INTEGER}, 
+      #{englishLevelTypeCode,jdbcType=VARCHAR}, #{englishLevelScore,jdbcType=DOUBLE}, 
       #{currentSchoolEmail,jdbcType=VARCHAR}, #{currentSchoolPhone,jdbcType=VARCHAR}, 
       #{currentSchoolAddress,jdbcType=VARCHAR}, #{currentSchoolName,jdbcType=VARCHAR}, 
       #{wechatId,jdbcType=VARCHAR}, #{skypeId,jdbcType=VARCHAR}, #{passportNumber,jdbcType=VARCHAR}, 
@@ -270,7 +270,7 @@
         #{englishLevelTypeCode,jdbcType=VARCHAR},
       </if>
       <if test="englishLevelScore != null" >
-        #{englishLevelScore,jdbcType=INTEGER},
+        #{englishLevelScore,jdbcType=DOUBLE},
       </if>
       <if test="currentSchoolEmail != null" >
         #{currentSchoolEmail,jdbcType=VARCHAR},
@@ -362,7 +362,7 @@
         englishLevelTypeCode = #{englishLevelTypeCode,jdbcType=VARCHAR},
       </if>
       <if test="englishLevelScore != null" >
-        englishLevelScore = #{englishLevelScore,jdbcType=INTEGER},
+        englishLevelScore = #{englishLevelScore,jdbcType=DOUBLE},
       </if>
       <if test="currentSchoolEmail != null" >
         currentSchoolEmail = #{currentSchoolEmail,jdbcType=VARCHAR},
@@ -435,7 +435,7 @@
       address = #{address,jdbcType=VARCHAR},
       attendanceDate = #{attendanceDate,jdbcType=TIMESTAMP},
       englishLevelTypeCode = #{englishLevelTypeCode,jdbcType=VARCHAR},
-      englishLevelScore = #{englishLevelScore,jdbcType=INTEGER},
+      englishLevelScore = #{englishLevelScore,jdbcType=DOUBLE},
       currentSchoolEmail = #{currentSchoolEmail,jdbcType=VARCHAR},
       currentSchoolPhone = #{currentSchoolPhone,jdbcType=VARCHAR},
       currentSchoolAddress = #{currentSchoolAddress,jdbcType=VARCHAR},
@@ -468,7 +468,7 @@
       address = #{address,jdbcType=VARCHAR},
       attendanceDate = #{attendanceDate,jdbcType=TIMESTAMP},
       englishLevelTypeCode = #{englishLevelTypeCode,jdbcType=VARCHAR},
-      englishLevelScore = #{englishLevelScore,jdbcType=INTEGER},
+      englishLevelScore = #{englishLevelScore,jdbcType=DOUBLE},
       currentSchoolEmail = #{currentSchoolEmail,jdbcType=VARCHAR},
       currentSchoolPhone = #{currentSchoolPhone,jdbcType=VARCHAR},
       currentSchoolAddress = #{currentSchoolAddress,jdbcType=VARCHAR},

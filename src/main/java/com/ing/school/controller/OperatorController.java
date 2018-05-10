@@ -4,7 +4,9 @@ import com.ing.school.controller.utils.Result;
 import com.ing.school.dao.po.Apply;
 import com.ing.school.dao.po.ApplyInfo;
 import com.ing.school.dao.po.User;
+import com.ing.school.dto.SearchDto;
 import com.ing.school.service.RecordService;
+import com.ing.school.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +21,8 @@ import java.util.Map;
 public class OperatorController {
     @Autowired
     RecordService recordService;
+    @Autowired
+    UserService userService;
 
 
     @RequestMapping(value = "/{category}/delete/{collectionId}", method = RequestMethod.POST)
@@ -41,8 +45,14 @@ public class OperatorController {
         return Result.builder().data(resultMap).successTrue().build();
     }
 
-    @RequestMapping(value = "/user/edit",method = RequestMethod.POST)
-    public Result editUser(User user){
+    @RequestMapping(value = "/user/edit", method = RequestMethod.POST)
+    public Result editUser(User user) {
+        userService.editUserInfo(user);
         return Result.builder().data("").successTrue().build();
+    }
+
+    @RequestMapping(value = "/search/schoolList", method = RequestMethod.POST)
+    public Result Search(SearchDto searchDto) {
+        return Result.builder().data(recordService.search(searchDto)).successTrue().build();
     }
 }

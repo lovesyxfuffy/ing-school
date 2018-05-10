@@ -2,6 +2,7 @@ package com.ing.school.service;
 
 import com.ing.school.dao.po.Apply;
 import com.ing.school.dao.po.ApplyInfo;
+import com.ing.school.dto.SearchDto;
 
 import java.util.List;
 import java.util.Map;
@@ -20,4 +21,6 @@ public interface RecordService  {
     List<Apply> getApplyList();
 
     Integer addApply(Apply apply, ApplyInfo applyInfo);
+
+    List<Map> search(SearchDto searchDto);
 }
