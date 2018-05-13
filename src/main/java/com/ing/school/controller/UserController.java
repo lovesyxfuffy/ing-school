@@ -53,7 +53,6 @@ public class UserController {
         UserInfo userInfo = userService.createUser(telephone, checkCode);
         if (userInfo == null)
             return Result.builder().data("注册失败,验证码不正确").failedFalse().build();
-
         String token = UUID.randomUUID().toString().replace("-", "");
         httpSession.setAttribute(token, userInfo);
         httpSession.setMaxInactiveInterval(LoginConstants.EXPIRE_TIME);

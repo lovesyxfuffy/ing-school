@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService, ApplicationContextAware {
 
 
     @Override
-    public UserInfo createUser(String telephone, String checkCode){
+    public UserInfo createUser(String telephone, String checkCode) {
         String telephoneKey = LoginConstants.TELEPHONE_KEY + telephone;
         String checkCodeCache = CacheUtils.get(telephoneKey);
         CacheUtils.remove(telephoneKey);
