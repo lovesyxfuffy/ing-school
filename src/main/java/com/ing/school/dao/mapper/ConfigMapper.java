@@ -1,15 +1,19 @@
 package com.ing.school.dao.mapper;
 
 import com.ing.school.dao.po.Config;
+import com.ing.school.dao.po.ConfigExample;
+import java.util.List;
 
 public interface ConfigMapper {
-    int deleteByPrimaryKey(String config_key);
+    int deleteByPrimaryKey(String configKey);
 
     int insert(Config record);
 
     int insertSelective(Config record);
 
-    Config selectByPrimaryKey(String config_key);
+    List<Config> selectByExample(ConfigExample example);
+
+    Config selectByPrimaryKey(String configKey);
 
     int updateByPrimaryKeySelective(Config record);
 

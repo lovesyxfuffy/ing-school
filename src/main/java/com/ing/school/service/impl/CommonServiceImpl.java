@@ -1,7 +1,11 @@
 package com.ing.school.service.impl;
 
+import com.ing.school.constants.ConfigConstants;
 import com.ing.school.dao.mapper.CommonDictMapper;
+import com.ing.school.dao.mapper.ConfigMapper;
 import com.ing.school.dao.po.CommonDict;
+import com.ing.school.dao.po.Config;
+import com.ing.school.dao.po.ConfigExample;
 import com.ing.school.dto.MetaKeyValue;
 import com.ing.school.service.CommonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +26,9 @@ public class CommonServiceImpl implements CommonService {
 
     @Autowired
     private CommonDictMapper commonDictMapper;
+
+    @Autowired
+    private ConfigMapper configMapper;
 
     @Override
     @Cacheable(value = "LRUCache-1d",key = "'UserService.search'+'-'+#category")
@@ -52,6 +59,15 @@ public class CommonServiceImpl implements CommonService {
         }
         return enumMap;
     }
+
+    @Override
+    public String getAdConfig(){
+        ConfigExample configExample = new ConfigExample();
+        configExample.createCriteria().andTypeEqualTo(ConfigConstants.ADVERTISEMENT);
+        List<Config> configList = configMapper.selectByExample(configExample);
+        return configList.get(0).getConfigValue();
+    }
+
 
 
 }

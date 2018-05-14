@@ -13,4 +13,6 @@ public interface CommonService {
     List<MetaKeyValue> getEnumByCategory(String category, String parentCode);
 
     Map<String, String> getEnumByCategory(String category);
+
+    String getAdConfig();
 }

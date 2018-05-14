@@ -331,10 +331,10 @@ status枚举如下:
 }
 ```
 
-### 10.返回轮播图信息（精品学校）
+### 10.返回轮播图信息（精品学校）* （URL变更）
 ```json
 {
-    "url":"/api/config/choicestSchool",
+    "url":"/api/common/choicestSchool",
     "method":"post",
     "request":{
 
@@ -358,10 +358,10 @@ status枚举如下:
 
 ```
 
-### 12.广告位获取
+### 12.广告位获取 *(URL变更)
 ```json
 {
-  "url":"/api/config/ad",
+  "url":"/api/common/ad",
   "method":"post",
   "request":{
   },
@@ -476,10 +476,10 @@ status枚举如下:
 }
 ```
 
-### 18.获取详情接口
+### 18.获取申请详情接口
 ```json
 {
-  "url":"/api/record/applyInfo/get",
+  "url":"/api/record/applyInfo/get/{applyId}",
   "method":"post",
   "request":{
   },

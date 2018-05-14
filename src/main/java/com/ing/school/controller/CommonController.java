@@ -18,4 +18,11 @@ public class CommonController {
     public Result getEnumByCategory(@RequestParam(value = "parentCode",required = false) String parentCode, @PathVariable("category") String category) {
         return Result.builder().data(commonService.getEnumByCategory(category, parentCode)).successTrue().build();
     }
+
+    @RequestMapping(value = "/ad",method = RequestMethod.POST)
+    public Result getAdConfig(){
+        return Result.builder().data(commonService.getAdConfig()).successTrue().build();
+    }
+
+
 }

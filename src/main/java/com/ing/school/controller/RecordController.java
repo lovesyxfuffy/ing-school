@@ -4,10 +4,7 @@ import com.ing.school.controller.utils.Result;
 import com.ing.school.service.RecordService;
 import com.ing.school.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by yujingyang on 2018/5/7.
@@ -36,5 +33,17 @@ public class RecordController {
     public Result getUserInfo() {
         return Result.builder().data(userService.getUserInfo()).successTrue().build();
     }
+
+    @RequestMapping(value = "/get/schoolInfo/{schoolId}", method = RequestMethod.POST)
+    public Result getSchoolInfo(@PathVariable("schoolId") Integer schoolId) {
+        return Result.builder().data(recordService.getSchoolInfo(schoolId)).successTrue().build();
+    }
+
+    @RequestMapping(value = "/applyInfo/get/{applyId}",method = RequestMethod.POST)
+    public Result getApplyInfo(@PathVariable("applyId") Integer applyId){
+        return Result.builder().data(recordService.getApplyInfo(applyId)).successTrue().build();
+    }
+
+
 
 }

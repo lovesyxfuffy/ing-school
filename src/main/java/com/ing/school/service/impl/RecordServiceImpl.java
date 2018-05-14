@@ -5,16 +5,14 @@ import com.github.pagehelper.PageInfo;
 import com.ing.school.constants.CostIntervalEnum;
 import com.ing.school.constants.EnumConstants;
 import com.ing.school.controller.auth.AuthUtil;
-import com.ing.school.dao.mapper.ApplyInfoMapper;
-import com.ing.school.dao.mapper.ApplyMapper;
-import com.ing.school.dao.mapper.CollectionMapper;
-import com.ing.school.dao.mapper.SchoolMapper;
+import com.ing.school.dao.mapper.*;
 import com.ing.school.dao.po.*;
 import com.ing.school.dto.PageDto;
 import com.ing.school.dto.SearchDto;
 import com.ing.school.service.CommonService;
 import com.ing.school.service.RecordService;
 import org.apache.commons.collections.CollectionUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -23,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,6 +49,9 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
 
     @Autowired
     ApplyInfoMapper applyInfoMapper;
+
+    @Autowired
+    SchoolInfoMapper schoolInfoMapper;
 
     private ApplicationContext applicationContext;
 
@@ -190,13 +192,56 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
             Map<String, Object> resultMap = new HashMap<>();
             resultMap.put("id", school.getId());
             resultMap.put("schoolName", school.getSchoolName());
-            resultMap.put("countryName", countryMap.get(school.getCountryCode())+cityMap.get(school.getCityCode()));
+            resultMap.put("countryName", countryMap.get(school.getCountryCode()) + cityMap.get(school.getCityCode()));
             resultMap.put("mainPicture", school.getMainPicture());
             resultMap.put("positionX", school.getPositionX());
             resultMap.put("positionY", school.getPositionY());
             resultList.add(resultMap);
         }
         return resultList;
+
+    }
+
+
+    @Override
+    public SchoolInfo getSchoolInfo(Integer schoolId) {
+        SchoolInfoExample schoolInfoExample = new SchoolInfoExample();
+        schoolInfoExample.createCriteria().andSchoolIdEqualTo(schoolId);
+        List<SchoolInfo> result = schoolInfoMapper.selectByExample(schoolInfoExample);
+        if (result.size() > 1)
+            throw new RuntimeException("查询学校详情错误");
+        if (result.size() == 1)
+            return result.get(0);
+        return null;
+    }
+
+    @Override
+    public Map<String, Object> getApplyInfo(Integer applyId) {
+        ApplyExample applyExample = new ApplyExample();
+        Apply apply = applyMapper.selectByPrimaryKey(applyId);
+        ApplyInfoExample applyInfoExample = new ApplyInfoExample();
+        List<ApplyInfo> applyInfoResult = applyInfoMapper.selectByExample(applyInfoExample);
+        ApplyInfo applyInfo = null;
+        Map<String, Object> resultMap = new HashMap<>();
+        try {
+            PropertyDescriptor[] applyDescriptors = BeanUtils.getPropertyDescriptors(Apply.class);
+            for (PropertyDescriptor applyDescriptor : applyDescriptors) {
+                resultMap.put(applyDescriptor.getName(), applyDescriptor.getReadMethod().invoke(apply));
+            }
+            if (applyInfoResult.size() > 1)
+                throw new RuntimeException("获取流程详情错误");
+            if (applyInfoResult.size() == 1) {
+                PropertyDescriptor[] applyInfoDescriptors = BeanUtils.getPropertyDescriptors(ApplyInfo.class);
+                applyInfo = applyInfoResult.get(0);
+                for (PropertyDescriptor applyInfoDescriptor : applyInfoDescriptors) {
+                    resultMap.put(applyInfoDescriptor.getName(), applyInfoDescriptor.getReadMethod().invoke(applyInfo));
+                }
+            }
+            return resultMap;
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+            throw new RuntimeException("流程数据拼装失败");
+        }
 
     }
 
