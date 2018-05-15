@@ -47,7 +47,7 @@ status枚举如下:
   }
 }
 ```
-#### 枚举category整理
+#### 枚举category整理【gender、englishLevelType不需要登录，其他的随意】
 <table>
 <th>枚举描述</th><th>category</th>
 <tr>
