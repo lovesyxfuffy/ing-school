@@ -534,6 +534,22 @@ status枚举如下:
 }
 ```
 
+### 20.验证用户是否登录
+```json
+{
+  "url":"/api/user/check",
+  "method":"post",
+  "request":{
+
+  },
+  "response":{
+    "data":true,//true登录 false没登录
+    "status":1
+  }
+
+}
+```
+
 ### 3.后台部分
 
 ### 1.管理员登录

@@ -1,6 +1,7 @@
 package com.ing.school.controller;
 
 import com.ing.school.constants.LoginConstants;
+import com.ing.school.controller.auth.AuthUtil;
 import com.ing.school.controller.auth.UserInfo;
 import com.ing.school.controller.utils.Result;
 import com.ing.school.dao.po.User;
@@ -65,8 +66,8 @@ public class UserController {
         return Result.builder().data("").successTrue().build();
     }
 
-    @RequestMapping(value = "/perfect",method = RequestMethod.POST)
-    public Result perfectUser(User user){
+    @RequestMapping(value = "/perfect", method = RequestMethod.POST)
+    public Result perfectUser(User user) {
         userService.editUserInfo(user);
         return Result.builder().data("").successTrue().build();
     }
@@ -88,5 +89,9 @@ public class UserController {
         return Result.builder().data(checkCode).successTrue().build();
     }
 
+    @RequestMapping(value = "/check", method = RequestMethod.POST)
+    public Result checkUserLogin() {
+        return Result.builder().data(AuthUtil.getUserInfo() == null).successTrue().build();
+    }
 
 }
