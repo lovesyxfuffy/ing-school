@@ -267,7 +267,7 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
             String jpegHeader = "FFD8FF";
             String pngHeader = "89504E47";
             String gifHeader = "47494638";
-            String fileTypeHex = String.valueOf(bytesToHexString(file.getBytes()));
+            String fileTypeHex = String.valueOf(bytesToHexString(file.getBytes())).toUpperCase();
             if (fileTypeHex.startsWith(jpegHeader) || fileTypeHex.startsWith(pngHeader) || fileTypeHex.startsWith(gifHeader)) {
                 FileUtils.copyInputStreamToFile(file.getInputStream(), new File("/var/www/static/", file.getOriginalFilename()));
                 return "/static/" + file.getOriginalFilename();
