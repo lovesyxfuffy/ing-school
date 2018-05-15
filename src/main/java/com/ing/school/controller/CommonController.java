@@ -24,5 +24,11 @@ public class CommonController {
         return Result.builder().data(commonService.getAdConfig()).successTrue().build();
     }
 
+    @RequestMapping(value = "/choicestSchool",method = RequestMethod.POST)
+    public Result getChoicestSchool(){
+        return Result.builder().data(commonService.getChoicestSchool()).successTrue().build();
+    }
+
+
 
 }

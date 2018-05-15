@@ -5,4 +5,5 @@ package com.ing.school.constants;
  */
 public class ConfigConstants {
     public static final String ADVERTISEMENT = "advertisement";
+
 }

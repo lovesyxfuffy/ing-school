@@ -15,4 +15,6 @@ public interface CommonService {
     Map<String, String> getEnumByCategory(String category);
 
     String getAdConfig();
+
+    List<Map> getChoicestSchool();
 }
