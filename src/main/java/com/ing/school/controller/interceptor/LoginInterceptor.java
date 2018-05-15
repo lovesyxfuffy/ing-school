@@ -33,12 +33,12 @@ public class LoginInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
-        if (((httpServletRequest.getRequestURI().startsWith(LOGIN_PATH)) || httpServletRequest.getRequestURI().startsWith(COMMON_PATH)) && "POST".equals(httpServletRequest.getMethod()))
-            return true;
         String loginCookie = getCookie(httpServletRequest, LoginConstants.SCHOOL_COOKIE);
         HttpSession session = httpServletRequest.getSession();
         UserInfo userInfo = (UserInfo) session.getAttribute(loginCookie);
         if (StringUtils.isEmpty(loginCookie) || userInfo == null) {
+            if (((httpServletRequest.getRequestURI().startsWith(LOGIN_PATH)) || httpServletRequest.getRequestURI().startsWith(COMMON_PATH)) && "POST".equals(httpServletRequest.getMethod()))
+                return true;
             httpServletResponse.setContentType("application/json;charset=utf-8");
             Result result = Result.builder().data(Result.FORBIDDEN, "请登录").failedFalse("登录认证失败").build();
             PrintWriter printWriter = new PrintWriter(httpServletResponse.getOutputStream());
