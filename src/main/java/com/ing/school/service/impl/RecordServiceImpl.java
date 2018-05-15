@@ -1,17 +1,19 @@
 package com.ing.school.service.impl;
 
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.ing.school.constants.CostIntervalEnum;
 import com.ing.school.constants.EnumConstants;
 import com.ing.school.controller.auth.AuthUtil;
 import com.ing.school.dao.mapper.*;
 import com.ing.school.dao.po.*;
+import com.ing.school.dto.ListDto;
 import com.ing.school.dto.PageDto;
 import com.ing.school.dto.SearchDto;
 import com.ing.school.service.CommonService;
 import com.ing.school.service.RecordService;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +22,11 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.beans.PropertyDescriptor;
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -63,7 +68,7 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
         List<Collection> collectionList = collectionMapper.selectByExample(collectionExample);
         Map<Integer, Integer> collectionMapRelation = new HashMap<>();
         PageDto pageDto = new PageDto();
-        pageDto.setTotal(((PageInfo) collectionList).getTotal());
+        pageDto.setTotal(((Page) collectionList).getTotal());
         pageDto.setPageNo(pageNo);
         pageDto.setPageSize(pageSize);
 
@@ -71,14 +76,16 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
         for (Collection collection : collectionList) {
             collectionMapRelation.put(collection.getSchoolId(), collection.getId());
         }
-
-        SchoolExample schoolExample = new SchoolExample();
-        schoolExample.createCriteria().andIdIn(schoolIdList);
-        List<School> schoolList = schoolMapper.selectByExample(schoolExample);
         Map<String, Object> returnResult = new HashMap<>();
         List<Map> result = new ArrayList<>(schoolIdList.size());
         returnResult.put("tableBody", result);
         returnResult.put("page", pageDto);
+        if (CollectionUtils.isEmpty(schoolIdList))
+            return returnResult;
+        SchoolExample schoolExample = new SchoolExample();
+        schoolExample.createCriteria().andIdIn(schoolIdList);
+        List<School> schoolList = schoolMapper.selectByExample(schoolExample);
+
         Map<String, String> cityMap = commonService.getEnumByCategory(EnumConstants.CITY);
         Map<String, String> countryMap = commonService.getEnumByCategory(EnumConstants.COUNTRY);
 
@@ -118,10 +125,19 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
     }
 
     @Override
-    public List<Apply> getApplyList() {
+    public ListDto<Apply> getApplyList(PageDto pageDtoInput) {
+        PageHelper.startPage(pageDtoInput.getPageNo(), pageDtoInput.getPageSize());
         ApplyExample applyExample = new ApplyExample();
         applyExample.createCriteria().andUserIdEqualTo(AuthUtil.getUserId());
-        return applyMapper.selectByExample(applyExample);
+        List<Apply> result = applyMapper.selectByExample(applyExample);
+        ListDto<Apply> listDto = new ListDto<>();
+        PageDto pageDto = new PageDto();
+        pageDto.setPageSize(pageDtoInput.getPageSize());
+        pageDto.setPageNo(pageDtoInput.getPageNo());
+        pageDto.setTotal(((Page) result).getTotal());
+        listDto.setTableBody(result);
+        listDto.setPage(pageDto);
+        return listDto;
     }
 
     @Override
@@ -245,6 +261,41 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
 
     }
 
+    @Override
+    public String uploadFile(MultipartFile file) {
+        try {
+            String jpegHeader = "FFD8FF";
+            String pngHeader = "89504E47";
+            String gifHeader = "47494638";
+            String fileTypeHex = String.valueOf(bytesToHexString(file.getBytes()));
+            if (fileTypeHex.startsWith(jpegHeader) || fileTypeHex.startsWith(pngHeader) || fileTypeHex.startsWith(gifHeader)) {
+                FileUtils.copyInputStreamToFile(file.getInputStream(), new File("/var/www/static/", file.getOriginalFilename()));
+                return "/static/" + file.getOriginalFilename();
+            } else {
+                throw new RuntimeException("文件格式不正确");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    private static String bytesToHexString(byte[] src) {
+        StringBuilder stringBuilder = new StringBuilder();
+        if (src == null || src.length <= 0) {
+            return null;
+        }
+        for (int i = 0; i < src.length; i++) {
+            int v = src[i] & 0xFF;
+            String hv = Integer.toHexString(v);
+            if (hv.length() < 2) {
+                stringBuilder.append(0);
+            }
+            stringBuilder.append(hv);
+        }
+        return stringBuilder.toString();
+    }
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {

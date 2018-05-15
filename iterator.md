@@ -522,10 +522,14 @@ status枚举如下:
 ### 19.统一文件上传接口
 ```json
 {
-  "url":"/api/file/upload",
+  "url":"/api/record/file/upload",
   "method":"post",
   "request":{
-    "file":""//xx
+    "file":""
+  },
+  "response":{
+    "data":"/static/uploadFileUrl",
+    "status":1
   }
 }
 ```

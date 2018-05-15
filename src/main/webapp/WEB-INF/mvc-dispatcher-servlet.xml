@@ -40,6 +40,16 @@
         <property name="maxUploadSize" value="20000000"/>
     </bean>
 
+    <!-- 该异常是SpringMVC在检查上传的文件信息时抛出来的，而且此时还没有进入到Controller方法中 -->
+    <bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="exceptionMappings">
+            <props>
+                <!-- 遇到MaxUploadSizeExceededException异常时，自动跳转到/WEB-INF/jsp/error/error.jsp页面 -->
+                <prop key="org.springframework.web.multipart.MaxUploadSizeExceededException">error/error</prop>
+            </props>
+        </property>
+    </bean>
+
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/api/**"/>

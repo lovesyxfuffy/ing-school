@@ -1,10 +1,12 @@
 package com.ing.school.controller;
 
 import com.ing.school.controller.utils.Result;
+import com.ing.school.dto.PageDto;
 import com.ing.school.service.RecordService;
 import com.ing.school.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * Created by yujingyang on 2018/5/7.
@@ -25,8 +27,8 @@ public class RecordController {
     }
 
     @RequestMapping(value = "/apply/list", method = RequestMethod.POST)
-    public Result getApplyList() {
-        return Result.builder().data(recordService.getApplyList()).successTrue().build();
+    public Result getApplyList(PageDto pageDto) {
+        return Result.builder().data(recordService.getApplyList(pageDto)).successTrue().build();
     }
 
     @RequestMapping(value = "/user/get", method = RequestMethod.POST)
@@ -39,11 +41,15 @@ public class RecordController {
         return Result.builder().data(recordService.getSchoolInfo(schoolId)).successTrue().build();
     }
 
-    @RequestMapping(value = "/applyInfo/get/{applyId}",method = RequestMethod.POST)
-    public Result getApplyInfo(@PathVariable("applyId") Integer applyId){
+    @RequestMapping(value = "/applyInfo/get/{applyId}", method = RequestMethod.POST)
+    public Result getApplyInfo(@PathVariable("applyId") Integer applyId) {
         return Result.builder().data(recordService.getApplyInfo(applyId)).successTrue().build();
     }
 
+    @RequestMapping(value = "/file/upload", method = RequestMethod.POST)
+    public Result uploadFile(@RequestParam("file") MultipartFile file) {
+        return Result.builder().data(recordService.uploadFile(file)).successTrue().build();
+    }
 
 
 }

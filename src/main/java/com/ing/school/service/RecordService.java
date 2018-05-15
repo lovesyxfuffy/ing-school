@@ -3,7 +3,10 @@ package com.ing.school.service;
 import com.ing.school.dao.po.Apply;
 import com.ing.school.dao.po.ApplyInfo;
 import com.ing.school.dao.po.SchoolInfo;
+import com.ing.school.dto.ListDto;
+import com.ing.school.dto.PageDto;
 import com.ing.school.dto.SearchDto;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
@@ -19,7 +22,9 @@ public interface RecordService  {
 
     void delete(String category, Integer primaryKey);
 
-    List<Apply> getApplyList();
+
+
+    ListDto<Apply> getApplyList(PageDto pageDtoInput);
 
     Integer addApply(Apply apply, ApplyInfo applyInfo);
 
@@ -28,4 +33,6 @@ public interface RecordService  {
     SchoolInfo getSchoolInfo(Integer schoolId);
 
     Map<String, Object> getApplyInfo(Integer applyId);
+
+    String uploadFile(MultipartFile file);
 }
