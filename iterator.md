@@ -195,7 +195,7 @@ status枚举如下:
 }
 ```
 
-### 6.新增申请
+### 6.新增申请 **(hcy改动过)
 ```json
 {
   "url":"/api/operator/apply/add",
@@ -203,35 +203,35 @@ status枚举如下:
   "request":{
         "schoolId":11,
         "schoolName":"学校名称",
-        "schoolTypeCode":"2222",//学校类型枚举
         "studentName":"学生姓名",
-        "age":22,
-        "genderCode":"性别枚举值",
-        "telephone":"17621181236",
-        "address":"地址",
-        "attendanceGrades":"我也不知道这是啥,跟着图片写的",
-        "attendanceDate":"2017-03-24",//使用datepicker组件 传格式化日期
-        "currentSchoolEmail":"123@sdu.com.cn",
-        "currentSchoolPhone":"1123124123123",
-        "currentSchoolAddress":"这是地址",
-        "currentSchoolName":"这是学校姓名",
-        "wechatId":"微信号",
-        "skypeId":"skypeId",
-        "passportNumber":"xxxx",
-        "applyingGradeCode":"xx",//申请年级枚举值,
-        "currentGradeCode":"xx",
-        "studentEmail":"1@1.com",
-        "secondLanguageCode":"2",//第二语言枚举
-        "nativeLanguageCode":"1",
-        "cityzenshipCode":"xx",
-        "homePhone":"111111111",
-        "countryCode":"xxx",
-        "zip":"ccc",
+        "address":"地址", // 也就是 street address
         "cityCode":"xx",
         "stateCode":"xx",
-        "applyTime":15098824213,//Unix时间戳
-        "englishLevelTypeCode":"4",
-        "englishLevelScore":"S+"
+        "zip":"ccc",
+        "countryCode":"xxx", 
+        "homePhone":"111111111",
+        "genderCode":"性别枚举值",
+        "dateOfBirth":"2001-11-12",
+        "countryBirthCode":"",
+        "CitizenshipCode":"xx", // 国家枚举值
+        "nativeLanguageCode":"1",
+        "secondLanguageCode":"2",//第二语言枚举
+        "studentEmail":"1@1.com",
+        "currentGradeCode":"xx", 
+        "applyingGradeCode":"xx",//申请年级枚举值,
+        "passportNumber":"xxxx",
+        "skypeId":"skypeId",
+        "wechatId":"微信号",
+        "currentSchoolName":"这是学校姓名",
+        "currentSchoolAddress":"这是地址",
+        "currentSchoolPhone":"1123124123123",
+        "counselorName":"导员名字",
+        "currentSchoolEmail":"123@sdu.com.cn", // 导员的email,School Guidance Counselor Email,
+        "attendanceDate":"2017-03-24",//使用datepicker组件 传格式化日期
+         "attendanceGrades":"已经完成的英语等级考试的code", // 也是英语等级，传一个枚举值
+        "schoolTypeCode":"2222",//学校类型枚举
+         "applyTime":15098824213,//Unix时间戳
+
   },
   "response":{
       "data":{
