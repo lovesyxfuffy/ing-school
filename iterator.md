@@ -86,6 +86,8 @@ status枚举如下:
 <tr>
 <td>花费区间</td><td>costInterval</td>
 </tr>
+<td>hasEsl</td><td>hasEsl</td>
+</tr>
 
 </table>
 
@@ -289,7 +291,7 @@ status枚举如下:
 }
 ```
 
-### 9.搜索 *(URL变更)
+### 9.搜索 *(URL变更 + hasEsl变更)
 ```json
 {
   "url":"/api/operator/search/schoolList",
@@ -302,7 +304,7 @@ status枚举如下:
     "schoolGenderTypeCode":[],
     "schoolTypeCode":[],
     "religionTypeCode":[],
-    "hasEsl":true,
+    "hasEsl":[],
     "costIntervalCode":[],
     "pageNo":5,
     "pageSize":10
