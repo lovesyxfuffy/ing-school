@@ -12,7 +12,7 @@ public interface UserService {
     UserInfo login(String telephone, String checkCode);
 
 
-    UserInfo createUser(String telephone, String checkCode);
+    Integer createUser(String telephone, String checkCode);
 
     User getUserInfo();
 

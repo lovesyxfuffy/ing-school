@@ -209,10 +209,15 @@ status枚举如下:
         "genderCode":"性别枚举值",
         "telephone":"17621181236",
         "address":"地址",
+        "birthDay":"2017-09-20",
+        "motherLand":"中国",
         "attendanceGrades":"我也不知道这是啥,跟着图片写的",
         "attendanceDate":"2017-03-24",//使用datepicker组件 传格式化日期
         "currentSchoolEmail":"123@sdu.com.cn",
         "currentSchoolPhone":"1123124123123",
+        "currentSchoolGuidancePhone":"1231412331",
+        "currentSchoolCounselor":"xxxx",
+        "currentSchoolCounselorEmail":"xxx@xxx.com",
         "currentSchoolAddress":"这是地址",
         "currentSchoolName":"这是学校姓名",
         "wechatId":"微信号",
@@ -223,7 +228,7 @@ status枚举如下:
         "studentEmail":"1@1.com",
         "secondLanguageCode":"2",//第二语言枚举
         "nativeLanguageCode":"1",
-        "cityzenshipCode":"xx",
+        "cityzenship":"中国",//展示性信息 直接传字符串
         "homePhone":"111111111",
         "countryCode":"xxx",
         "zip":"ccc",
@@ -405,7 +410,7 @@ status枚举如下:
 }
 ```
 
-### 15.注册第二步*（废弃 沿用接口8）
+### 15.注册第二步
 ```json
 {
   "url":"/api/user/perfect",

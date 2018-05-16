@@ -1,6 +1,7 @@
 package com.ing.school.service.impl;
 
 import com.ing.school.constants.LoginConstants;
+import com.ing.school.constants.UserStatusConstants;
 import com.ing.school.controller.auth.AuthUtil;
 import com.ing.school.controller.auth.UserInfo;
 import com.ing.school.dao.mapper.UserMapper;
@@ -12,7 +13,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Random;
@@ -20,7 +21,7 @@ import java.util.Random;
 /**
  * Created by yujingyang on 2018/4/28.
  */
-@Component
+@Service
 public class UserServiceImpl implements UserService, ApplicationContextAware {
     @Autowired
     UserMapper userMapper;
@@ -42,7 +43,7 @@ public class UserServiceImpl implements UserService, ApplicationContextAware {
         CacheUtils.remove(telephoneKey);
         if (checkCodeCache != null && checkCodeCache.equals(checkCode)) {
             UserExample userExample = new UserExample();
-            userExample.createCriteria().andTelephoneEqualTo(telephone);
+            userExample.createCriteria().andTelephoneEqualTo(telephone).andStatusEqualTo(UserStatusConstants.AFTER_REGISTERED);
             List<User> userList = userMapper.selectByExample(userExample);
             if (userList.size() != 1)
                 return null;
@@ -59,17 +60,21 @@ public class UserServiceImpl implements UserService, ApplicationContextAware {
 
 
     @Override
-    public UserInfo createUser(String telephone, String checkCode) {
+    public Integer createUser(String telephone, String checkCode) {
         String telephoneKey = LoginConstants.TELEPHONE_KEY + telephone;
         String checkCodeCache = CacheUtils.get(telephoneKey);
         CacheUtils.remove(telephoneKey);
         if (checkCodeCache != null && checkCodeCache.equals(checkCode)) {
+            UserExample userExample = new UserExample();
+            userExample.createCriteria().andTelephoneEqualTo(telephone);
+            List<User> userList = userMapper.selectByExample(userExample);
+            if (userList.size() >= 0 )
+                throw new RuntimeException("该手机号已注册");
             User user = new User();
             user.setTelephone(telephone);
+            user.setStatus(UserStatusConstants.WAIT_FOR_REGISTER);
             userMapper.insertSelective(user);
-            UserInfo userInfo = new UserInfo();
-            userInfo.setUserId(user.getId());
-            return userInfo;
+            return user.getId();
         }
         return null;
     }

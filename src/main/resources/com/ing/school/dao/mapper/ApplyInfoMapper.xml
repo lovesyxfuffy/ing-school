@@ -31,6 +31,11 @@
     <result column="zip" property="zip" jdbcType="VARCHAR" />
     <result column="cityCode" property="cityCode" jdbcType="VARCHAR" />
     <result column="stateCode" property="stateCode" jdbcType="VARCHAR" />
+    <result column="motherLand" property="motherLand" jdbcType="VARCHAR" />
+    <result column="birthDay" property="birthDay" jdbcType="TIMESTAMP" />
+    <result column="currentSchoolCounselorEmail" property="currentSchoolCounselorEmail" jdbcType="VARCHAR" />
+    <result column="currentSchoolCounselor" property="currentSchoolCounselor" jdbcType="VARCHAR" />
+    <result column="currentSchoolGuidancePhone" property="currentSchoolGuidancePhone" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.ing.school.dao.po.ApplyInfo" extends="BaseResultMap" >
     <result column="attendanceGrades" property="attendanceGrades" jdbcType="LONGVARCHAR" />
@@ -69,7 +74,8 @@
     englishLevelTypeCode, englishLevelScore, currentSchoolEmail, currentSchoolPhone, 
     currentSchoolAddress, currentSchoolName, wechatId, skypeId, passportNumber, applyingGradeCode, 
     currendGradeCode, studentEmail, secondLanguageCode, nativeLanguageCode, cityzenshipCode, 
-    homePhone, countryCode, zip, cityCode, stateCode
+    homePhone, countryCode, zip, cityCode, stateCode, motherLand, birthDay, currentSchoolCounselorEmail, 
+    currentSchoolCounselor, currentSchoolGuidancePhone
   </sql>
   <sql id="Blob_Column_List" >
     attendanceGrades
@@ -130,6 +136,8 @@
       secondLanguageCode, nativeLanguageCode, 
       cityzenshipCode, homePhone, countryCode, 
       zip, cityCode, stateCode, 
+      motherLand, birthDay, currentSchoolCounselorEmail, 
+      currentSchoolCounselor, currentSchoolGuidancePhone, 
       attendanceGrades)
     values (#{id,jdbcType=INTEGER}, #{applyId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
       #{studentName,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, #{genderCode,jdbcType=VARCHAR}, 
@@ -142,6 +150,8 @@
       #{secondLanguageCode,jdbcType=VARCHAR}, #{nativeLanguageCode,jdbcType=VARCHAR}, 
       #{cityzenshipCode,jdbcType=VARCHAR}, #{homePhone,jdbcType=VARCHAR}, #{countryCode,jdbcType=VARCHAR}, 
       #{zip,jdbcType=VARCHAR}, #{cityCode,jdbcType=VARCHAR}, #{stateCode,jdbcType=VARCHAR}, 
+      #{motherLand,jdbcType=VARCHAR}, #{birthDay,jdbcType=TIMESTAMP}, #{currentSchoolCounselorEmail,jdbcType=VARCHAR}, 
+      #{currentSchoolCounselor,jdbcType=VARCHAR}, #{currentSchoolGuidancePhone,jdbcType=VARCHAR}, 
       #{attendanceGrades,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.ing.school.dao.po.ApplyInfo" >
@@ -233,6 +243,21 @@
       </if>
       <if test="stateCode != null" >
         stateCode,
+      </if>
+      <if test="motherLand != null" >
+        motherLand,
+      </if>
+      <if test="birthDay != null" >
+        birthDay,
+      </if>
+      <if test="currentSchoolCounselorEmail != null" >
+        currentSchoolCounselorEmail,
+      </if>
+      <if test="currentSchoolCounselor != null" >
+        currentSchoolCounselor,
+      </if>
+      <if test="currentSchoolGuidancePhone != null" >
+        currentSchoolGuidancePhone,
       </if>
       <if test="attendanceGrades != null" >
         attendanceGrades,
@@ -326,6 +351,21 @@
       <if test="stateCode != null" >
         #{stateCode,jdbcType=VARCHAR},
       </if>
+      <if test="motherLand != null" >
+        #{motherLand,jdbcType=VARCHAR},
+      </if>
+      <if test="birthDay != null" >
+        #{birthDay,jdbcType=TIMESTAMP},
+      </if>
+      <if test="currentSchoolCounselorEmail != null" >
+        #{currentSchoolCounselorEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="currentSchoolCounselor != null" >
+        #{currentSchoolCounselor,jdbcType=VARCHAR},
+      </if>
+      <if test="currentSchoolGuidancePhone != null" >
+        #{currentSchoolGuidancePhone,jdbcType=VARCHAR},
+      </if>
       <if test="attendanceGrades != null" >
         #{attendanceGrades,jdbcType=LONGVARCHAR},
       </if>
@@ -418,6 +458,21 @@
       <if test="stateCode != null" >
         stateCode = #{stateCode,jdbcType=VARCHAR},
       </if>
+      <if test="motherLand != null" >
+        motherLand = #{motherLand,jdbcType=VARCHAR},
+      </if>
+      <if test="birthDay != null" >
+        birthDay = #{birthDay,jdbcType=TIMESTAMP},
+      </if>
+      <if test="currentSchoolCounselorEmail != null" >
+        currentSchoolCounselorEmail = #{currentSchoolCounselorEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="currentSchoolCounselor != null" >
+        currentSchoolCounselor = #{currentSchoolCounselor,jdbcType=VARCHAR},
+      </if>
+      <if test="currentSchoolGuidancePhone != null" >
+        currentSchoolGuidancePhone = #{currentSchoolGuidancePhone,jdbcType=VARCHAR},
+      </if>
       <if test="attendanceGrades != null" >
         attendanceGrades = #{attendanceGrades,jdbcType=LONGVARCHAR},
       </if>
@@ -454,6 +509,11 @@
       zip = #{zip,jdbcType=VARCHAR},
       cityCode = #{cityCode,jdbcType=VARCHAR},
       stateCode = #{stateCode,jdbcType=VARCHAR},
+      motherLand = #{motherLand,jdbcType=VARCHAR},
+      birthDay = #{birthDay,jdbcType=TIMESTAMP},
+      currentSchoolCounselorEmail = #{currentSchoolCounselorEmail,jdbcType=VARCHAR},
+      currentSchoolCounselor = #{currentSchoolCounselor,jdbcType=VARCHAR},
+      currentSchoolGuidancePhone = #{currentSchoolGuidancePhone,jdbcType=VARCHAR},
       attendanceGrades = #{attendanceGrades,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -486,7 +546,12 @@
       countryCode = #{countryCode,jdbcType=VARCHAR},
       zip = #{zip,jdbcType=VARCHAR},
       cityCode = #{cityCode,jdbcType=VARCHAR},
-      stateCode = #{stateCode,jdbcType=VARCHAR}
+      stateCode = #{stateCode,jdbcType=VARCHAR},
+      motherLand = #{motherLand,jdbcType=VARCHAR},
+      birthDay = #{birthDay,jdbcType=TIMESTAMP},
+      currentSchoolCounselorEmail = #{currentSchoolCounselorEmail,jdbcType=VARCHAR},
+      currentSchoolCounselor = #{currentSchoolCounselor,jdbcType=VARCHAR},
+      currentSchoolGuidancePhone = #{currentSchoolGuidancePhone,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

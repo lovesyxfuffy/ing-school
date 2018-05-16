@@ -23,6 +23,8 @@ public class User {
 
     private Double englishLevelScore;
 
+    private Integer status;
+
     public Integer getId() {
         return id;
     }
@@ -109,5 +111,13 @@ public class User {
 
     public void setEnglishLevelScore(Double englishLevelScore) {
         this.englishLevelScore = englishLevelScore;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

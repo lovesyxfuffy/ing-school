@@ -34,7 +34,7 @@ public class UserController {
 
         UserInfo userInfo = userService.login(telephone, checkCode);
         if (userInfo == null)
-            return Result.builder().data("登录失败,手机号或验证码不正确").failedFalse().build();
+            throw new RuntimeException("手机号或验证码不正确");
 
         String token = UUID.randomUUID().toString().replace("-", "");
         httpSession.setAttribute(token, userInfo);
@@ -51,17 +51,12 @@ public class UserController {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public Result register(@RequestParam("telephone") String telephone, @RequestParam("checkCode") String checkCode,
                            HttpServletResponse response, HttpSession httpSession) {
-        UserInfo userInfo = userService.createUser(telephone, checkCode);
-        if (userInfo == null)
+        Integer userId = userService.createUser(telephone, checkCode);
+        if (userId == null)
             return Result.builder().data("注册失败,验证码不正确").failedFalse().build();
-        String token = UUID.randomUUID().toString().replace("-", "");
-        httpSession.setAttribute(token, userInfo);
+        httpSession.setAttribute("register-id", userId);
         httpSession.setMaxInactiveInterval(LoginConstants.EXPIRE_TIME);
-        Cookie cookie = new Cookie(LoginConstants.SCHOOL_COOKIE, token);
 
-        cookie.setMaxAge(LoginConstants.EXPIRE_TIME);
-        cookie.setPath("/");
-        response.addCookie(cookie);
         //暂时请求体返回token
         return Result.builder().data("").successTrue().build();
     }

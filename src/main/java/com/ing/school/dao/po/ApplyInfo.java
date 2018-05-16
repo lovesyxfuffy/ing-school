@@ -61,6 +61,16 @@ public class ApplyInfo {
 
     private String stateCode;
 
+    private String motherLand;
+
+    private Date birthDay;
+
+    private String currentSchoolCounselorEmail;
+
+    private String currentSchoolCounselor;
+
+    private String currentSchoolGuidancePhone;
+
     private String attendanceGrades;
 
     public Integer getId() {
@@ -293,6 +303,46 @@ public class ApplyInfo {
 
     public void setStateCode(String stateCode) {
         this.stateCode = stateCode == null ? null : stateCode.trim();
+    }
+
+    public String getMotherLand() {
+        return motherLand;
+    }
+
+    public void setMotherLand(String motherLand) {
+        this.motherLand = motherLand == null ? null : motherLand.trim();
+    }
+
+    public Date getBirthDay() {
+        return birthDay;
+    }
+
+    public void setBirthDay(Date birthDay) {
+        this.birthDay = birthDay;
+    }
+
+    public String getCurrentSchoolCounselorEmail() {
+        return currentSchoolCounselorEmail;
+    }
+
+    public void setCurrentSchoolCounselorEmail(String currentSchoolCounselorEmail) {
+        this.currentSchoolCounselorEmail = currentSchoolCounselorEmail == null ? null : currentSchoolCounselorEmail.trim();
+    }
+
+    public String getCurrentSchoolCounselor() {
+        return currentSchoolCounselor;
+    }
+
+    public void setCurrentSchoolCounselor(String currentSchoolCounselor) {
+        this.currentSchoolCounselor = currentSchoolCounselor == null ? null : currentSchoolCounselor.trim();
+    }
+
+    public String getCurrentSchoolGuidancePhone() {
+        return currentSchoolGuidancePhone;
+    }
+
+    public void setCurrentSchoolGuidancePhone(String currentSchoolGuidancePhone) {
+        this.currentSchoolGuidancePhone = currentSchoolGuidancePhone == null ? null : currentSchoolGuidancePhone.trim();
     }
 
     public String getAttendanceGrades() {
