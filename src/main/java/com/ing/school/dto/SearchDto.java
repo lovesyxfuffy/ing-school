@@ -23,7 +23,7 @@ public class SearchDto {
 
     List<String> religionTypeCode;
 
-    Boolean hasEsl;
+    List<String> hasEsl;
 
     List<String> costIntervalCode;
 

@@ -265,19 +265,19 @@ status枚举如下:
 }
 ```
 
-### 8.编辑个人信息接口 *（url变更-参数去掉id-取登录人id）【不需要登录--注册时候要用到】
+### 8.编辑个人信息接口 *（url变更-参数去掉id-取登录人id）【不需要登录--注册时候要用到】 *(05-16变更englishLevelCode --> englishLevelTypeCode nickName-->name)
 ```json
 {
   "url":"/api/operator/user/edit",
   "method":"post",
   "request":{
-    "nickName":"xxx",
+    "name":"xxx",
     "telephone":"17621181235",
     "age":15,
     "genderCode":"2",
     "address":"xxxxxxx",
     "avatarUrl":"xxxxxxx",//头像url
-    "englishLevelCode":"2",//TOEFL或IELTS的code
+    "englishLevelTypeCode":"2",//TOEFL或IELTS的code
     "englishLevelScore":45.55
   },
  "response":{

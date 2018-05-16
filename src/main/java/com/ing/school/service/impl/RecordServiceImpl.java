@@ -2,6 +2,7 @@ package com.ing.school.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.ing.school.constants.BooleanConstants;
 import com.ing.school.constants.CostIntervalEnum;
 import com.ing.school.constants.EnumConstants;
 import com.ing.school.controller.auth.AuthUtil;
@@ -176,8 +177,12 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
         if (CollectionUtils.isNotEmpty(searchDto.getReligionTypeCode())) {
             criteria.andReligionTypeCodeIn(searchDto.getReligionTypeCode());
         }
-        if (searchDto.getHasEsl() != null) {
-            criteria.andHasEslEqualTo(searchDto.getHasEsl());
+        if (CollectionUtils.isNotEmpty(searchDto.getHasEsl())) {
+            String eslBoolean = searchDto.getHasEsl().get(0);
+            if (BooleanConstants.TREU.equals(eslBoolean))
+                criteria.andHasEslEqualTo(true);
+            if (BooleanConstants.FALSE.equals(eslBoolean))
+                criteria.andHasEslEqualTo(false);
         }
         StringBuilder stb = new StringBuilder("and (");
         if (CollectionUtils.isNotEmpty(searchDto.getCostIntervalCode())) {
