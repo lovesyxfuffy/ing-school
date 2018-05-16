@@ -212,34 +212,12 @@ status枚举如下:
         "motherLand":"中国",
         "attendanceGrades":"我也不知道这是啥,跟着图片写的",
         "attendanceDate":"2017-03-24",//使用datepicker组件 传格式化日期
-        "currentSchoolEmail":"123@sdu.com.cn",
-        "currentSchoolPhone":"1123124123123",
-        "currentSchoolGuidancePhone":"1231412331",
-        "currentSchoolCounselor":"xxxx",
-        "currentSchoolCounselorEmail":"xxx@xxx.com",
-        "currentSchoolAddress":"这是地址",
-        "currentSchoolName":"这是学校姓名",
-        "wechatId":"微信号",
-        "skypeId":"skypeId",
-        "passportNumber":"xxxx",
-        "applyingGradeCode":"xx",//申请年级枚举值,
-        "currentGradeCode":"xx",
-        "studentEmail":"1@1.com",
-        "secondLanguageCode":"2",//第二语言枚举
-        "nativeLanguageCode":"1",
-        "cityzenship":"中国",//展示性信息 直接传字符串
-        "homePhone":"111111111",
-        "countryCode":"xxx",
-        "zip":"ccc",
+        "cityzenshipCode":"中国",//展示性信息 直接传字符串
         "cityCode":"xx",
         "stateCode":"xx",
         "zip":"ccc",
         "countryCode":"xxx", 
         "homePhone":"111111111",
-        "genderCode":"性别枚举值",
-        "dateOfBirth":"2001-11-12",
-        "countryBirthCode":"",
-        "CitizenshipCode":"xx", // 国家枚举值
         "nativeLanguageCode":"1",
         "secondLanguageCode":"2",//第二语言枚举
         "studentEmail":"1@1.com",
@@ -250,13 +228,20 @@ status枚举如下:
         "wechatId":"微信号",
         "currentSchoolName":"这是学校姓名",
         "currentSchoolAddress":"这是地址",
+        "currentSchoolEmail":"",
         "currentSchoolPhone":"1123124123123",
-        "counselorName":"导员名字",
-        "currentSchoolEmail":"123@sdu.com.cn", // 导员的email,School Guidance Counselor Email,
-        "attendanceDate":"2017-03-24",//使用datepicker组件 传格式化日期
-         "attendanceGrades":"已经完成的英语等级考试的code", // 也是英语等级，传一个枚举值
-        "schoolTypeCode":"2222",//学校类型枚举
+        "currentSchoolCounselor":"导员名字",
+        "currentSchoolCounselorEmail":"123@sdu.com.cn", // 导员的email
+      
+        "currentSchoolGuidancePhone":"",
+        "schoolTypeCode":"2222",//学校类型枚举 ***hcy 加入数据库
+
+        "englishLevelTypeCode":"",
+        "englishLevelScore":"",
+
          "applyTime":15098824213,//Unix时间戳
+
+
 
   },
   "response":{
