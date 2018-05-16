@@ -91,7 +91,7 @@ public class UserController {
 
     @RequestMapping(value = "/check", method = RequestMethod.POST)
     public Result checkUserLogin() {
-        return Result.builder().data(AuthUtil.getUserInfo() == null).successTrue().build();
+        return Result.builder().data(AuthUtil.getUserInfo() != null).successTrue().build();
     }
 
 }

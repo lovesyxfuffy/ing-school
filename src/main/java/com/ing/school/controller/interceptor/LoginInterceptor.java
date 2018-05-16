@@ -27,17 +27,22 @@ public class LoginInterceptor implements HandlerInterceptor {
 
     private static final String COMMON_PATH = "/api/common";
 
+    private static final String MANAGE_PATH = "/api/manage";
+
 
     @Autowired
     Gson gson;
 
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
+        String requestURI = httpServletRequest.getRequestURI();
+        if (requestURI.startsWith(MANAGE_PATH))
+            return true;
         String loginCookie = getCookie(httpServletRequest, LoginConstants.SCHOOL_COOKIE);
         HttpSession session = httpServletRequest.getSession();
         UserInfo userInfo = (UserInfo) session.getAttribute(loginCookie);
         if (StringUtils.isEmpty(loginCookie) || userInfo == null) {
-            if (((httpServletRequest.getRequestURI().startsWith(LOGIN_PATH)) || httpServletRequest.getRequestURI().startsWith(COMMON_PATH)) && "POST".equals(httpServletRequest.getMethod()))
+            if (((requestURI.startsWith(LOGIN_PATH)) || requestURI.startsWith(COMMON_PATH)) && "POST".equals(httpServletRequest.getMethod()))
                 return true;
             httpServletResponse.setContentType("application/json;charset=utf-8");
             Result result = Result.builder().data(Result.FORBIDDEN, "请登录").failedFalse("登录认证失败").build();
