@@ -16,5 +16,7 @@ public interface UserService {
 
     User getUserInfo();
 
-    void editUserInfo(User user);
+
+    UserInfo editUserInfo(User user, Integer registerId);
+
 }

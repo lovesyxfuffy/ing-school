@@ -56,14 +56,28 @@ public class UserController {
             return Result.builder().data("注册失败,验证码不正确").failedFalse().build();
         httpSession.setAttribute("register-id", userId);
         httpSession.setMaxInactiveInterval(LoginConstants.EXPIRE_TIME);
-
-        //暂时请求体返回token
         return Result.builder().data("").successTrue().build();
     }
 
     @RequestMapping(value = "/perfect", method = RequestMethod.POST)
-    public Result perfectUser(User user) {
-        userService.editUserInfo(user);
+    public Result perfectUser(User user, HttpSession httpSession,HttpServletResponse response) {
+        Object registerId =  httpSession.getAttribute("register-id");
+        if(registerId == null)
+            throw new RuntimeException("请先验证手机号");
+        UserInfo userInfo = userService.editUserInfo(user, (Integer) registerId);
+        httpSession.removeAttribute("register-id");
+        if (userInfo == null)
+            throw new RuntimeException("手机号或验证码不正确");
+
+        String token = UUID.randomUUID().toString().replace("-", "");
+        httpSession.setAttribute(token, userInfo);
+        httpSession.setMaxInactiveInterval(LoginConstants.EXPIRE_TIME);
+        Cookie cookie = new Cookie(LoginConstants.SCHOOL_COOKIE, token);
+
+        cookie.setMaxAge(LoginConstants.EXPIRE_TIME);
+        cookie.setPath("/");
+        response.addCookie(cookie);
+        //暂时请求体返回token
         return Result.builder().data("").successTrue().build();
     }
 
@@ -83,6 +97,7 @@ public class UserController {
         CacheUtils.put(LoginConstants.TELEPHONE_KEY + telephone, checkCode);
         return Result.builder().data(checkCode).successTrue().build();
     }
+
 
     @RequestMapping(value = "/check", method = RequestMethod.POST)
     public Result checkUserLogin() {

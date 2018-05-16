@@ -85,10 +85,20 @@ public class UserServiceImpl implements UserService, ApplicationContextAware {
     }
 
     @Override
-    public void editUserInfo(User user) {
+    public UserInfo editUserInfo(User user, Integer registerId) {
         user.setId(AuthUtil.getUserId());
+        user.setStatus(UserStatusConstants.AFTER_REGISTERED);
         userMapper.updateByPrimaryKeySelective(user);
+        UserInfo userInfo = new UserInfo();
+        userInfo.setTelephone(user.getTelephone());
+        userInfo.setAvatarUrl(user.getAvatarUrl());
+        userInfo.setName(user.getName());
+        userInfo.setUserId(user.getId());
+        return userInfo;
     }
+
+
+
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {

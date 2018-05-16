@@ -1,5 +1,6 @@
 package com.ing.school.controller;
 
+import com.ing.school.controller.auth.AuthUtil;
 import com.ing.school.controller.utils.Result;
 import com.ing.school.dao.po.Apply;
 import com.ing.school.dao.po.ApplyInfo;
@@ -47,7 +48,7 @@ public class OperatorController {
 
     @RequestMapping(value = "/user/edit", method = RequestMethod.POST)
     public Result editUser(User user) {
-        userService.editUserInfo(user);
+        userService.editUserInfo(user, AuthUtil.getUserId());
         return Result.builder().data("").successTrue().build();
     }
 
