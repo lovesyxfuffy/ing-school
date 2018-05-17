@@ -22,7 +22,7 @@
 
 ### 12、学校详情页，“17.学校详情页接口”返回的数据和接口文档不一样，少了三个字段“schoolName、schoolEnglishName、isCollected”，hcy加在数据库里了，改一下后台。
 
-
+### 13、 在详情页取消收藏的时候，走哪个接口？接口2、删除收藏， "url":"/api/operator/collection/delete/{collectionId}",有个collectionId，
 
 
 #### 【待定】 图片压缩，可以最后考虑优化-前端或者后台
