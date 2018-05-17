@@ -151,6 +151,22 @@ status枚举如下:
 }
 ```
 
+### 3.1 .删除收藏
+```json
+{
+  "url":"/api/operator/collection/delete",
+  "method":"post",
+  "request":{
+    "schoolId":15
+  },
+  "response":
+    {
+       "data":{},
+       "message":"请求成功",
+       "status":1
+    }
+}
+```
 ### 4.获取申请列表
 ```json
 {
