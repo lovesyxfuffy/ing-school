@@ -53,7 +53,7 @@ public class OperatorController {
     }
 
     @RequestMapping(value = "/search/schoolList", method = RequestMethod.POST)
-    public Result Search(SearchDto searchDto) {
+    public Result Search(@RequestBody SearchDto searchDto) {
         return Result.builder().data(recordService.search(searchDto)).successTrue().build();
     }
 }

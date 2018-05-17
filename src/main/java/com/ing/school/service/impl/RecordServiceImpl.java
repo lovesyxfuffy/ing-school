@@ -184,7 +184,7 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
             if (BooleanConstants.FALSE.equals(eslBoolean))
                 criteria.andHasEslEqualTo(false);
         }
-        StringBuilder stb = new StringBuilder("and (");
+        StringBuilder stb = new StringBuilder("(");
         if (CollectionUtils.isNotEmpty(searchDto.getCostIntervalCode())) {
             List<String> costIntervalEnumList = searchDto.getCostIntervalCode();
             for (String code : costIntervalEnumList) {
