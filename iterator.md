@@ -475,6 +475,8 @@ status枚举如下:
     "schoolName":"xxxx",
     "schoolEnglishName":"xxxx",
     "isCollected":false,//是否被收藏
+    "positionX":"xxx",
+    "positionY":"xxx",
     "synopsis":"xxx",
     "badge":"xxxx",
     "applicationGuide":"xxx",

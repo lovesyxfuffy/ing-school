@@ -20,7 +20,7 @@
 
 ### 11、“18.获取申请详情接口” "url":"/api/record/applyInfo/get/{applyId}"，只是返回用户填过的申请信息，不需要applyId。
 
-### 12、学校详情页，“17.学校详情页接口”返回的数据和接口文档不一样，少了三个字段“schoolName、schoolEnglishName、isCollected”，hcy加在数据库里了，改一下后台。
+### 12、学校详情页，“17.学校详情页接口”返回的数据和接口文档不一样，少了五个字段“schoolName、schoolEnglishName、isCollected、positionY、positionX”，hcy加在数据库里了，改一下后台。
 
 ### 13、 在详情页取消收藏的时候，走哪个接口？接口2、删除收藏， "url":"/api/operator/collection/delete/{collectionId}",有个collectionId，
 
