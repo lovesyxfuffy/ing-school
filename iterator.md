@@ -238,10 +238,7 @@ status枚举如下:
 
         "englishLevelTypeCode":"",
         "englishLevelScore":"",
-
-         "applyTime":15098824213,//Unix时间戳
-
-
+         "applyTime":15098824213//Unix时间戳
 
   },
   "response":{
