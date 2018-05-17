@@ -14,17 +14,22 @@
 
 ### 【get】 8、筛选项的hasEsl能否也而变成枚举项，涉及接口：“9.搜索” 【数据库里加了hasESL的两个code】
 
-### 9、搜索的时候，sql有问题。
+### 【get】 9、搜索的时候，sql有问题。
 
-### 10、 登出之后，其他接口的状态已经改为“未登录”，而check依然返回true。
+### 【get】 10、 登出之后，其他接口的状态已经改为“未登录”，而check依然返回true。
 
-### 11、“18.获取申请详情接口” "url":"/api/record/applyInfo/get/{applyId}"，只是返回用户填过的申请信息，不需要applyId。
+### 【get】 11、“18.获取申请详情接口” "url":"/api/record/applyInfo/get/{applyId}"，只是返回用户填过的申请信息，不需要applyId。
 
-### 12、学校详情页，“17.学校详情页接口”返回的数据和接口文档不一样，少了五个字段“schoolName、schoolEnglishName、isCollected、positionY、positionX”，hcy加在数据库里了，改一下后台。
+### 【get】1 2、学校详情页，“17.学校详情页接口”返回的数据和接口文档不一样，少了五个字段“schoolName、schoolEnglishName、isCollected、positionY、positionX”，hcy加在数据库里了，改一下后台。
 
-### 13、 在详情页取消收藏的时候，走哪个接口？接口2、删除收藏， "url":"/api/operator/collection/delete/{collectionId}",有个collectionId，
+### 【get】 13、 在详情页取消收藏的时候，走哪个接口？接口2、删除收藏， "url":"/api/operator/collection/delete/{collectionId}",有个collectionId，
 
-### 14、详情页添加收藏成功，但是个人中心的收藏记录没有这条。
+### 【get】 14、详情页添加收藏成功，但是个人中心的收藏记录没有这条。
+
+### 15、 申请页 日期格式 
+
+### 16、一个学校，被收藏之后，再刷新，看到的接口17返回的“isCollected”依然是null。
+
 
 #### 【待定】 图片压缩，可以最后考虑优化-前端或者后台
 
