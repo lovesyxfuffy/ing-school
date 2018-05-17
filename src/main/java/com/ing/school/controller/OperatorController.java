@@ -38,6 +38,12 @@ public class OperatorController {
         return Result.builder().data("").successTrue().build();
     }
 
+    @RequestMapping(value = "/collection/delete", method = RequestMethod.POST)
+    public Result removeCollection(@RequestParam("schoolId") Integer schoolId) {
+        recordService.deleteCollection(schoolId);
+        return Result.builder().data("").successTrue().build();
+    }
+
     @RequestMapping(value = "/apply/add", method = RequestMethod.POST)
     public Result addApply(Apply apply, ApplyInfo applyInfo) {
         Integer applyId = recordService.addApply(apply, applyInfo);

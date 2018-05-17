@@ -232,10 +232,8 @@ status枚举如下:
         "currentSchoolPhone":"1123124123123",
         "currentSchoolCounselor":"导员名字",
         "currentSchoolCounselorEmail":"123@sdu.com.cn", // 导员的email
-      
         "currentSchoolGuidancePhone":"",
         "schoolTypeCode":"2222",//学校类型枚举 ***hcy 加入数据库
-
         "englishLevelTypeCode":"",
         "englishLevelScore":"",
          "applyTime":15098824213//Unix时间戳
@@ -483,7 +481,7 @@ status枚举如下:
     "applyCondition":"xxxx",
     "activity":"xxxx",
     "applyCase":"xxxx",
-    "accommodation":"xxxx"
+    "accommodation":"xxxx",
   }
 }
 ```

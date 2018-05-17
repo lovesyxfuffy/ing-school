@@ -10,6 +10,7 @@ import com.ing.school.dao.mapper.*;
 import com.ing.school.dao.po.*;
 import com.ing.school.dto.ListDto;
 import com.ing.school.dto.PageDto;
+import com.ing.school.dto.SchoolInfoDto;
 import com.ing.school.dto.SearchDto;
 import com.ing.school.service.CommonService;
 import com.ing.school.service.RecordService;
@@ -112,6 +113,16 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
         collection.setUserId(AuthUtil.getUserId());
 
         collectionMapper.insertSelective(collection);
+    }
+
+    @Override
+    public void deleteCollection(Integer schoolId){
+        CollectionExample collection = new CollectionExample();
+        collection.createCriteria().andSchoolIdEqualTo(schoolId);
+        List<Collection> collectionList = collectionMapper.selectByExample(collection);
+        for (Collection collection1 : collectionList) {
+            collectionMapper.deleteByPrimaryKey(collection1.getId());
+        }
     }
 
     @Override
@@ -225,30 +236,31 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
 
 
     @Override
-    public SchoolInfo getSchoolInfo(Integer schoolId) {
+    public SchoolInfoDto getSchoolInfo(Integer schoolId) {
         SchoolInfoExample schoolInfoExample = new SchoolInfoExample();
         schoolInfoExample.createCriteria().andSchoolIdEqualTo(schoolId);
         List<SchoolInfo> result = schoolInfoMapper.selectByExample(schoolInfoExample);
+        School school = schoolMapper.selectByPrimaryKey(schoolId);
         if (result.size() > 1)
             throw new RuntimeException("查询学校详情错误");
-        if (result.size() == 1)
-            return result.get(0);
+        if (result.size() == 1){
+            SchoolInfoDto schoolInfoDto = new SchoolInfoDto();
+            SchoolInfo schoolInfo = result.get(0);
+            BeanUtils.copyProperties(school,schoolInfoDto);
+            BeanUtils.copyProperties(schoolInfo,schoolInfoDto);
+            return schoolInfoDto;
+        }
         return null;
     }
 
     @Override
-    public Map<String, Object> getApplyInfo(Integer applyId) {
-        ApplyExample applyExample = new ApplyExample();
-        Apply apply = applyMapper.selectByPrimaryKey(applyId);
+    public Map<String, Object> getApplyInfo() {
         ApplyInfoExample applyInfoExample = new ApplyInfoExample();
+        applyInfoExample.createCriteria().andUserIdEqualTo(AuthUtil.getUserId());
         List<ApplyInfo> applyInfoResult = applyInfoMapper.selectByExample(applyInfoExample);
-        ApplyInfo applyInfo = null;
+        ApplyInfo applyInfo;
         Map<String, Object> resultMap = new HashMap<>();
         try {
-            PropertyDescriptor[] applyDescriptors = BeanUtils.getPropertyDescriptors(Apply.class);
-            for (PropertyDescriptor applyDescriptor : applyDescriptors) {
-                resultMap.put(applyDescriptor.getName(), applyDescriptor.getReadMethod().invoke(apply));
-            }
             if (applyInfoResult.size() > 1)
                 throw new RuntimeException("获取流程详情错误");
             if (applyInfoResult.size() == 1) {
