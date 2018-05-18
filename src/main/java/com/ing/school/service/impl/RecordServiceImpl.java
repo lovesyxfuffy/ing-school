@@ -118,7 +118,7 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
     @Override
     public void deleteCollection(Integer schoolId){
         CollectionExample collection = new CollectionExample();
-        collection.createCriteria().andSchoolIdEqualTo(schoolId);
+        collection.createCriteria().andSchoolIdEqualTo(schoolId).andUserIdEqualTo(AuthUtil.getUserId());
         List<Collection> collectionList = collectionMapper.selectByExample(collection);
         for (Collection collection1 : collectionList) {
             collectionMapper.deleteByPrimaryKey(collection1.getId());
