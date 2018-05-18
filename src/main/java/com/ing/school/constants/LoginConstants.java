@@ -9,6 +9,9 @@ public class LoginConstants {
 
     public static final String SCHOOL_COOKIE = "school-id";
 
+    public static final String SCHOOL_MANAGE_COOKIE = "school-manage-id";
+
+
 
     public static final int EXPIRE_TIME = 24 * 60 * 60;
 }

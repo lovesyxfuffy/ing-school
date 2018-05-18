@@ -157,9 +157,19 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
     public Integer addApply(Apply apply, ApplyInfo applyInfo) {
         apply.setUserId(AuthUtil.getUserId());
         applyMapper.insertSelective(apply);
+        ApplyInfoExample applyInfoExample = new ApplyInfoExample();
+        applyInfoExample.createCriteria().andUserIdEqualTo(AuthUtil.getUserId());
+        List<ApplyInfo> applyInfoResult = applyInfoMapper.selectByExample(applyInfoExample);
         applyInfo.setApplyId(apply.getId());
         applyInfo.setUserId(AuthUtil.getUserId());
-        applyInfoMapper.insertSelective(applyInfo);
+        if(applyInfoResult.size() == 0)
+            applyInfoMapper.insertSelective(applyInfo);
+        else if(applyInfoResult.size() == 1){
+            applyInfo.setId(applyInfoResult.get(0).getId());
+            applyInfoMapper.updateByPrimaryKeySelective(applyInfo);
+        }else{
+            throw new RuntimeException("申请详情查询错误");
+        }
         return apply.getId();
     }
 

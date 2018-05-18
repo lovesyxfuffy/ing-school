@@ -16,5 +16,7 @@ public interface CommonService {
 
     String getAdConfig();
 
+    void setAdConfig(String text);
+
     List<Map> getChoicestSchool();
 }
