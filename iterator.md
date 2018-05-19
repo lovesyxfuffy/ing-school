@@ -498,6 +498,7 @@ status枚举如下:
     "activity":"xxxx",
     "applyCase":"xxxx",
     "accommodation":"xxxx",
+
   }
 }
 ```
@@ -861,7 +862,8 @@ status枚举如下:
         "applyCondition":"xxxx",
         "activity":"xxxx",
         "applyCase":"xxxx",
-        "accommodation":"xxxx"
+        "accommodation":"xxxx",
+        "score":"分数"
     }
   }
 }
