@@ -9,8 +9,13 @@ import com.ing.school.dto.SearchDto;
 import com.ing.school.service.RecordService;
 import com.ing.school.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -61,5 +66,12 @@ public class OperatorController {
     @RequestMapping(value = "/search/schoolList", method = RequestMethod.POST)
     public Result Search(@RequestBody SearchDto searchDto) {
         return Result.builder().data(recordService.search(searchDto)).successTrue().build();
+    }
+
+    @InitBinder
+    protected void init(HttpServletRequest request, ServletRequestDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateFormat.setLenient(false);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
     }
 }

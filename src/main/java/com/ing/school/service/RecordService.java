@@ -8,7 +8,7 @@ import com.ing.school.dto.SchoolInfoDto;
 import com.ing.school.dto.SearchDto;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -30,7 +30,8 @@ public interface RecordService  {
 
     Integer addApply(Apply apply, ApplyInfo applyInfo);
 
-    List<Map> search(SearchDto searchDto);
+    ListDto<Map> search(SearchDto searchDto);
+
 
     SchoolInfoDto getSchoolInfo(Integer schoolId);
 
@@ -38,4 +39,8 @@ public interface RecordService  {
     Map<String, Object> getApplyInfo();
 
     String uploadFile(MultipartFile file);
+
+    ListDto<Apply> getApplyList(PageDto page, Date startTime, String sortOrder);
+
+    Map<String, Object> getApplyInfoById(Integer applyId);
 }

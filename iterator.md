@@ -699,7 +699,8 @@ status枚举如下:
   "request":{
     "sortOrder":"desc",//按照申请时间正序、倒序排序-asc升序 desc降序 默认降序
     "startTime":"yyyy-MM-dd",
-    "endTime":"yyyy-MM-dd"//开始时间 结束时间筛选
+    "pageNo":1,
+    "pageSize":20
   },
   "response":{
     "data":{

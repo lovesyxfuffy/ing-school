@@ -31,6 +31,8 @@ public class School {
 
     private Boolean hasEsl;
 
+    private Double passingScore;
+
     public Integer getId() {
         return id;
     }
@@ -149,5 +151,13 @@ public class School {
 
     public void setHasEsl(Boolean hasEsl) {
         this.hasEsl = hasEsl;
+    }
+
+    public Double getPassingScore() {
+        return passingScore;
+    }
+
+    public void setPassingScore(Double passingScore) {
+        this.passingScore = passingScore;
     }
 }

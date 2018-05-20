@@ -8,6 +8,8 @@
     <result column="schoolTypeCode" property="schoolTypeCode" jdbcType="VARCHAR" />
     <result column="schoolName" property="schoolName" jdbcType="VARCHAR" />
     <result column="applyTime" property="applyTime" jdbcType="TIMESTAMP" />
+    <result column="telephone" property="telephone" jdbcType="VARCHAR" />
+    <result column="schoolEnglishName" property="schoolEnglishName" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -39,7 +41,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, userId, schoolId, schoolTypeCode, schoolName, applyTime
+    id, userId, schoolId, schoolTypeCode, schoolName, applyTime, telephone, schoolEnglishName
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ing.school.dao.po.ApplyExample" >
     select
@@ -68,11 +70,11 @@
   </delete>
   <insert id="insert" parameterType="com.ing.school.dao.po.Apply" >
     insert into apply (id, userId, schoolId, 
-      schoolTypeCode, schoolName, applyTime
-      )
+      schoolTypeCode, schoolName, applyTime, 
+      telephone, schoolEnglishName)
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{schoolId,jdbcType=INTEGER}, 
-      #{schoolTypeCode,jdbcType=VARCHAR}, #{schoolName,jdbcType=VARCHAR}, #{applyTime,jdbcType=TIMESTAMP}
-      )
+      #{schoolTypeCode,jdbcType=VARCHAR}, #{schoolName,jdbcType=VARCHAR}, #{applyTime,jdbcType=TIMESTAMP}, 
+      #{telephone,jdbcType=VARCHAR}, #{schoolEnglishName,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.ing.school.dao.po.Apply" >
     insert into apply
@@ -95,6 +97,12 @@
       <if test="applyTime != null" >
         applyTime,
       </if>
+      <if test="telephone != null" >
+        telephone,
+      </if>
+      <if test="schoolEnglishName != null" >
+        schoolEnglishName,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -114,6 +122,12 @@
       </if>
       <if test="applyTime != null" >
         #{applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="telephone != null" >
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolEnglishName != null" >
+        #{schoolEnglishName,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -135,6 +149,12 @@
       <if test="applyTime != null" >
         applyTime = #{applyTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="telephone != null" >
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolEnglishName != null" >
+        schoolEnglishName = #{schoolEnglishName,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -144,7 +164,9 @@
       schoolId = #{schoolId,jdbcType=INTEGER},
       schoolTypeCode = #{schoolTypeCode,jdbcType=VARCHAR},
       schoolName = #{schoolName,jdbcType=VARCHAR},
-      applyTime = #{applyTime,jdbcType=TIMESTAMP}
+      applyTime = #{applyTime,jdbcType=TIMESTAMP},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      schoolEnglishName = #{schoolEnglishName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
