@@ -17,6 +17,7 @@
     <result column="positionX" property="positionX" jdbcType="DOUBLE" />
     <result column="positionY" property="positionY" jdbcType="DOUBLE" />
     <result column="hasEsl" property="hasEsl" jdbcType="BIT" />
+    <result column="passingScore" property="passingScore" jdbcType="DOUBLE" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -50,7 +51,7 @@
   <sql id="Base_Column_List" >
     id, schoolName, schoolEnglishName, continentCode, countryCode, stateCode, cityCode, 
     schoolTypeCode, schoolGenderTypeCode, religionTypeCode, cost, mainPicture, positionX, 
-    positionY, hasEsl
+    positionY, hasEsl, passingScore
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ing.school.dao.po.SchoolExample" >
     select
@@ -82,16 +83,16 @@
       continentCode, countryCode, stateCode, 
       cityCode, schoolTypeCode, schoolGenderTypeCode, 
       religionTypeCode, cost, mainPicture, 
-      positionX, positionY, hasEsl
-      )
+      positionX, positionY, hasEsl, 
+      passingScore)
     values (#{id,jdbcType=INTEGER}, #{schoolName,jdbcType=VARCHAR}, #{schoolEnglishName,jdbcType=VARCHAR}, 
       #{continentCode,jdbcType=VARCHAR}, #{countryCode,jdbcType=VARCHAR}, #{stateCode,jdbcType=VARCHAR}, 
       #{cityCode,jdbcType=VARCHAR}, #{schoolTypeCode,jdbcType=VARCHAR}, #{schoolGenderTypeCode,jdbcType=VARCHAR}, 
       #{religionTypeCode,jdbcType=VARCHAR}, #{cost,jdbcType=INTEGER}, #{mainPicture,jdbcType=VARCHAR}, 
-      #{positionX,jdbcType=DOUBLE}, #{positionY,jdbcType=DOUBLE}, #{hasEsl,jdbcType=BIT}
-      )
+      #{positionX,jdbcType=DOUBLE}, #{positionY,jdbcType=DOUBLE}, #{hasEsl,jdbcType=BIT}, 
+      #{passingScore,jdbcType=DOUBLE})
   </insert>
-  <insert id="insertSelective" keyProperty="id" useGeneratedKeys="true" parameterType="com.ing.school.dao.po.School" >
+  <insert id="insertSelective" parameterType="com.ing.school.dao.po.School" >
     insert into school
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -138,6 +139,9 @@
       </if>
       <if test="hasEsl != null" >
         hasEsl,
+      </if>
+      <if test="passingScore != null" >
+        passingScore,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -186,6 +190,9 @@
       <if test="hasEsl != null" >
         #{hasEsl,jdbcType=BIT},
       </if>
+      <if test="passingScore != null" >
+        #{passingScore,jdbcType=DOUBLE},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.ing.school.dao.po.School" >
@@ -233,6 +240,9 @@
       <if test="hasEsl != null" >
         hasEsl = #{hasEsl,jdbcType=BIT},
       </if>
+      <if test="passingScore != null" >
+        passingScore = #{passingScore,jdbcType=DOUBLE},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -251,7 +261,8 @@
       mainPicture = #{mainPicture,jdbcType=VARCHAR},
       positionX = #{positionX,jdbcType=DOUBLE},
       positionY = #{positionY,jdbcType=DOUBLE},
-      hasEsl = #{hasEsl,jdbcType=BIT}
+      hasEsl = #{hasEsl,jdbcType=BIT},
+      passingScore = #{passingScore,jdbcType=DOUBLE}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

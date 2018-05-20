@@ -83,7 +83,7 @@ public class SchoolExample {
             return criteria;
         }
 
-        protected void addCriterion(String condition) {
+        public void addCriterion(String condition) {
             if (condition == null) {
                 throw new RuntimeException("Value for condition cannot be null");
             }
@@ -1103,6 +1103,66 @@ public class SchoolExample {
             addCriterion("hasEsl not between", value1, value2, "hasEsl");
             return (Criteria) this;
         }
+
+        public Criteria andPassingScoreIsNull() {
+            addCriterion("passingScore is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPassingScoreIsNotNull() {
+            addCriterion("passingScore is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPassingScoreEqualTo(Double value) {
+            addCriterion("passingScore =", value, "passingScore");
+            return (Criteria) this;
+        }
+
+        public Criteria andPassingScoreNotEqualTo(Double value) {
+            addCriterion("passingScore <>", value, "passingScore");
+            return (Criteria) this;
+        }
+
+        public Criteria andPassingScoreGreaterThan(Double value) {
+            addCriterion("passingScore >", value, "passingScore");
+            return (Criteria) this;
+        }
+
+        public Criteria andPassingScoreGreaterThanOrEqualTo(Double value) {
+            addCriterion("passingScore >=", value, "passingScore");
+            return (Criteria) this;
+        }
+
+        public Criteria andPassingScoreLessThan(Double value) {
+            addCriterion("passingScore <", value, "passingScore");
+            return (Criteria) this;
+        }
+
+        public Criteria andPassingScoreLessThanOrEqualTo(Double value) {
+            addCriterion("passingScore <=", value, "passingScore");
+            return (Criteria) this;
+        }
+
+        public Criteria andPassingScoreIn(List<Double> values) {
+            addCriterion("passingScore in", values, "passingScore");
+            return (Criteria) this;
+        }
+
+        public Criteria andPassingScoreNotIn(List<Double> values) {
+            addCriterion("passingScore not in", values, "passingScore");
+            return (Criteria) this;
+        }
+
+        public Criteria andPassingScoreBetween(Double value1, Double value2) {
+            addCriterion("passingScore between", value1, value2, "passingScore");
+            return (Criteria) this;
+        }
+
+        public Criteria andPassingScoreNotBetween(Double value1, Double value2) {
+            addCriterion("passingScore not between", value1, value2, "passingScore");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {
@@ -1110,11 +1170,6 @@ public class SchoolExample {
         protected Criteria() {
             super();
         }
-
-        public void addCriterion(String condition){
-            super.addCriterion(condition);
-        }
-
     }
 
     public static class Criterion {

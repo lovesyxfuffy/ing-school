@@ -37,7 +37,7 @@ public class SchoolInfoDto {
 
     private String schoolEnglishName;
 
-    private String isCollected;
+    private Boolean isCollected;
 
     private Double positionX;
 
