@@ -41,9 +41,9 @@ public class RecordController {
         return Result.builder().data(recordService.getSchoolInfo(schoolId)).successTrue().build();
     }
 
-    @RequestMapping(value = "/applyInfo/get/{applyId}", method = RequestMethod.POST)
-    public Result getApplyInfo(@PathVariable("applyId") Integer applyId) {
-        return Result.builder().data(recordService.getApplyInfo(applyId)).successTrue().build();
+    @RequestMapping(value = "/applyInfo/get", method = RequestMethod.POST)
+    public Result getApplyInfo() {
+        return Result.builder().data(recordService.getApplyInfo()).successTrue().build();
     }
 
     @RequestMapping(value = "/file/upload", method = RequestMethod.POST)

@@ -4,21 +4,21 @@ package com.ing.school.controller.manage.auth;
  * Created by yujingyang on 2018/5/16.
  */
 public class AccountUtil {
-    private ThreadLocal<AccountInfo> accountInfoThreadLocal = new InheritableThreadLocal<>();
+    private static ThreadLocal<AccountInfo> accountInfoThreadLocal = new InheritableThreadLocal<>();
 
-    public Integer getAccountId(){
+    public static Integer getAccountId(){
         return accountInfoThreadLocal.get().getId();
     }
 
-    public void  bind(AccountInfo accountInfo){
+    public static void  bind(AccountInfo accountInfo){
         accountInfoThreadLocal.set(accountInfo);
     }
 
-    public void unbind(){
+    public static void unbind(){
         accountInfoThreadLocal.remove();
     }
 
-    public AccountInfo getAccountInfo(){
+    public static AccountInfo getAccountInfo(){
         return accountInfoThreadLocal.get();
     }
 

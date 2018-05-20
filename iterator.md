@@ -151,6 +151,22 @@ status枚举如下:
 }
 ```
 
+### 3.1 .删除收藏
+```json
+{
+  "url":"/api/operator/collection/delete",
+  "method":"post",
+  "request":{
+    "schoolId":15
+  },
+  "response":
+    {
+       "data":{},
+       "message":"请求成功",
+       "status":1
+    }
+}
+```
 ### 4.获取申请列表
 ```json
 {
@@ -232,16 +248,11 @@ status枚举如下:
         "currentSchoolPhone":"1123124123123",
         "currentSchoolCounselor":"导员名字",
         "currentSchoolCounselorEmail":"123@sdu.com.cn", // 导员的email
-      
         "currentSchoolGuidancePhone":"",
         "schoolTypeCode":"2222",//学校类型枚举 ***hcy 加入数据库
-
         "englishLevelTypeCode":"",
         "englishLevelScore":"",
-
-         "applyTime":15098824213,//Unix时间戳
-
-
+         "applyTime":15098824213//Unix时间戳
 
   },
   "response":{
@@ -475,6 +486,8 @@ status枚举如下:
     "schoolName":"xxxx",
     "schoolEnglishName":"xxxx",
     "isCollected":false,//是否被收藏
+    "positionX":"xxx",
+    "positionY":"xxx",
     "synopsis":"xxx",
     "badge":"xxxx",
     "applicationGuide":"xxx",
@@ -484,7 +497,8 @@ status枚举如下:
     "applyCondition":"xxxx",
     "activity":"xxxx",
     "applyCase":"xxxx",
-    "accommodation":"xxxx"
+    "accommodation":"xxxx",
+
   }
 }
 ```
@@ -686,7 +700,8 @@ status枚举如下:
   "request":{
     "sortOrder":"desc",//按照申请时间正序、倒序排序-asc升序 desc降序 默认降序
     "startTime":"yyyy-MM-dd",
-    "endTime":"yyyy-MM-dd"//开始时间 结束时间筛选
+    "pageNo":1,
+    "pageSize":20
   },
   "response":{
     "data":{
@@ -848,7 +863,8 @@ status枚举如下:
         "applyCondition":"xxxx",
         "activity":"xxxx",
         "applyCase":"xxxx",
-        "accommodation":"xxxx"
+        "accommodation":"xxxx",
+        "score":"分数"
     }
   }
 }

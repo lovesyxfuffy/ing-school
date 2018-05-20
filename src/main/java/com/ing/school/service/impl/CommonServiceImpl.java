@@ -78,6 +78,14 @@ public class CommonServiceImpl implements CommonService {
     }
 
     @Override
+    public void setAdConfig(String text){
+        Config config = new Config();
+        config.setConfigKey(ConfigConstants.ADVERTISEMENT);
+        config.setConfigValue(text);
+        configMapper.updateByPrimaryKeySelective(config);
+    }
+
+    @Override
     public List<Map> getChoicestSchool(){
         ChoicestSchoolExample choicestSchoolExample = new ChoicestSchoolExample();
         List<ChoicestSchool> choicestSchoolList = choicestSchoolMapper.selectByExample(choicestSchoolExample);

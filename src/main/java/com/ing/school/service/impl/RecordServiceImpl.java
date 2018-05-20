@@ -8,8 +8,10 @@ import com.ing.school.constants.EnumConstants;
 import com.ing.school.controller.auth.AuthUtil;
 import com.ing.school.dao.mapper.*;
 import com.ing.school.dao.po.*;
+import com.ing.school.dao.po.Collection;
 import com.ing.school.dto.ListDto;
 import com.ing.school.dto.PageDto;
+import com.ing.school.dto.SchoolInfoDto;
 import com.ing.school.dto.SearchDto;
 import com.ing.school.service.CommonService;
 import com.ing.school.service.RecordService;
@@ -29,10 +31,7 @@ import java.beans.PropertyDescriptor;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -115,6 +114,16 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
     }
 
     @Override
+    public void deleteCollection(Integer schoolId) {
+        CollectionExample collection = new CollectionExample();
+        collection.createCriteria().andSchoolIdEqualTo(schoolId).andUserIdEqualTo(AuthUtil.getUserId());
+        List<Collection> collectionList = collectionMapper.selectByExample(collection);
+        for (Collection collection1 : collectionList) {
+            collectionMapper.deleteByPrimaryKey(collection1.getId());
+        }
+    }
+
+    @Override
     public void delete(String category, Integer primaryKey) {
         try {
             Object mapper = applicationContext.getBean(Class.forName(category + "Mapper"));
@@ -145,15 +154,28 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
     @Transactional
     public Integer addApply(Apply apply, ApplyInfo applyInfo) {
         apply.setUserId(AuthUtil.getUserId());
+        School school = schoolMapper.selectByPrimaryKey(apply.getId());
+        apply.setSchoolName(school.getSchoolName());
+        apply.setSchoolEnglishName(school.getSchoolEnglishName());
         applyMapper.insertSelective(apply);
+        ApplyInfoExample applyInfoExample = new ApplyInfoExample();
+        applyInfoExample.createCriteria().andUserIdEqualTo(AuthUtil.getUserId());
+        List<ApplyInfo> applyInfoResult = applyInfoMapper.selectByExample(applyInfoExample);
         applyInfo.setApplyId(apply.getId());
         applyInfo.setUserId(AuthUtil.getUserId());
-        applyInfoMapper.insertSelective(applyInfo);
+        if (applyInfoResult.size() == 0)
+            applyInfoMapper.insertSelective(applyInfo);
+        else if (applyInfoResult.size() == 1) {
+            applyInfo.setId(applyInfoResult.get(0).getId());
+            applyInfoMapper.updateByPrimaryKeySelective(applyInfo);
+        } else {
+            throw new RuntimeException("申请详情查询错误");
+        }
         return apply.getId();
     }
 
     @Override
-    public List<Map> search(SearchDto searchDto) {
+    public ListDto<Map> search(SearchDto searchDto) {
         SchoolExample schoolExample = new SchoolExample();
         SchoolExample.Criteria criteria = schoolExample.createCriteria();
         if (!StringUtils.isEmpty(searchDto.getKeyword())) {
@@ -184,7 +206,7 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
             if (BooleanConstants.FALSE.equals(eslBoolean))
                 criteria.andHasEslEqualTo(false);
         }
-        StringBuilder stb = new StringBuilder("and (");
+        StringBuilder stb = new StringBuilder("(");
         if (CollectionUtils.isNotEmpty(searchDto.getCostIntervalCode())) {
             List<String> costIntervalEnumList = searchDto.getCostIntervalCode();
             for (String code : costIntervalEnumList) {
@@ -204,11 +226,13 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
             stb.append(" 1=1 )");
             criteria.addCriterion(stb.toString());
         }
+        schoolExample.setOrderByClause("passingScore desc");
         PageHelper.startPage(searchDto.getPageNo(), searchDto.getPageSize());
         List<School> schoolList = schoolMapper.selectByExample(schoolExample);
         Map<String, String> countryMap = commonService.getEnumByCategory(EnumConstants.COUNTRY);
         Map<String, String> cityMap = commonService.getEnumByCategory(EnumConstants.CITY);
         List<Map> resultList = new ArrayList<>(schoolList.size());
+        Page page = (Page) schoolList;
         for (School school : schoolList) {
             Map<String, Object> resultMap = new HashMap<>();
             resultMap.put("id", school.getId());
@@ -219,36 +243,48 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
             resultMap.put("positionY", school.getPositionY());
             resultList.add(resultMap);
         }
-        return resultList;
+        ListDto<Map> listDto = new ListDto<>();
+        listDto.setTableBody(resultList);
+        PageDto pageDto = new PageDto();
+        pageDto.setPageNo(searchDto.getPageNo());
+        pageDto.setPageSize(searchDto.getPageSize());
+        pageDto.setTotal(page.getTotal());
+        listDto.setPage(pageDto);
+        return listDto;
 
     }
 
 
     @Override
-    public SchoolInfo getSchoolInfo(Integer schoolId) {
+    public SchoolInfoDto getSchoolInfo(Integer schoolId) {
         SchoolInfoExample schoolInfoExample = new SchoolInfoExample();
         schoolInfoExample.createCriteria().andSchoolIdEqualTo(schoolId);
         List<SchoolInfo> result = schoolInfoMapper.selectByExample(schoolInfoExample);
+        School school = schoolMapper.selectByPrimaryKey(schoolId);
         if (result.size() > 1)
             throw new RuntimeException("查询学校详情错误");
-        if (result.size() == 1)
-            return result.get(0);
+        if (result.size() == 1) {
+            SchoolInfoDto schoolInfoDto = new SchoolInfoDto();
+            SchoolInfo schoolInfo = result.get(0);
+            BeanUtils.copyProperties(school, schoolInfoDto);
+            BeanUtils.copyProperties(schoolInfo, schoolInfoDto);
+            CollectionExample collectionExample = new CollectionExample();
+            collectionExample.createCriteria().andUserIdEqualTo(AuthUtil.getUserId());
+            schoolInfoDto.setIsCollected(collectionMapper.selectByExample(collectionExample).size() > 0);
+
+            return schoolInfoDto;
+        }
         return null;
     }
 
     @Override
-    public Map<String, Object> getApplyInfo(Integer applyId) {
-        ApplyExample applyExample = new ApplyExample();
-        Apply apply = applyMapper.selectByPrimaryKey(applyId);
+    public Map<String, Object> getApplyInfo() {
         ApplyInfoExample applyInfoExample = new ApplyInfoExample();
+        applyInfoExample.createCriteria().andUserIdEqualTo(AuthUtil.getUserId());
         List<ApplyInfo> applyInfoResult = applyInfoMapper.selectByExample(applyInfoExample);
-        ApplyInfo applyInfo = null;
+        ApplyInfo applyInfo;
         Map<String, Object> resultMap = new HashMap<>();
         try {
-            PropertyDescriptor[] applyDescriptors = BeanUtils.getPropertyDescriptors(Apply.class);
-            for (PropertyDescriptor applyDescriptor : applyDescriptors) {
-                resultMap.put(applyDescriptor.getName(), applyDescriptor.getReadMethod().invoke(apply));
-            }
             if (applyInfoResult.size() > 1)
                 throw new RuntimeException("获取流程详情错误");
             if (applyInfoResult.size() == 1) {
@@ -301,6 +337,61 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
         }
         return stringBuilder.toString();
     }
+
+    @Override
+    public ListDto<Apply> getApplyList(PageDto page, Date startTime, String sortOrder) {
+        PageHelper.startPage(page.getPageNo(),page.getPageSize());
+        ApplyExample applyExample = new ApplyExample();
+        if (startTime != null)
+            applyExample.createCriteria().andApplyTimeGreaterThanOrEqualTo(startTime);
+        if(sortOrder != null)
+            applyExample.setOrderByClause("applyTime "+sortOrder);
+        List<Apply> applyList = applyMapper.selectByExample(applyExample);
+        ListDto<Apply> result = new ListDto<>();
+        PageDto resultPage = new PageDto();
+        resultPage.setTotal(((Page)applyList).getTotal());
+        resultPage.setPageNo(page.getPageNo());
+        resultPage.setPageSize(page.getPageSize());
+        result.setTableBody(applyList);
+        result.setPage(resultPage);
+        return result;
+    }
+
+    @Override
+    public Map<String, Object> getApplyInfoById(Integer applyId) {
+        ApplyInfoExample applyInfoExample = new ApplyInfoExample();
+        applyInfoExample.createCriteria().andApplyIdEqualTo(applyId);
+        List<ApplyInfo> applyInfoResult = applyInfoMapper.selectByExample(applyInfoExample);
+        ApplyInfo applyInfo;
+        Apply apply = applyMapper.selectByPrimaryKey(applyId);
+        Map<String, Object> resultMap = new HashMap<>();
+        try {
+            if (applyInfoResult.size() > 1)
+                throw new RuntimeException("获取流程详情错误");
+            if (applyInfoResult.size() == 1) {
+                PropertyDescriptor[] applyInfoDescriptors = BeanUtils.getPropertyDescriptors(ApplyInfo.class);
+                PropertyDescriptor[] applyDescriptors = BeanUtils.getPropertyDescriptors(Apply.class);
+
+                applyInfo = applyInfoResult.get(0);
+                for (PropertyDescriptor applyInfoDescriptor : applyInfoDescriptors) {
+                    resultMap.put(applyInfoDescriptor.getName(), applyInfoDescriptor.getReadMethod().invoke(applyInfo));
+                }
+                for (PropertyDescriptor applyDescriptor : applyDescriptors) {
+                    resultMap.put(applyDescriptor.getName(), applyDescriptor.getReadMethod().invoke(apply));
+                }
+            }
+            return resultMap;
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+            throw new RuntimeException("流程数据拼装失败");
+        }
+    }
+
+    public void addSchoolInfo(SchoolInfo schoolInfo){
+        schoolInfoMapper.insertSelective(schoolInfo);
+    }
+
+
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
