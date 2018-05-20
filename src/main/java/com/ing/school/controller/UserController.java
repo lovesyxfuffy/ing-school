@@ -82,8 +82,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
-    public Result logout(HttpServletResponse response) {
-
+    public Result logout(HttpServletResponse response,HttpSession session) {
+	    session.invalidate();
         Cookie cookie = new Cookie(LoginConstants.SCHOOL_COOKIE, null);
         cookie.setMaxAge(LoginConstants.EXPIRE_TIME);
         cookie.setPath("/");

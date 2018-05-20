@@ -35,6 +35,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
+        AuthUtil.unbind();
         String requestURI = httpServletRequest.getRequestURI();
         if (requestURI.startsWith(MANAGE_PATH))
             return true;
