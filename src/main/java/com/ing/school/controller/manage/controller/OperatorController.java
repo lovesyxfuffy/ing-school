@@ -15,15 +15,15 @@ import java.util.Date;
 /**
  * Created by yujingyang on 2018/5/20.
  */
-@RestController
+@RestController("operatorManageController")
 @RequestMapping("/api/manage")
 public class OperatorController {
     @Autowired
     RecordService recordService;
 
     @RequestMapping(value = "/apply/getApplyList",method = RequestMethod.POST)
-    public Result getApplyList(PageDto pageDto, @RequestParam("startTime")Date startTime
-            ,@RequestParam("sortOrder")String sortOrder){
+    public Result getApplyList(PageDto pageDto, @RequestParam(value = "startTime",required = false)Date startTime
+            ,@RequestParam(value = "sortOrder",required = false)String sortOrder){
         return Result.builder().data(recordService.getApplyList(pageDto, startTime, sortOrder)).successTrue().build();
     }
 

@@ -497,7 +497,7 @@ status枚举如下:
     "applyCondition":"xxxx",
     "activity":"xxxx",
     "applyCase":"xxxx",
-    "accommodation":"xxxx",
+    "accommodation":"xxxx"
 
   }
 }
@@ -834,6 +834,7 @@ status枚举如下:
 }
 ```
 
+
 ### 11.学校详情
 ```json
 {
@@ -869,3 +870,67 @@ status枚举如下:
   }
 }
 ```
+
+
+### 12.获取所有精品学校
+```json
+{
+  "url":"/api/manage/school/getChoicestSchool",
+  "method":"post",
+  "request":{
+    "pageNo":1,
+    "pageSize":20
+  },
+  "response":{
+    "data":{
+        "tableBody":{
+                "id":4,
+                "schoolId":3,
+                "schoolName":"xxxxx",
+                "choicestContent":"xxxxx"
+            },
+            "page":{
+                "pageNo":1,
+                "pageSize":20,
+                "total":500
+            }
+    },"status":1
+
+  }
+}
+```
+
+### 13.新增精品学校
+```json
+{
+  "url":"/api/manage/school/addChoicestSchool",
+  "method":"post",
+  "request":{
+    "schoolId":5,
+    "mainPictureUrl":"xxxx",
+    "choicestContent":"xxxx"
+  },
+  "response":{
+    "data":5,
+    "status":1
+  }
+}
+```
+
+### 14.删除接口
+```json
+{
+  "url":"/api/manage/school/deleteSchool/{id}",
+  "url":"/api/manage/school/deleteSchoolInfo/{id}",
+  "method":"post",
+  "request":{
+
+  },
+  "response":{
+    "data":"",
+    "status":1
+  }
+}
+```
+
+
