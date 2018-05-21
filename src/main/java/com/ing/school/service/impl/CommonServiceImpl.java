@@ -7,17 +7,23 @@ import com.ing.school.dao.mapper.ConfigMapper;
 import com.ing.school.dao.mapper.SchoolMapper;
 import com.ing.school.dao.po.*;
 import com.ing.school.dto.MetaKeyValue;
+import com.ing.school.dto.UploadDTO;
 import com.ing.school.service.CommonService;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 /**
@@ -112,5 +118,39 @@ public class CommonServiceImpl implements CommonService {
         return result;
     }
 
+    @Override
+    public UploadDTO upload(MultipartFile file) {
+        try {
+            String jpegHeader = "FFD8FF";
+            String pngHeader = "89504E47";
+            String gifHeader = "47494638";
+            String fileTypeHex = String.valueOf(bytesToHexString(file.getBytes())).toUpperCase();
+            if (fileTypeHex.startsWith(jpegHeader) || fileTypeHex.startsWith(pngHeader) || fileTypeHex.startsWith(gifHeader)) {
+                String id = UUID.randomUUID().toString().replaceAll("-","");
+                FileUtils.copyInputStreamToFile(file.getInputStream(), new File("/var/www/static", id));
+                return new UploadDTO(file,id,"SUCCESS");
+            } else {
+                return new UploadDTO(file,null,"IO");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new UploadDTO(file,null,"IO");
+        }
+    }
+    private static String bytesToHexString(byte[] src) {
+        StringBuilder stringBuilder = new StringBuilder();
+        if (src == null || src.length <= 0) {
+            return null;
+        }
+        for (int i = 0; i < src.length; i++) {
+            int v = src[i] & 0xFF;
+            String hv = Integer.toHexString(v);
+            if (hv.length() < 2) {
+                stringBuilder.append(0);
+            }
+            stringBuilder.append(hv);
+        }
+        return stringBuilder.toString();
+    }
 
 }
