@@ -24,8 +24,6 @@ public interface RecordService  {
 
     void delete(String category, Integer primaryKey);
 
-
-
     ListDto<Apply> getApplyList(PageDto pageDtoInput);
 
     Integer addApply(Apply apply, ApplyInfo applyInfo);

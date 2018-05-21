@@ -1,6 +1,8 @@
 package com.ing.school.service;
 
 import com.ing.school.dto.MetaKeyValue;
+import com.ing.school.dto.UploadDTO;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
@@ -19,4 +21,6 @@ public interface CommonService {
     void setAdConfig(String text);
 
     List<Map> getChoicestSchool();
+
+    UploadDTO upload(MultipartFile file);
 }

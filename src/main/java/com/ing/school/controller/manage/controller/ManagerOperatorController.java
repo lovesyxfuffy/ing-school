@@ -17,7 +17,7 @@ import java.util.Date;
  */
 @RestController
 @RequestMapping("/api/manage")
-public class OperatorController {
+public class ManagerOperatorController {
     @Autowired
     RecordService recordService;
 
