@@ -397,12 +397,21 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
         }
     }
 
+
+
     @Override
     public List<ChoicestSchool> getChoicestList(){
         List<ChoicestSchool> choicestList = choicestSchoolMapper.selectByExample(new ChoicestSchoolExample());
         choicestList.forEach((row)-> row.setSchoolName(schoolMapper.selectByPrimaryKey(row.getSchoolId()).getSchoolName()));
         return choicestList;
     }
+
+    @Override
+    public void addChoicestSchool(ChoicestSchool choicestSchool){
+        choicestSchoolMapper.insertSelective(choicestSchool);
+    }
+
+
 
 
     @Transactional

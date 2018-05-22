@@ -24,6 +24,6 @@ public class SchoolDto extends School {
 
     private String religionTypeName;
 
-    private String hasEsl;
+    private Boolean hasEsl;
     
 }

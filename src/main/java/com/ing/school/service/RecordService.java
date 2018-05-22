@@ -46,6 +46,8 @@ public interface RecordService  {
 
     List<ChoicestSchool> getChoicestList();
 
+    void addChoicestSchool(ChoicestSchool choicestSchool);
+
     void deleteSchool(Integer id);
 
     void deleteChoicestSchool(Integer id);

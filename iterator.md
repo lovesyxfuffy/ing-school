@@ -821,7 +821,7 @@ status枚举如下:
               "schoolTypeName":"xxx",
               "schoolGenderTypeName":"xxx",
               "religionTypeName":"xxx",
-              "hasEsl":0//
+              "hasEsl":true
             }
           ],
       "page":{
