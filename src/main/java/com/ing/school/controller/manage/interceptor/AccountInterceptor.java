@@ -9,6 +9,8 @@ import com.ing.school.controller.manage.auth.AccountUtil;
 import com.ing.school.controller.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -31,6 +33,7 @@ public class AccountInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        AccountUtil.unbind();
         String URI = request.getRequestURI();
         if(!URI.startsWith(MANAGE_PATH))
             return true;

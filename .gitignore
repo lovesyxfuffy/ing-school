@@ -78,7 +78,8 @@ temp/
 unit-test/
 old/
 *-old/
-
+out/
+out/*
 # custom
 test-output/
 
