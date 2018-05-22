@@ -27,10 +27,24 @@ public class ManagerOperatorController {
         return Result.builder().data(recordService.getApplyList(pageDto, startTime, sortOrder)).successTrue().build();
     }
 
-    @RequestMapping(value = "/apply/getApplyInfo/{applyId}",method = RequestMethod.POST)
-    public Result getApplyInfo(@PathVariable("applyId") Integer applyId){
-        return Result.builder().data(recordService.getApplyInfoById(applyId)).successTrue().build();
+    @RequestMapping(value = "/apply/getApplyInfo/{userId}",method = RequestMethod.POST)
+    public Result getApplyInfo(@PathVariable("userId") Integer userId){
+        return Result.builder().data(recordService.getApplyInfoById(userId)).successTrue().build();
     }
+
+    @RequestMapping(value = "/school/deleteSchool/{id}",method = RequestMethod.POST)
+    public Result deleteSchool(@PathVariable("id") Integer id){
+        recordService.deleteSchool(id);
+        return Result.builder().data("").successTrue().build();
+    }
+
+    @RequestMapping(value = "/school/deleteChoicestSchool/{id}",method = RequestMethod.POST)
+    public Result deleteChoicestSchool(@PathVariable("id") Integer id){
+        recordService.deleteChoicestSchool(id);
+        return Result.builder().data("").successTrue().build();
+    }
+
+
 
     @InitBinder
     protected void init(HttpServletRequest request, ServletRequestDataBinder binder) {

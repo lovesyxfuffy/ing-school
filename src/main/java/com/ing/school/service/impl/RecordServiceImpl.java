@@ -58,6 +58,9 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
     @Autowired
     SchoolInfoMapper schoolInfoMapper;
 
+    @Autowired
+    ChoicestSchoolMapper choicestSchoolMapper;
+
     private ApplicationContext applicationContext;
 
     @Override
@@ -358,27 +361,24 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
     }
 
     @Override
-    public Map<String, Object> getApplyInfoById(Integer applyId) {
+    public Map<String, Object> getApplyInfoById(Integer userId) {
         ApplyInfoExample applyInfoExample = new ApplyInfoExample();
-        applyInfoExample.createCriteria().andApplyIdEqualTo(applyId);
+        applyInfoExample.createCriteria().andUserIdEqualTo(userId);
         List<ApplyInfo> applyInfoResult = applyInfoMapper.selectByExample(applyInfoExample);
         ApplyInfo applyInfo;
-        Apply apply = applyMapper.selectByPrimaryKey(applyId);
         Map<String, Object> resultMap = new HashMap<>();
         try {
             if (applyInfoResult.size() > 1)
                 throw new RuntimeException("获取流程详情错误");
             if (applyInfoResult.size() == 1) {
                 PropertyDescriptor[] applyInfoDescriptors = BeanUtils.getPropertyDescriptors(ApplyInfo.class);
-                PropertyDescriptor[] applyDescriptors = BeanUtils.getPropertyDescriptors(Apply.class);
+
 
                 applyInfo = applyInfoResult.get(0);
                 for (PropertyDescriptor applyInfoDescriptor : applyInfoDescriptors) {
                     resultMap.put(applyInfoDescriptor.getName(), applyInfoDescriptor.getReadMethod().invoke(applyInfo));
                 }
-                for (PropertyDescriptor applyDescriptor : applyDescriptors) {
-                    resultMap.put(applyDescriptor.getName(), applyDescriptor.getReadMethod().invoke(apply));
-                }
+
             }
             return resultMap;
         } catch (IllegalAccessException | InvocationTargetException e) {
@@ -391,7 +391,19 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
         schoolInfoMapper.insertSelective(schoolInfo);
     }
 
+    @Transactional
+    @Override
+    public void deleteSchool(Integer id){
+        schoolMapper.deleteByPrimaryKey(id);
+        SchoolInfoExample schoolInfoExample = new SchoolInfoExample();
+        schoolInfoExample.createCriteria().andSchoolIdEqualTo(id);
+        schoolInfoMapper.deleteByExample(schoolInfoExample);
+    }
 
+    @Override
+    public void deleteChoicestSchool(Integer id){
+        choicestSchoolMapper.deleteByPrimaryKey(id);
+    }
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {

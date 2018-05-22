@@ -730,7 +730,7 @@ status枚举如下:
 ### 8.申请详情页
 ```json
 {
-  "url":"/api/manage/apply/getApplyInfo/{applyId}",//applyId空传 获取当前用户信息
+  "url":"/api/manage/apply/getApplyInfo/{userId}",
   "method":"post",
   "request":{
 
@@ -780,6 +780,7 @@ status枚举如下:
   "method":"post",
   "request":{
     "schoolId":4,
+    "headPictureUrl":"xxxx",
     "synopsis":"xxx",
     "badge":"xxxx",
     "applicationGuide":"xxx",
@@ -921,7 +922,7 @@ status枚举如下:
 ```json
 {
   "url":"/api/manage/school/deleteSchool/{id}",
-  "url":"/api/manage/school/deleteSchoolInfo/{id}",
+  "url":"/api/manage/school/deleteChoicestSchool/{id}",
   "method":"post",
   "request":{
 

@@ -19,6 +19,10 @@ public class Apply {
 
     private String schoolEnglishName;
 
+    private String followUpContent;
+
+    private Integer followUpStatus;
+
     public Integer getId() {
         return id;
     }
@@ -81,5 +85,21 @@ public class Apply {
 
     public void setSchoolEnglishName(String schoolEnglishName) {
         this.schoolEnglishName = schoolEnglishName == null ? null : schoolEnglishName.trim();
+    }
+
+    public String getFollowUpContent() {
+        return followUpContent;
+    }
+
+    public void setFollowUpContent(String followUpContent) {
+        this.followUpContent = followUpContent == null ? null : followUpContent.trim();
+    }
+
+    public Integer getFollowUpStatus() {
+        return followUpStatus;
+    }
+
+    public void setFollowUpStatus(Integer followUpStatus) {
+        this.followUpStatus = followUpStatus;
     }
 }

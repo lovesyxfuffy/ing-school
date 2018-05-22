@@ -6,6 +6,7 @@ import com.ing.school.dto.ListDto;
 import com.ing.school.dto.PageDto;
 import com.ing.school.dto.SchoolInfoDto;
 import com.ing.school.dto.SearchDto;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
@@ -40,5 +41,10 @@ public interface RecordService  {
 
     ListDto<Apply> getApplyList(PageDto page, Date startTime, String sortOrder);
 
-    Map<String, Object> getApplyInfoById(Integer applyId);
+    Map<String, Object> getApplyInfoById(Integer userId);
+
+    @Transactional
+    void deleteSchool(Integer id);
+
+    void deleteChoicestSchool(Integer id);
 }

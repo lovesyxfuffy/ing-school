@@ -624,6 +624,136 @@ public class ApplyExample {
             addCriterion("schoolEnglishName not between", value1, value2, "schoolEnglishName");
             return (Criteria) this;
         }
+
+        public Criteria andFollowUpContentIsNull() {
+            addCriterion("followUpContent is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFollowUpContentIsNotNull() {
+            addCriterion("followUpContent is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFollowUpContentEqualTo(String value) {
+            addCriterion("followUpContent =", value, "followUpContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andFollowUpContentNotEqualTo(String value) {
+            addCriterion("followUpContent <>", value, "followUpContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andFollowUpContentGreaterThan(String value) {
+            addCriterion("followUpContent >", value, "followUpContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andFollowUpContentGreaterThanOrEqualTo(String value) {
+            addCriterion("followUpContent >=", value, "followUpContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andFollowUpContentLessThan(String value) {
+            addCriterion("followUpContent <", value, "followUpContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andFollowUpContentLessThanOrEqualTo(String value) {
+            addCriterion("followUpContent <=", value, "followUpContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andFollowUpContentLike(String value) {
+            addCriterion("followUpContent like", value, "followUpContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andFollowUpContentNotLike(String value) {
+            addCriterion("followUpContent not like", value, "followUpContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andFollowUpContentIn(List<String> values) {
+            addCriterion("followUpContent in", values, "followUpContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andFollowUpContentNotIn(List<String> values) {
+            addCriterion("followUpContent not in", values, "followUpContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andFollowUpContentBetween(String value1, String value2) {
+            addCriterion("followUpContent between", value1, value2, "followUpContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andFollowUpContentNotBetween(String value1, String value2) {
+            addCriterion("followUpContent not between", value1, value2, "followUpContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andFollowUpStatusIsNull() {
+            addCriterion("followUpStatus is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFollowUpStatusIsNotNull() {
+            addCriterion("followUpStatus is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFollowUpStatusEqualTo(Integer value) {
+            addCriterion("followUpStatus =", value, "followUpStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andFollowUpStatusNotEqualTo(Integer value) {
+            addCriterion("followUpStatus <>", value, "followUpStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andFollowUpStatusGreaterThan(Integer value) {
+            addCriterion("followUpStatus >", value, "followUpStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andFollowUpStatusGreaterThanOrEqualTo(Integer value) {
+            addCriterion("followUpStatus >=", value, "followUpStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andFollowUpStatusLessThan(Integer value) {
+            addCriterion("followUpStatus <", value, "followUpStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andFollowUpStatusLessThanOrEqualTo(Integer value) {
+            addCriterion("followUpStatus <=", value, "followUpStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andFollowUpStatusIn(List<Integer> values) {
+            addCriterion("followUpStatus in", values, "followUpStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andFollowUpStatusNotIn(List<Integer> values) {
+            addCriterion("followUpStatus not in", values, "followUpStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andFollowUpStatusBetween(Integer value1, Integer value2) {
+            addCriterion("followUpStatus between", value1, value2, "followUpStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andFollowUpStatusNotBetween(Integer value1, Integer value2) {
+            addCriterion("followUpStatus not between", value1, value2, "followUpStatus");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {
