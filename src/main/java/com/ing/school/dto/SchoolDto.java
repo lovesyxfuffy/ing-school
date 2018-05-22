@@ -8,6 +8,7 @@ import lombok.Data;
  */
 @Data
 public class SchoolDto extends School {
+    private Integer id;
 
     private String continentName;
 
@@ -22,5 +23,7 @@ public class SchoolDto extends School {
     private String schoolGenderTypeName;
 
     private String religionTypeName;
+
+    private String hasEsl;
     
 }

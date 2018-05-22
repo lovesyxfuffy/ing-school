@@ -25,6 +25,9 @@ public class EnumConstants {
 
     public static final String RELIGION_TYPE= "religionType";
 
+    public static final String HAS_ESL= "hasEsl";
+
+
 
 
 }

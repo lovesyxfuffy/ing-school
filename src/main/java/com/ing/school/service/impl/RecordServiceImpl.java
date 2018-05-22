@@ -9,10 +9,7 @@ import com.ing.school.controller.auth.AuthUtil;
 import com.ing.school.dao.mapper.*;
 import com.ing.school.dao.po.*;
 import com.ing.school.dao.po.Collection;
-import com.ing.school.dto.ListDto;
-import com.ing.school.dto.PageDto;
-import com.ing.school.dto.SchoolInfoDto;
-import com.ing.school.dto.SearchDto;
+import com.ing.school.dto.*;
 import com.ing.school.service.CommonService;
 import com.ing.school.service.RecordService;
 import org.apache.commons.collections.CollectionUtils;
@@ -44,9 +41,6 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
     CollectionMapper collectionMapper;
 
     @Autowired
-    CommonService commonService;
-
-    @Autowired
     SchoolMapper schoolMapper;
 
     @Autowired
@@ -57,6 +51,9 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
 
     @Autowired
     SchoolInfoMapper schoolInfoMapper;
+
+    @Autowired
+    CommonService commonService;
 
     @Autowired
     ChoicestSchoolMapper choicestSchoolMapper;
@@ -343,16 +340,16 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
 
     @Override
     public ListDto<Apply> getApplyList(PageDto page, Date startTime, String sortOrder) {
-        PageHelper.startPage(page.getPageNo(),page.getPageSize());
+        PageHelper.startPage(page.getPageNo(), page.getPageSize());
         ApplyExample applyExample = new ApplyExample();
         if (startTime != null)
             applyExample.createCriteria().andApplyTimeGreaterThanOrEqualTo(startTime);
-        if(sortOrder != null)
-            applyExample.setOrderByClause("applyTime "+sortOrder);
+        if (sortOrder != null)
+            applyExample.setOrderByClause("applyTime " + sortOrder);
         List<Apply> applyList = applyMapper.selectByExample(applyExample);
         ListDto<Apply> result = new ListDto<>();
         PageDto resultPage = new PageDto();
-        resultPage.setTotal(((Page)applyList).getTotal());
+        resultPage.setTotal(((Page) applyList).getTotal());
         resultPage.setPageNo(page.getPageNo());
         resultPage.setPageSize(page.getPageSize());
         result.setTableBody(applyList);
@@ -387,13 +384,30 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
         }
     }
 
-    public void addSchoolInfo(SchoolInfo schoolInfo){
-        schoolInfoMapper.insertSelective(schoolInfo);
+
+    @Override
+    @Transactional
+    public void addSchoolInfo(SchoolInfo schoolInfo) {
+        SchoolInfoExample schoolInfoExample = new SchoolInfoExample();
+        schoolInfoExample.createCriteria().andSchoolIdEqualTo(schoolInfo.getSchoolId());
+        if (schoolInfoMapper.selectByExample(schoolInfoExample).size() > 0) {
+            schoolInfoMapper.insertSelective(schoolInfo);
+        } else {
+            schoolInfoMapper.updateByExample(schoolInfo,schoolInfoExample);
+        }
     }
+
+    @Override
+    public List<ChoicestSchool> getChoicestList(){
+        List<ChoicestSchool> choicestList = choicestSchoolMapper.selectByExample(new ChoicestSchoolExample());
+        choicestList.forEach((row)-> row.setSchoolName(schoolMapper.selectByPrimaryKey(row.getSchoolId()).getSchoolName()));
+        return choicestList;
+    }
+
 
     @Transactional
     @Override
-    public void deleteSchool(Integer id){
+    public void deleteSchool(Integer id) {
         schoolMapper.deleteByPrimaryKey(id);
         SchoolInfoExample schoolInfoExample = new SchoolInfoExample();
         schoolInfoExample.createCriteria().andSchoolIdEqualTo(id);
@@ -401,8 +415,44 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
     }
 
     @Override
-    public void deleteChoicestSchool(Integer id){
+    public void deleteChoicestSchool(Integer id) {
         choicestSchoolMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public ListDto<SchoolDto> getSchoolList(PageDto page){
+        Map<String, String> continentMap = commonService.getEnumByCategory(EnumConstants.CONTINENT);
+        Map<String, String> countryMap = commonService.getEnumByCategory(EnumConstants.COUNTRY);
+        Map<String, String> stateMap = commonService.getEnumByCategory(EnumConstants.STATE);
+        Map<String, String> cityMap = commonService.getEnumByCategory(EnumConstants.CITY);
+        Map<String, String> schoolTypeMap = commonService.getEnumByCategory(EnumConstants.SCHOOL_TYPE);
+        Map<String, String> genderTypeMap = commonService.getEnumByCategory(EnumConstants.SCHOOL_GENDER_TYPE);
+        Map<String, String> religionTypeMap = commonService.getEnumByCategory(EnumConstants.RELIGION_TYPE);
+
+        PageHelper.startPage(page.getPageNo(),page.getPageSize());
+        List<School> schoolList = schoolMapper.selectByExample(new SchoolExample());
+        List<SchoolDto> resultList = new ArrayList<>(schoolList.size());
+        schoolList.forEach((row)->{
+            SchoolDto schoolDto = new SchoolDto();
+            schoolDto.setSchoolName(row.getSchoolName());
+            schoolDto.setSchoolEnglishName(row.getSchoolEnglishName());
+            schoolDto.setCityName(cityMap.get(row.getCityCode()));
+            schoolDto.setContinentName(continentMap.get(row.getContinentCode()));
+            schoolDto.setCountryName(countryMap.get(row.getCountryCode()));
+            schoolDto.setReligionTypeName(religionTypeMap.get(row.getReligionTypeCode()));
+            schoolDto.setSchoolGenderTypeName(genderTypeMap.get(row.getSchoolGenderTypeCode()));
+            schoolDto.setSchoolTypeName(schoolTypeMap.get(schoolTypeMap.get(row.getSchoolTypeCode())));
+            schoolDto.setStateName(stateMap.get(row.getStateCode()));
+            schoolDto.setHasEsl(row.getHasEsl());
+            resultList.add(schoolDto);
+        });
+        ListDto<SchoolDto> result = new ListDto<>();
+        PageDto resultPage = new PageDto();
+        BeanUtils.copyProperties(page,resultPage);
+        resultPage.setTotal(((Page)resultList).getTotal());
+        result.setTableBody(resultList);
+        result.setPage(resultPage);
+        return result;
     }
 
     @Override

@@ -821,7 +821,7 @@ status枚举如下:
               "schoolTypeName":"xxx",
               "schoolGenderTypeName":"xxx",
               "religionTypeName":"xxx",
-              "hasEsl":true
+              "hasEsl":0//
             }
           ],
       "page":{
@@ -879,22 +879,13 @@ status枚举如下:
   "url":"/api/manage/school/getChoicestSchool",
   "method":"post",
   "request":{
-    "pageNo":1,
-    "pageSize":20
   },
   "response":{
     "data":{
-        "tableBody":{
-                "id":4,
-                "schoolId":3,
-                "schoolName":"xxxxx",
-                "choicestContent":"xxxxx"
-            },
-            "page":{
-                "pageNo":1,
-                "pageSize":20,
-                "total":500
-            }
+        "id":4,
+        "schoolId":3,
+        "schoolName":"xxxxx",
+        "choicestContent":"xxxxx"
     },"status":1
 
   }
