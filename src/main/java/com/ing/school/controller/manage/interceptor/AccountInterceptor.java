@@ -31,6 +31,7 @@ public class AccountInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        AccountUtil.unbind();
         String URI = request.getRequestURI();
         if(!URI.startsWith(MANAGE_PATH))
             return true;
