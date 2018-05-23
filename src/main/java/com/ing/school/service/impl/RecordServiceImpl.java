@@ -5,6 +5,7 @@ import com.github.pagehelper.PageHelper;
 import com.ing.school.constants.BooleanConstants;
 import com.ing.school.constants.CostIntervalEnum;
 import com.ing.school.constants.EnumConstants;
+import com.ing.school.constants.FollowUpStatusConstants;
 import com.ing.school.controller.auth.AuthUtil;
 import com.ing.school.dao.mapper.*;
 import com.ing.school.dao.po.*;
@@ -407,6 +408,15 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
     }
 
     @Override
+    public void followUp(String followUpContent,Integer applyId){
+        Apply apply = new Apply();
+        apply.setId(applyId);
+        apply.setFollowUpStatus(FollowUpStatusConstants.FINISH_FOLLOW_UP);
+        apply.setFollowUpContent(followUpContent);
+        applyMapper.updateByPrimaryKeySelective(apply);
+    }
+
+    @Override
     public void addChoicestSchool(ChoicestSchool choicestSchool){
         choicestSchoolMapper.insertSelective(choicestSchool);
     }
@@ -443,6 +453,7 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
         List<SchoolDto> resultList = new ArrayList<>(schoolList.size());
         schoolList.forEach((row)->{
             SchoolDto schoolDto = new SchoolDto();
+            schoolDto.setId(row.getId());
             schoolDto.setSchoolName(row.getSchoolName());
             schoolDto.setSchoolEnglishName(row.getSchoolEnglishName());
             schoolDto.setCityName(cityMap.get(row.getCityCode()));
@@ -458,7 +469,7 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
         ListDto<SchoolDto> result = new ListDto<>();
         PageDto resultPage = new PageDto();
         BeanUtils.copyProperties(page,resultPage);
-        resultPage.setTotal(((Page)resultList).getTotal());
+        resultPage.setTotal(((Page)schoolList).getTotal());
         result.setTableBody(resultList);
         result.setPage(resultPage);
         return result;

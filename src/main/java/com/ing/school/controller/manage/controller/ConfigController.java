@@ -39,4 +39,6 @@ public class ConfigController {
         UploadDTO to = commonService.upload(file);
         return gson.toJson(to);
     }
+
+
 }

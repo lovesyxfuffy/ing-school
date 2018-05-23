@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
@@ -63,7 +64,7 @@ public class ManagerOperatorController {
     }
 
 
-    @RequestMapping(value = "/api/manage/school/addSchoolInfo", method = RequestMethod.POST)
+    @RequestMapping(value = "/school/addSchoolInfo", method = RequestMethod.POST)
     public Result addSchoolInfo(SchoolInfo schoolInfo) {
         recordService.addSchoolInfo(schoolInfo);
         return Result.builder().data("").successTrue().build();
@@ -80,5 +81,16 @@ public class ManagerOperatorController {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         dateFormat.setLenient(false);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
+    }
+
+    @RequestMapping(value = "/file/upload", method = RequestMethod.POST)
+    public Result uploadFile(@RequestParam("file") MultipartFile file,@RequestParam("resolver")String tag) {
+        return Result.builder().data(recordService.uploadFile(file)).successTrue().build();
+    }
+
+    @RequestMapping(value = "/apply/followUp",method = RequestMethod.POST)
+    public Result followUp(@RequestParam("applyId")Integer applyId,@RequestParam("followUpContent")String followUpContent){
+        recordService.followUp(followUpContent, applyId);
+        return Result.builder().data("").successTrue().build();
     }
 }

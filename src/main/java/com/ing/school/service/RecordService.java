@@ -46,6 +46,8 @@ public interface RecordService  {
 
     List<ChoicestSchool> getChoicestList();
 
+    void followUp(String followUpContent, Integer applyId);
+
     void addChoicestSchool(ChoicestSchool choicestSchool);
 
     void deleteSchool(Integer id);

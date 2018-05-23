@@ -1,13 +1,13 @@
 ### 管理界面
 1. 登不登陆都可以获取到接口内容，这个如果方便可以改一下，必须登录，提高安全性。
-2. 广告位配置了内容，接口返回成功，但是用户界面并没有收到。
+2. 广告位配置了内容，接口返回成功，但是用户界面并没有收到。 (未复现)
 3. 申请列表缺少跟进状态和跟进信息；
 4. 缺少客户收藏列表；
-5. 获取精品学校的接口返回出错 api/manage/school/getChoicestSchool；
+5. 获取精品学校的接口返回出错 api/manage/school/getChoicestSchool；（因为添加精品学校时没传schoolId）
 6. 文件上传接口404 /api/manage/file/upload；
 7. 缺导入模板；
-8. /api/manage/school/schoolList 返回的id为null、所在城市、坐标、院校类型、院校性质、费用均返回了null，不知道是缺少数据的原因还是其他原因，希望补充数据测试；
-9. api/manage/school/addChoicestSchool 设为精选成功，但是并没有体现在api/manage/school/getChoicestSchool，或许是因为这个接口报错了；
+8. /api/manage/school/schoolList 返回的id为null、所在城市、坐标、院校类型、院校性质、费用均返回了null，不知道是缺少数据的原因还是其他原因，希望补充数据测试；(未补充枚举值,导致枚举取不到为null,明天补充)
+9. api/manage/school/addChoicestSchool 设为精选成功，但是并没有体现在api/manage/school/getChoicestSchool，或许是因为这个接口报错了；（同5）
 10. /api/manage/school/addSchoolInfo 404了。
 
 

@@ -181,6 +181,8 @@ status枚举如下:
         "tableBody":[{
           "id":5,
           "schoolName":"xxxxxx",
+          "followUpStatus":1,//0未跟进 1已跟进
+          "followUpContent":"xxxx",
           "applyTime":1687812312//unix时间戳
         },{}],
         "page":{
@@ -922,6 +924,22 @@ status枚举如下:
     "data":"",
     "status":1
   }
+}
+```
+
+### 15.跟进申请
+```json
+{
+    "url":"/api/manage/apply/followUp",
+    "request":{
+        "applyId":5
+        "followUpContent":"这个学生不错"
+    },
+    "response":{
+        "data":{},
+        "status":1
+    }
+
 }
 ```
 
