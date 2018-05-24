@@ -106,10 +106,12 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
     }
 
     @Override
+    @Transactional
     public void addCollection(Integer schoolId) {
         Collection collection = new Collection();
         collection.setSchoolId(schoolId);
         collection.setUserId(AuthUtil.getUserId());
+        schoolMapper.updateCount(schoolId);
 
         collectionMapper.insertSelective(collection);
     }
@@ -136,10 +138,10 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
     }
 
     @Override
-    public ListDto<Apply> getApplyList(PageDto pageDtoInput) {
+    public ListDto<Apply> getApplyList(PageDto pageDtoInput,Integer userId) {
         PageHelper.startPage(pageDtoInput.getPageNo(), pageDtoInput.getPageSize());
         ApplyExample applyExample = new ApplyExample();
-        applyExample.createCriteria().andUserIdEqualTo(AuthUtil.getUserId());
+        applyExample.createCriteria().andUserIdEqualTo(userId);
         List<Apply> result = applyMapper.selectByExample(applyExample);
         ListDto<Apply> listDto = new ListDto<>();
         PageDto pageDto = new PageDto();
@@ -155,10 +157,15 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
     @Transactional
     public Integer addApply(Apply apply, ApplyInfo applyInfo) {
         apply.setUserId(AuthUtil.getUserId());
-        School school = schoolMapper.selectByPrimaryKey(apply.getId());
+        apply.setApplyTime(new Date());
+        School school = schoolMapper.selectByPrimaryKey(apply.getSchoolId());
         apply.setSchoolName(school.getSchoolName());
         apply.setSchoolEnglishName(school.getSchoolEnglishName());
-        applyMapper.insertSelective(apply);
+
+        ApplyExample applyExample = new ApplyExample();
+        applyExample.createCriteria().andSchoolIdEqualTo(apply.getSchoolId()).andUserIdEqualTo(AuthUtil.getUserId());
+        if (applyMapper.selectByExample(applyExample).size() == 0)
+            applyMapper.insertSelective(apply);
         ApplyInfoExample applyInfoExample = new ApplyInfoExample();
         applyInfoExample.createCriteria().andUserIdEqualTo(AuthUtil.getUserId());
         List<ApplyInfo> applyInfoResult = applyInfoMapper.selectByExample(applyInfoExample);
@@ -227,7 +234,10 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
             stb.append(" 1=1 )");
             criteria.addCriterion(stb.toString());
         }
-        schoolExample.setOrderByClause("passingScore desc");
+        if (searchDto.getSortByScore())
+            schoolExample.setOrderByClause("passingScore desc");
+        else
+            schoolExample.setOrderByClause("collectionCount desc");
         PageHelper.startPage(searchDto.getPageNo(), searchDto.getPageSize());
         List<School> schoolList = schoolMapper.selectByExample(schoolExample);
         Map<String, String> countryMap = commonService.getEnumByCategory(EnumConstants.COUNTRY);
@@ -312,7 +322,9 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
             String fileTypeHex = String.valueOf(bytesToHexString(file.getBytes())).toUpperCase();
             if (fileTypeHex.startsWith(jpegHeader) || fileTypeHex.startsWith(pngHeader) || fileTypeHex.startsWith(gifHeader)) {
                 FileUtils.copyInputStreamToFile(file.getInputStream(), new File("/var/www/static/", file.getOriginalFilename()));
-                return "/static/" + file.getOriginalFilename();
+
+                return "/static/" + UUID.randomUUID().toString().replace("-", "") + "_"
+                        + file.getOriginalFilename();
             } else {
                 throw new RuntimeException("文件格式不正确");
             }
@@ -394,21 +406,20 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
         if (schoolInfoMapper.selectByExample(schoolInfoExample).size() > 0) {
             schoolInfoMapper.insertSelective(schoolInfo);
         } else {
-            schoolInfoMapper.updateByExample(schoolInfo,schoolInfoExample);
+            schoolInfoMapper.updateByExample(schoolInfo, schoolInfoExample);
         }
     }
 
 
-
     @Override
-    public List<ChoicestSchool> getChoicestList(){
+    public List<ChoicestSchool> getChoicestList() {
         List<ChoicestSchool> choicestList = choicestSchoolMapper.selectByExample(new ChoicestSchoolExample());
-        choicestList.forEach((row)-> row.setSchoolName(schoolMapper.selectByPrimaryKey(row.getSchoolId()).getSchoolName()));
+        choicestList.forEach((row) -> row.setSchoolName(schoolMapper.selectByPrimaryKey(row.getSchoolId()).getSchoolName()));
         return choicestList;
     }
 
     @Override
-    public void followUp(String followUpContent,Integer applyId){
+    public void followUp(String followUpContent, Integer applyId) {
         Apply apply = new Apply();
         apply.setId(applyId);
         apply.setFollowUpStatus(FollowUpStatusConstants.FINISH_FOLLOW_UP);
@@ -417,11 +428,9 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
     }
 
     @Override
-    public void addChoicestSchool(ChoicestSchool choicestSchool){
+    public void addChoicestSchool(ChoicestSchool choicestSchool) {
         choicestSchoolMapper.insertSelective(choicestSchool);
     }
-
-
 
 
     @Transactional
@@ -439,7 +448,7 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
     }
 
     @Override
-    public ListDto<SchoolDto> getSchoolList(PageDto page){
+    public ListDto<SchoolDto> getSchoolList(PageDto page) {
         Map<String, String> continentMap = commonService.getEnumByCategory(EnumConstants.CONTINENT);
         Map<String, String> countryMap = commonService.getEnumByCategory(EnumConstants.COUNTRY);
         Map<String, String> stateMap = commonService.getEnumByCategory(EnumConstants.STATE);
@@ -448,10 +457,10 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
         Map<String, String> genderTypeMap = commonService.getEnumByCategory(EnumConstants.SCHOOL_GENDER_TYPE);
         Map<String, String> religionTypeMap = commonService.getEnumByCategory(EnumConstants.RELIGION_TYPE);
 
-        PageHelper.startPage(page.getPageNo(),page.getPageSize());
+        PageHelper.startPage(page.getPageNo(), page.getPageSize());
         List<School> schoolList = schoolMapper.selectByExample(new SchoolExample());
         List<SchoolDto> resultList = new ArrayList<>(schoolList.size());
-        schoolList.forEach((row)->{
+        schoolList.forEach((row) -> {
             SchoolDto schoolDto = new SchoolDto();
             schoolDto.setId(row.getId());
             schoolDto.setSchoolName(row.getSchoolName());
@@ -468,8 +477,8 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
         });
         ListDto<SchoolDto> result = new ListDto<>();
         PageDto resultPage = new PageDto();
-        BeanUtils.copyProperties(page,resultPage);
-        resultPage.setTotal(((Page)schoolList).getTotal());
+        BeanUtils.copyProperties(page, resultPage);
+        resultPage.setTotal(((Page) schoolList).getTotal());
         result.setTableBody(resultList);
         result.setPage(resultPage);
         return result;

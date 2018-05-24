@@ -52,8 +52,8 @@ public class ManagerOperatorController {
         return Result.builder().data(recordService.getChoicestList()).successTrue().build();
     }
 
-    @RequestMapping(value = "/school/addChoicestSchool",method = RequestMethod.POST)
-    public Result addChoicestSchool(ChoicestSchool choicestSchool){
+    @RequestMapping(value = "/school/addChoicestSchool", method = RequestMethod.POST)
+    public Result addChoicestSchool(ChoicestSchool choicestSchool) {
         recordService.addChoicestSchool(choicestSchool);
         return Result.builder().data("").successTrue().build();
     }
@@ -70,8 +70,8 @@ public class ManagerOperatorController {
         return Result.builder().data("").successTrue().build();
     }
 
-    @RequestMapping(value = "/school/getSchoolInfo/{schoolId}",method = RequestMethod.POST)
-    public Result getSchoolInfo(@PathVariable("schoolId") Integer schoolId){
+    @RequestMapping(value = "/school/getSchoolInfo/{schoolId}", method = RequestMethod.POST)
+    public Result getSchoolInfo(@PathVariable("schoolId") Integer schoolId) {
         return Result.builder().data(recordService.getSchoolInfo(schoolId)).successTrue().build();
     }
 
@@ -84,13 +84,18 @@ public class ManagerOperatorController {
     }
 
     @RequestMapping(value = "/file/upload", method = RequestMethod.POST)
-    public Result uploadFile(@RequestParam("file") MultipartFile file,@RequestParam("resolver")String tag) {
+    public Result uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("resolver") String tag) {
         return Result.builder().data(recordService.uploadFile(file)).successTrue().build();
     }
 
-    @RequestMapping(value = "/apply/followUp",method = RequestMethod.POST)
-    public Result followUp(@RequestParam("applyId")Integer applyId,@RequestParam("followUpContent")String followUpContent){
+    @RequestMapping(value = "/apply/followUp", method = RequestMethod.POST)
+    public Result followUp(@RequestParam("applyId") Integer applyId, @RequestParam("followUpContent") String followUpContent) {
         recordService.followUp(followUpContent, applyId);
         return Result.builder().data("").successTrue().build();
+    }
+
+    @RequestMapping(value = "/apply/getApplyByUserId", method = RequestMethod.POST)
+    public Result getApplyListByUserId(PageDto pageDto, @RequestParam("userId") Integer userId) {
+        return Result.builder().data(recordService.getApplyList(pageDto, userId)).successTrue().build();
     }
 }

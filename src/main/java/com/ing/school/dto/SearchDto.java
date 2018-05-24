@@ -27,6 +27,8 @@ public class SearchDto {
 
     List<String> costIntervalCode;
 
+    Boolean sortByScore;
+
     Integer pageNo;
 
     Integer pageSize;

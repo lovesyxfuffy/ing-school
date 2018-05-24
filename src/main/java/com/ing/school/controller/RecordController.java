@@ -1,5 +1,6 @@
 package com.ing.school.controller;
 
+import com.ing.school.controller.auth.AuthUtil;
 import com.ing.school.controller.utils.Result;
 import com.ing.school.dto.PageDto;
 import com.ing.school.service.RecordService;
@@ -28,7 +29,7 @@ public class RecordController {
 
     @RequestMapping(value = "/apply/list", method = RequestMethod.POST)
     public Result getApplyList(PageDto pageDto) {
-        return Result.builder().data(recordService.getApplyList(pageDto)).successTrue().build();
+        return Result.builder().data(recordService.getApplyList(pageDto, AuthUtil.getUserId())).successTrue().build();
     }
 
     @RequestMapping(value = "/user/get", method = RequestMethod.POST)

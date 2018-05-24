@@ -1163,6 +1163,66 @@ public class SchoolExample {
             addCriterion("passingScore not between", value1, value2, "passingScore");
             return (Criteria) this;
         }
+
+        public Criteria andCollectionCountIsNull() {
+            addCriterion("collectionCount is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollectionCountIsNotNull() {
+            addCriterion("collectionCount is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollectionCountEqualTo(Integer value) {
+            addCriterion("collectionCount =", value, "collectionCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollectionCountNotEqualTo(Integer value) {
+            addCriterion("collectionCount <>", value, "collectionCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollectionCountGreaterThan(Integer value) {
+            addCriterion("collectionCount >", value, "collectionCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollectionCountGreaterThanOrEqualTo(Integer value) {
+            addCriterion("collectionCount >=", value, "collectionCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollectionCountLessThan(Integer value) {
+            addCriterion("collectionCount <", value, "collectionCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollectionCountLessThanOrEqualTo(Integer value) {
+            addCriterion("collectionCount <=", value, "collectionCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollectionCountIn(List<Integer> values) {
+            addCriterion("collectionCount in", values, "collectionCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollectionCountNotIn(List<Integer> values) {
+            addCriterion("collectionCount not in", values, "collectionCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollectionCountBetween(Integer value1, Integer value2) {
+            addCriterion("collectionCount between", value1, value2, "collectionCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollectionCountNotBetween(Integer value1, Integer value2) {
+            addCriterion("collectionCount not between", value1, value2, "collectionCount");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

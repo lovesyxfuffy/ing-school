@@ -33,6 +33,8 @@ public class School {
 
     private Double passingScore;
 
+    private Integer collectionCount;
+
     public Integer getId() {
         return id;
     }
@@ -159,5 +161,13 @@ public class School {
 
     public void setPassingScore(Double passingScore) {
         this.passingScore = passingScore;
+    }
+
+    public Integer getCollectionCount() {
+        return collectionCount;
+    }
+
+    public void setCollectionCount(Integer collectionCount) {
+        this.collectionCount = collectionCount;
     }
 }
