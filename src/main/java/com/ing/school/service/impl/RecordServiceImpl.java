@@ -62,10 +62,10 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
     private ApplicationContext applicationContext;
 
     @Override
-    public Map<String, Object> getCollectionList(Integer pageNo, Integer pageSize) {
+    public Map<String, Object> getCollectionList(Integer pageNo, Integer pageSize,Integer userId) {
         PageHelper.startPage(pageNo, pageSize);
         CollectionExample collectionExample = new CollectionExample();
-        collectionExample.createCriteria().andUserIdEqualTo(AuthUtil.getUserId());
+        collectionExample.createCriteria().andUserIdEqualTo(userId);
         List<Collection> collectionList = collectionMapper.selectByExample(collectionExample);
         Map<Integer, Integer> collectionMapRelation = new HashMap<>();
         PageDto pageDto = new PageDto();
@@ -158,6 +158,7 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
     public Integer addApply(Apply apply, ApplyInfo applyInfo) {
         apply.setUserId(AuthUtil.getUserId());
         apply.setApplyTime(new Date());
+        apply.setUserName(AuthUtil.getUserInfo().getName());
         School school = schoolMapper.selectByPrimaryKey(apply.getSchoolId());
         apply.setSchoolName(school.getSchoolName());
         apply.setSchoolEnglishName(school.getSchoolEnglishName());
@@ -360,6 +361,8 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
         if (sortOrder != null)
             applyExample.setOrderByClause("applyTime " + sortOrder);
         List<Apply> applyList = applyMapper.selectByExample(applyExample);
+
+
         ListDto<Apply> result = new ListDto<>();
         PageDto resultPage = new PageDto();
         resultPage.setTotal(((Page) applyList).getTotal());

@@ -16,7 +16,8 @@ import java.util.Map;
  */
 public interface RecordService  {
 
-    Map<String, Object> getCollectionList(Integer pageNo, Integer pageSize);
+
+    Map<String, Object> getCollectionList(Integer pageNo, Integer pageSize, Integer userId);
 
     void addCollection(Integer schoolId);
 

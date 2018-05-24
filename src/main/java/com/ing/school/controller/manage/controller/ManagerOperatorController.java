@@ -94,8 +94,8 @@ public class ManagerOperatorController {
         return Result.builder().data("").successTrue().build();
     }
 
-    @RequestMapping(value = "/apply/getApplyByUserId", method = RequestMethod.POST)
+    @RequestMapping(value = "/apply/getCollectionByUserId", method = RequestMethod.POST)
     public Result getApplyListByUserId(PageDto pageDto, @RequestParam("userId") Integer userId) {
-        return Result.builder().data(recordService.getApplyList(pageDto, userId)).successTrue().build();
+        return Result.builder().data(recordService.getCollectionList(pageDto.getPageNo(),pageDto.getPageSize(), userId)).successTrue().build();
     }
 }

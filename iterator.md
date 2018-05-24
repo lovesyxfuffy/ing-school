@@ -946,7 +946,7 @@ status枚举如下:
 ### 16.获取客户申请列表
 ```json
 {
-    "url":"/api/manage/apply/getApplyByUserId
+    "url":"/api/manage/apply/getCollectionByUserId
     "method":"post",
       "request":{
           "userId":3
@@ -954,23 +954,21 @@ status枚举如下:
           "pageSize":20//一页多少,
       },
       "response":{
-        "data":{
-            "tableBody":[{
-              "id":5,
-              "schoolName":"xxxxxx",
-              "followUpStatus":1,//0未跟进 1已跟进
-              "followUpContent":"xxxx",
-              "applyTime":1687812312//unix时间戳
-            },{}],
-            "page":{
-                "pageNo":1,
-                "pageSize":20,//一页多少,
-                "total":502//总条数
-            }
-        },
-        "message":"请求成功",
-        "status":1
-      }
+          "tableBody":[{
+            "collectionId":5,
+            "id":4,//school id
+            "schoolName":"xxxx学校",
+            "address":"xxxxxxxxxx",
+            "mainPicture":"xxxxxxxxxxxxx",
+            "positionX":145.64,//经度
+            "positionY":44.56//纬度
+          },{}],
+          "page":{
+            "pageNo":1,
+            "pageSize":20,//一页多少,
+            "total":502//总条数
+          }
+        }
 }
 ```
 

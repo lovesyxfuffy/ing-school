@@ -24,7 +24,7 @@ public class RecordController {
 
     @RequestMapping(value = "/collectionList", method = RequestMethod.POST)
     public Result getCollectionList(@RequestParam("pageNo") Integer pageNo, @RequestParam("pageSize") Integer pageSize) {
-        return Result.builder().data(recordService.getCollectionList(pageNo, pageSize)).successTrue().build();
+        return Result.builder().data(recordService.getCollectionList(pageNo, pageSize,AuthUtil.getUserId())).successTrue().build();
     }
 
     @RequestMapping(value = "/apply/list", method = RequestMethod.POST)
