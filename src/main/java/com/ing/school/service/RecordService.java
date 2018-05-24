@@ -16,7 +16,8 @@ import java.util.Map;
  */
 public interface RecordService  {
 
-    Map<String, Object> getCollectionList(Integer pageNo, Integer pageSize);
+
+    Map<String, Object> getCollectionList(Integer pageNo, Integer pageSize, Integer userId);
 
     void addCollection(Integer schoolId);
 
@@ -24,7 +25,8 @@ public interface RecordService  {
 
     void delete(String category, Integer primaryKey);
 
-    ListDto<Apply> getApplyList(PageDto pageDtoInput);
+
+    ListDto<Apply> getApplyList(PageDto pageDtoInput, Integer userId);
 
     Integer addApply(Apply apply, ApplyInfo applyInfo);
 
@@ -45,6 +47,8 @@ public interface RecordService  {
     void addSchoolInfo(SchoolInfo schoolInfo);
 
     List<ChoicestSchool> getChoicestList();
+
+    void followUp(String followUpContent, Integer applyId);
 
     void addChoicestSchool(ChoicestSchool choicestSchool);
 

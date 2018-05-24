@@ -181,6 +181,8 @@ status枚举如下:
         "tableBody":[{
           "id":5,
           "schoolName":"xxxxxx",
+          "followUpStatus":1,//0未跟进 1已跟进
+          "followUpContent":"xxxx",
           "applyTime":1687812312//unix时间戳
         },{}],
         "page":{
@@ -252,7 +254,6 @@ status枚举如下:
         "schoolTypeCode":"2222",//学校类型枚举 ***hcy 加入数据库
         "englishLevelTypeCode":"",
         "englishLevelScore":"",
-         "applyTime":15098824213//Unix时间戳
 
   },
   "response":{
@@ -328,6 +329,7 @@ status枚举如下:
     "religionTypeCode":[],
     "hasEsl":[],
     "costIntervalCode":[],
+    "sortByScore":false,
     "pageNo":5,
     "pageSize":10
   },
@@ -925,4 +927,48 @@ status枚举如下:
 }
 ```
 
+### 15.跟进申请
+```json
+{
+    "url":"/api/manage/apply/followUp",
+    "request":{
+        "applyId":5
+        "followUpContent":"这个学生不错"
+    },
+    "response":{
+        "data":{},
+        "status":1
+    }
+
+}
+```
+
+### 16.获取客户申请列表
+```json
+{
+    "url":"/api/manage/apply/getCollectionByUserId
+    "method":"post",
+      "request":{
+          "userId":3
+          "pageNo":1,
+          "pageSize":20//一页多少,
+      },
+      "response":{
+          "tableBody":[{
+            "collectionId":5,
+            "id":4,//school id
+            "schoolName":"xxxx学校",
+            "address":"xxxxxxxxxx",
+            "mainPicture":"xxxxxxxxxxxxx",
+            "positionX":145.64,//经度
+            "positionY":44.56//纬度
+          },{}],
+          "page":{
+            "pageNo":1,
+            "pageSize":20,//一页多少,
+            "total":502//总条数
+          }
+        }
+}
+```
 

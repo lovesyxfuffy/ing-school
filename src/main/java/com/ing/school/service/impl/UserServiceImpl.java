@@ -68,7 +68,7 @@ public class UserServiceImpl implements UserService, ApplicationContextAware {
             UserExample userExample = new UserExample();
             userExample.createCriteria().andTelephoneEqualTo(telephone);
             List<User> userList = userMapper.selectByExample(userExample);
-            if (userList.size() >= 0 )
+            if (userList.size() > 0 )
                 throw new RuntimeException("该手机号已注册");
             User user = new User();
             user.setTelephone(telephone);
