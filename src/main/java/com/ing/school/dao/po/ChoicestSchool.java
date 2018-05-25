@@ -5,9 +5,19 @@ public class ChoicestSchool {
 
     private Integer schoolId;
 
+    private String schoolName;
+
     private String mainPicture;
 
     private String choicestContent;
+
+    public String getSchoolName() {
+        return schoolName;
+    }
+
+    public void setSchoolName(String schoolName) {
+        this.schoolName = schoolName;
+    }
 
     public Integer getId() {
         return id;

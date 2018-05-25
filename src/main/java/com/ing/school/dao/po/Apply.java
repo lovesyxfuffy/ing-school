@@ -7,6 +7,8 @@ public class Apply {
 
     private Integer userId;
 
+    private String userName;
+
     private Integer schoolId;
 
     private String schoolTypeCode;
@@ -37,6 +39,14 @@ public class Apply {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName == null ? null : userName.trim();
     }
 
     public Integer getSchoolId() {

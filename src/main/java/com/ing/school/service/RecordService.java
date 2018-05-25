@@ -2,14 +2,13 @@ package com.ing.school.service;
 
 import com.ing.school.dao.po.Apply;
 import com.ing.school.dao.po.ApplyInfo;
-import com.ing.school.dto.ListDto;
-import com.ing.school.dto.PageDto;
-import com.ing.school.dto.SchoolInfoDto;
-import com.ing.school.dto.SearchDto;
-import org.springframework.transaction.annotation.Transactional;
+import com.ing.school.dao.po.ChoicestSchool;
+import com.ing.school.dao.po.SchoolInfo;
+import com.ing.school.dto.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -17,7 +16,8 @@ import java.util.Map;
  */
 public interface RecordService  {
 
-    Map<String, Object> getCollectionList(Integer pageNo, Integer pageSize);
+
+    Map<String, Object> getCollectionList(Integer pageNo, Integer pageSize, Integer userId);
 
     void addCollection(Integer schoolId);
 
@@ -25,7 +25,8 @@ public interface RecordService  {
 
     void delete(String category, Integer primaryKey);
 
-    ListDto<Apply> getApplyList(PageDto pageDtoInput);
+
+    ListDto<Apply> getApplyList(PageDto pageDtoInput, Integer userId);
 
     Integer addApply(Apply apply, ApplyInfo applyInfo);
 
@@ -43,8 +44,17 @@ public interface RecordService  {
 
     Map<String, Object> getApplyInfoById(Integer userId);
 
-    @Transactional
+    void addSchoolInfo(SchoolInfo schoolInfo);
+
+    List<ChoicestSchool> getChoicestList();
+
+    void followUp(String followUpContent, Integer applyId);
+
+    void addChoicestSchool(ChoicestSchool choicestSchool);
+
     void deleteSchool(Integer id);
 
     void deleteChoicestSchool(Integer id);
+
+    ListDto<SchoolDto> getSchoolList(PageDto page);
 }
