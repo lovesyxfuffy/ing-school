@@ -62,7 +62,7 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
     private ApplicationContext applicationContext;
 
     @Override
-    public Map<String, Object> getCollectionList(Integer pageNo, Integer pageSize,Integer userId) {
+    public Map<String, Object> getCollectionList(Integer pageNo, Integer pageSize, Integer userId) {
         PageHelper.startPage(pageNo, pageSize);
         CollectionExample collectionExample = new CollectionExample();
         collectionExample.createCriteria().andUserIdEqualTo(userId);
@@ -138,7 +138,7 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
     }
 
     @Override
-    public ListDto<Apply> getApplyList(PageDto pageDtoInput,Integer userId) {
+    public ListDto<Apply> getApplyList(PageDto pageDtoInput, Integer userId) {
         PageHelper.startPage(pageDtoInput.getPageNo(), pageDtoInput.getPageSize());
         ApplyExample applyExample = new ApplyExample();
         applyExample.createCriteria().andUserIdEqualTo(userId);
@@ -321,11 +321,11 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
             String pngHeader = "89504E47";
             String gifHeader = "47494638";
             String fileTypeHex = String.valueOf(bytesToHexString(file.getBytes())).toUpperCase();
+            String token = UUID.randomUUID().toString().replace("-", "") + "_";
             if (fileTypeHex.startsWith(jpegHeader) || fileTypeHex.startsWith(pngHeader) || fileTypeHex.startsWith(gifHeader)) {
-                FileUtils.copyInputStreamToFile(file.getInputStream(), new File("/var/www/static/", file.getOriginalFilename()));
+                FileUtils.copyInputStreamToFile(file.getInputStream(), new File("/var/www/static/", token + file.getOriginalFilename()));
 
-                return "/static/" + UUID.randomUUID().toString().replace("-", "") + "_"
-                        + file.getOriginalFilename();
+                return "/static/" + token + file.getOriginalFilename();
             } else {
                 throw new RuntimeException("文件格式不正确");
             }
