@@ -29,6 +29,11 @@
         </dependency>
         <!--++++++++++++++++ spring  +++++++++++++++++++++-->
         <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-excelant</artifactId>
+            <version>3.17</version>
+        </dependency>
+        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
             <version>${spring.version}</version>
