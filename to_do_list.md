@@ -10,4 +10,4 @@
 2. /api/manage/school/addChoicestSchool在后台设置精选学校成功之后，前台没有显示出来。/api/manage/school/getChoicestSchool也依然报错500-null。
 3. 在后台配置了学校的具体情况之后，用户界面/api/record/get/schoolInfo/{schoolId} 报错：查询学校详情错误
 4. /api/manage/school/addSchoolInfo 这个接口应该是，同一个id，每次传入的内容覆盖前面的内容，不是新建一个记录。【看数据库】
-5. /api/manage/apply/getApplyInfo/{userid} 返回的项目和用户界面的不一样——用户界面 全部填一遍，然后到管理界面看 就会知道有不同
+5. /api/manage/apply/getApplyInfo/{userid} 返回的项目和用户界面的不一样——用户界面 全部填一遍，然后到管理界面看 就会知道有不同。——少了schoolType，attendanceGrades和currendGradeCode这两个返回了null。
