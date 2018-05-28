@@ -41,7 +41,7 @@ public class Input {
 
     private static Integer insert(Cell cell, Integer pre, Integer that,String enumName,String category) throws SQLException {
         if(cell==null){
-            return null;
+            return that;
         }
         String value = cell.getStringCellValue().trim();
         if(empty(value))
