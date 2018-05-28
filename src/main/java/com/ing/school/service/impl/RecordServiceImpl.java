@@ -62,7 +62,7 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
     private ApplicationContext applicationContext;
 
     @Override
-    public Map<String, Object> getCollectionList(Integer pageNo, Integer pageSize,Integer userId) {
+    public Map<String, Object> getCollectionList(Integer pageNo, Integer pageSize, Integer userId) {
         PageHelper.startPage(pageNo, pageSize);
         CollectionExample collectionExample = new CollectionExample();
         collectionExample.createCriteria().andUserIdEqualTo(userId);
@@ -73,7 +73,7 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
         pageDto.setPageNo(pageNo);
         pageDto.setPageSize(pageSize);
 
-        List<Integer> schoolIdList = collectionList.stream().map(Collection::getUserId).collect(Collectors.toList());
+        List<Integer> schoolIdList = collectionList.stream().map(Collection::getSchoolId).collect(Collectors.toList());
         for (Collection collection : collectionList) {
             collectionMapRelation.put(collection.getSchoolId(), collection.getId());
         }
@@ -111,6 +111,7 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
         Collection collection = new Collection();
         collection.setSchoolId(schoolId);
         collection.setUserId(AuthUtil.getUserId());
+        collection.setCollectionTime(new Date());
         schoolMapper.updateCount(schoolId);
 
         collectionMapper.insertSelective(collection);
@@ -138,7 +139,7 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
     }
 
     @Override
-    public ListDto<Apply> getApplyList(PageDto pageDtoInput,Integer userId) {
+    public ListDto<Apply> getApplyList(PageDto pageDtoInput, Integer userId) {
         PageHelper.startPage(pageDtoInput.getPageNo(), pageDtoInput.getPageSize());
         ApplyExample applyExample = new ApplyExample();
         applyExample.createCriteria().andUserIdEqualTo(userId);
@@ -230,12 +231,12 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
                         stb.append(" and school.cost >= ").append(floor);
                 } else if (floor != null)
                     stb.append(" school.cost >= ").append(floor);
-                stb.append(" or ");
+                stb.append(" and ");
             }
             stb.append(" 1=1 )");
             criteria.addCriterion(stb.toString());
         }
-        if (searchDto.getSortByScore())
+        if (searchDto.getSortByScore() != null && searchDto.getSortByScore())
             schoolExample.setOrderByClause("passingScore desc");
         else
             schoolExample.setOrderByClause("collectionCount desc");
@@ -271,7 +272,7 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
     public SchoolInfoDto getSchoolInfo(Integer schoolId) {
         SchoolInfoExample schoolInfoExample = new SchoolInfoExample();
         schoolInfoExample.createCriteria().andSchoolIdEqualTo(schoolId);
-        List<SchoolInfo> result = schoolInfoMapper.selectByExample(schoolInfoExample);
+        List<SchoolInfo> result = schoolInfoMapper.selectByExampleWithBLOBs(schoolInfoExample);
         School school = schoolMapper.selectByPrimaryKey(schoolId);
         if (result.size() > 1)
             throw new RuntimeException("查询学校详情错误");
@@ -321,11 +322,11 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
             String pngHeader = "89504E47";
             String gifHeader = "47494638";
             String fileTypeHex = String.valueOf(bytesToHexString(file.getBytes())).toUpperCase();
+            String token = UUID.randomUUID().toString().replace("-", "") + "_";
             if (fileTypeHex.startsWith(jpegHeader) || fileTypeHex.startsWith(pngHeader) || fileTypeHex.startsWith(gifHeader)) {
-                FileUtils.copyInputStreamToFile(file.getInputStream(), new File("/var/www/static/", file.getOriginalFilename()));
+                FileUtils.copyInputStreamToFile(file.getInputStream(), new File("/var/www/static/", token + file.getOriginalFilename()));
 
-                return "/static/" + UUID.randomUUID().toString().replace("-", "") + "_"
-                        + file.getOriginalFilename();
+                return "/static/" + token + file.getOriginalFilename();
             } else {
                 throw new RuntimeException("文件格式不正确");
             }
@@ -406,17 +407,19 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
     public void addSchoolInfo(SchoolInfo schoolInfo) {
         SchoolInfoExample schoolInfoExample = new SchoolInfoExample();
         schoolInfoExample.createCriteria().andSchoolIdEqualTo(schoolInfo.getSchoolId());
-        if (schoolInfoMapper.selectByExample(schoolInfoExample).size() > 0) {
-            schoolInfoMapper.insertSelective(schoolInfo);
-        } else {
+        List<SchoolInfo> row;
+        if ((row = schoolInfoMapper.selectByExample(schoolInfoExample)).size() > 0) {
+            schoolInfo.setId(row.get(0).getId());
             schoolInfoMapper.updateByExample(schoolInfo, schoolInfoExample);
+        } else {
+            schoolInfoMapper.insertSelective(schoolInfo);
         }
     }
 
 
     @Override
     public List<ChoicestSchool> getChoicestList() {
-        List<ChoicestSchool> choicestList = choicestSchoolMapper.selectByExample(new ChoicestSchoolExample());
+        List<ChoicestSchool> choicestList = choicestSchoolMapper.selectByExampleWithBLOBs(new ChoicestSchoolExample());
         choicestList.forEach((row) -> row.setSchoolName(schoolMapper.selectByPrimaryKey(row.getSchoolId()).getSchoolName()));
         return choicestList;
     }
@@ -465,6 +468,7 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
         List<SchoolDto> resultList = new ArrayList<>(schoolList.size());
         schoolList.forEach((row) -> {
             SchoolDto schoolDto = new SchoolDto();
+            BeanUtils.copyProperties(row, schoolDto);
             schoolDto.setId(row.getId());
             schoolDto.setSchoolName(row.getSchoolName());
             schoolDto.setSchoolEnglishName(row.getSchoolEnglishName());
@@ -473,7 +477,7 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
             schoolDto.setCountryName(countryMap.get(row.getCountryCode()));
             schoolDto.setReligionTypeName(religionTypeMap.get(row.getReligionTypeCode()));
             schoolDto.setSchoolGenderTypeName(genderTypeMap.get(row.getSchoolGenderTypeCode()));
-            schoolDto.setSchoolTypeName(schoolTypeMap.get(schoolTypeMap.get(row.getSchoolTypeCode())));
+            schoolDto.setSchoolTypeName(schoolTypeMap.get(row.getSchoolTypeCode()));
             schoolDto.setStateName(stateMap.get(row.getStateCode()));
             schoolDto.setHasEsl(row.getHasEsl());
             resultList.add(schoolDto);

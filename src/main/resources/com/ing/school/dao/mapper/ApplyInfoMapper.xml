@@ -154,7 +154,7 @@
       #{currentSchoolCounselor,jdbcType=VARCHAR}, #{currentSchoolGuidancePhone,jdbcType=VARCHAR}, 
       #{attendanceGrades,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.ing.school.dao.po.ApplyInfo" >
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" parameterType="com.ing.school.dao.po.ApplyInfo" >
     insert into applyInfo
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

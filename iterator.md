@@ -901,7 +901,7 @@ status枚举如下:
   "method":"post",
   "request":{
     "schoolId":5,
-    "mainPictureUrl":"xxxx",
+    "mainPicture":"xxxx",
     "choicestContent":"xxxx"
   },
   "response":{
