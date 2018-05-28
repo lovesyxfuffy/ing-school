@@ -2,17 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.ing.school.dao.mapper.SchoolInfoMapper" >
   <resultMap id="BaseResultMap" type="com.ing.school.dao.po.SchoolInfo" >
-    <result column="id" property="id" jdbcType="INTEGER" />
+    <id column="id" property="id" jdbcType="INTEGER" />
     <result column="schoolId" property="schoolId" jdbcType="INTEGER" />
     <result column="headPictureUrl" property="headPictureUrl" jdbcType="VARCHAR" />
     <result column="classess" property="classess" jdbcType="VARCHAR" />
-    <result column="afterGraduation" property="afterGraduation" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.ing.school.dao.po.SchoolInfo" extends="BaseResultMap" >
     <result column="synopsis" property="synopsis" jdbcType="LONGVARCHAR" />
     <result column="badge" property="badge" jdbcType="LONGVARCHAR" />
     <result column="applicationGuide" property="applicationGuide" jdbcType="LONGVARCHAR" />
     <result column="advantage" property="advantage" jdbcType="LONGVARCHAR" />
+    <result column="afterGraduation" property="afterGraduation" jdbcType="LONGVARCHAR" />
     <result column="applyCondition" property="applyCondition" jdbcType="LONGVARCHAR" />
     <result column="activity" property="activity" jdbcType="LONGVARCHAR" />
     <result column="applyCase" property="applyCase" jdbcType="LONGVARCHAR" />
@@ -77,11 +77,11 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, schoolId, headPictureUrl, classess, afterGraduation
+    id, schoolId, headPictureUrl, classess
   </sql>
   <sql id="Blob_Column_List" >
-    synopsis, badge, applicationGuide, advantage, applyCondition, activity, applyCase, 
-    accommodation
+    synopsis, badge, applicationGuide, advantage, afterGraduation, applyCondition, activity, 
+    applyCase, accommodation
   </sql>
   <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.ing.school.dao.po.SchoolInfoExample" >
     select
@@ -115,6 +115,18 @@
       order by ${orderByClause}
     </if>
   </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from schoolInfo
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from schoolInfo
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
   <delete id="deleteByExample" parameterType="com.ing.school.dao.po.SchoolInfoExample" >
     delete from schoolInfo
     <if test="_parameter != null" >
@@ -123,13 +135,13 @@
   </delete>
   <insert id="insert" parameterType="com.ing.school.dao.po.SchoolInfo" >
     insert into schoolInfo (id, schoolId, headPictureUrl, 
-      classess, afterGraduation, synopsis, 
-      badge, applicationGuide, advantage, 
+      classess, synopsis, badge, 
+      applicationGuide, advantage, afterGraduation, 
       applyCondition, activity, applyCase, 
       accommodation)
     values (#{id,jdbcType=INTEGER}, #{schoolId,jdbcType=INTEGER}, #{headPictureUrl,jdbcType=VARCHAR}, 
-      #{classess,jdbcType=VARCHAR}, #{afterGraduation,jdbcType=VARCHAR}, #{synopsis,jdbcType=LONGVARCHAR}, 
-      #{badge,jdbcType=LONGVARCHAR}, #{applicationGuide,jdbcType=LONGVARCHAR}, #{advantage,jdbcType=LONGVARCHAR}, 
+      #{classess,jdbcType=VARCHAR}, #{synopsis,jdbcType=LONGVARCHAR}, #{badge,jdbcType=LONGVARCHAR}, 
+      #{applicationGuide,jdbcType=LONGVARCHAR}, #{advantage,jdbcType=LONGVARCHAR}, #{afterGraduation,jdbcType=LONGVARCHAR}, 
       #{applyCondition,jdbcType=LONGVARCHAR}, #{activity,jdbcType=LONGVARCHAR}, #{applyCase,jdbcType=LONGVARCHAR}, 
       #{accommodation,jdbcType=LONGVARCHAR})
   </insert>
@@ -148,9 +160,6 @@
       <if test="classess != null" >
         classess,
       </if>
-      <if test="afterGraduation != null" >
-        afterGraduation,
-      </if>
       <if test="synopsis != null" >
         synopsis,
       </if>
@@ -162,6 +171,9 @@
       </if>
       <if test="advantage != null" >
         advantage,
+      </if>
+      <if test="afterGraduation != null" >
+        afterGraduation,
       </if>
       <if test="applyCondition != null" >
         applyCondition,
@@ -189,9 +201,6 @@
       <if test="classess != null" >
         #{classess,jdbcType=VARCHAR},
       </if>
-      <if test="afterGraduation != null" >
-        #{afterGraduation,jdbcType=VARCHAR},
-      </if>
       <if test="synopsis != null" >
         #{synopsis,jdbcType=LONGVARCHAR},
       </if>
@@ -203,6 +212,9 @@
       </if>
       <if test="advantage != null" >
         #{advantage,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="afterGraduation != null" >
+        #{afterGraduation,jdbcType=LONGVARCHAR},
       </if>
       <if test="applyCondition != null" >
         #{applyCondition,jdbcType=LONGVARCHAR},
@@ -233,9 +245,6 @@
       <if test="record.classess != null" >
         classess = #{record.classess,jdbcType=VARCHAR},
       </if>
-      <if test="record.afterGraduation != null" >
-        afterGraduation = #{record.afterGraduation,jdbcType=VARCHAR},
-      </if>
       <if test="record.synopsis != null" >
         synopsis = #{record.synopsis,jdbcType=LONGVARCHAR},
       </if>
@@ -247,6 +256,9 @@
       </if>
       <if test="record.advantage != null" >
         advantage = #{record.advantage,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.afterGraduation != null" >
+        afterGraduation = #{record.afterGraduation,jdbcType=LONGVARCHAR},
       </if>
       <if test="record.applyCondition != null" >
         applyCondition = #{record.applyCondition,jdbcType=LONGVARCHAR},
@@ -271,11 +283,11 @@
       schoolId = #{record.schoolId,jdbcType=INTEGER},
       headPictureUrl = #{record.headPictureUrl,jdbcType=VARCHAR},
       classess = #{record.classess,jdbcType=VARCHAR},
-      afterGraduation = #{record.afterGraduation,jdbcType=VARCHAR},
       synopsis = #{record.synopsis,jdbcType=LONGVARCHAR},
       badge = #{record.badge,jdbcType=LONGVARCHAR},
       applicationGuide = #{record.applicationGuide,jdbcType=LONGVARCHAR},
       advantage = #{record.advantage,jdbcType=LONGVARCHAR},
+      afterGraduation = #{record.afterGraduation,jdbcType=LONGVARCHAR},
       applyCondition = #{record.applyCondition,jdbcType=LONGVARCHAR},
       activity = #{record.activity,jdbcType=LONGVARCHAR},
       applyCase = #{record.applyCase,jdbcType=LONGVARCHAR},
@@ -289,10 +301,74 @@
     set id = #{record.id,jdbcType=INTEGER},
       schoolId = #{record.schoolId,jdbcType=INTEGER},
       headPictureUrl = #{record.headPictureUrl,jdbcType=VARCHAR},
-      classess = #{record.classess,jdbcType=VARCHAR},
-      afterGraduation = #{record.afterGraduation,jdbcType=VARCHAR}
+      classess = #{record.classess,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ing.school.dao.po.SchoolInfo" >
+    update schoolInfo
+    <set >
+      <if test="schoolId != null" >
+        schoolId = #{schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="headPictureUrl != null" >
+        headPictureUrl = #{headPictureUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="classess != null" >
+        classess = #{classess,jdbcType=VARCHAR},
+      </if>
+      <if test="synopsis != null" >
+        synopsis = #{synopsis,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="badge != null" >
+        badge = #{badge,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="applicationGuide != null" >
+        applicationGuide = #{applicationGuide,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="advantage != null" >
+        advantage = #{advantage,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="afterGraduation != null" >
+        afterGraduation = #{afterGraduation,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="applyCondition != null" >
+        applyCondition = #{applyCondition,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="activity != null" >
+        activity = #{activity,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="applyCase != null" >
+        applyCase = #{applyCase,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="accommodation != null" >
+        accommodation = #{accommodation,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ing.school.dao.po.SchoolInfo" >
+    update schoolInfo
+    set schoolId = #{schoolId,jdbcType=INTEGER},
+      headPictureUrl = #{headPictureUrl,jdbcType=VARCHAR},
+      classess = #{classess,jdbcType=VARCHAR},
+      synopsis = #{synopsis,jdbcType=LONGVARCHAR},
+      badge = #{badge,jdbcType=LONGVARCHAR},
+      applicationGuide = #{applicationGuide,jdbcType=LONGVARCHAR},
+      advantage = #{advantage,jdbcType=LONGVARCHAR},
+      afterGraduation = #{afterGraduation,jdbcType=LONGVARCHAR},
+      applyCondition = #{applyCondition,jdbcType=LONGVARCHAR},
+      activity = #{activity,jdbcType=LONGVARCHAR},
+      applyCase = #{applyCase,jdbcType=LONGVARCHAR},
+      accommodation = #{accommodation,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ing.school.dao.po.SchoolInfo" >
+    update schoolInfo
+    set schoolId = #{schoolId,jdbcType=INTEGER},
+      headPictureUrl = #{headPictureUrl,jdbcType=VARCHAR},
+      classess = #{classess,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

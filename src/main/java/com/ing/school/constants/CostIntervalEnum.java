@@ -3,7 +3,8 @@ package com.ing.school.constants;
 /**
  * Created by yujingyang on 2018/5/10.
  */
-public enum CostIntervalEnum {
+public enum
+CostIntervalEnum {
 
     INTERVAL_ZERO_TWENTY("0", "0到20万", 0, 20),
     INTERVAL_TWENTY_FORTY("1", "20到40万", 20, 40),

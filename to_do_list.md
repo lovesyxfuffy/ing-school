@@ -1,15 +1,13 @@
-### 管理界面
-1. 登不登陆都可以获取到接口内容，这个如果方便可以改一下，必须登录，提高安全性。
-2. 广告位配置了内容，接口返回成功，但是用户界面并没有收到。
-5. 获取精品学校的接口返回出错 api/manage/school/getChoicestSchool；
-7. 缺导入模板；
-8. /api/manage/school/schoolList 返回的id为null、所在城市、坐标、院校类型、院校性质、费用均返回了null，不知道是缺少数据的原因还是其他原因，希望补充数据测试；(未补充枚举值,导致枚举取不到为null,明天补充)
-9. api/manage/school/addChoicestSchool 设为精选成功，但是并没有体现在api/manage/school/getChoicestSchool，或许是因为这个接口报错了；（同5）
-10. /api/manage/school/addSchoolInfo 404了。
-
-
 ### 用户界面
-3. 用户a上传的头像叫'a.jpg',用户b也上传了头像也叫'a.jpg',则a的头像变成了b上传的头像。就是即是是不一样的图片，只要名字相同就会被覆盖掉。
-【上传头像返回的链接显示不出来】
-4. 不过注册什么手机号，都提示已经注册过。
-5. 验证码发送到手机上，从返回值里删了。
+1. 搜索返回了500-null
+2. /api/record/get/schoolInfo/{schoolId} 返回null。
+3. /api/operator/search/schoolList 的筛选条件，costIntervalCode费用区间似乎并不起作用。
+4. api/operator/collection/add 收藏了一个学校之后，在个人中心没有查到记录。 【初步怀疑2和4都是schoolId的问题吧】
+
+
+#### 管理员界面
+1. 没有精选学校的时候，api/manage/school/getChoicestSchool返回了500，null。
+2. /api/manage/school/addChoicestSchool在后台设置精选学校成功之后，前台没有显示出来。/api/manage/school/getChoicestSchool也依然报错500-null。
+3. 在后台配置了学校的具体情况之后，用户界面/api/record/get/schoolInfo/{schoolId} 报错：查询学校详情错误
+4. /api/manage/school/addSchoolInfo 这个接口应该是，同一个id，每次传入的内容覆盖前面的内容，不是新建一个记录。【看数据库】
+5. /api/manage/apply/getApplyInfo/{userid} 返回的项目和用户界面的不一样——用户界面 全部填一遍，然后到管理界面看 就会知道有不同。——少了schoolType，attendanceGrades和currendGradeCode这两个返回了null。

@@ -8,6 +8,7 @@ import com.ing.school.controller.manage.auth.AccountInfo;
 import com.ing.school.controller.manage.auth.AccountUtil;
 import com.ing.school.controller.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -23,10 +24,10 @@ import java.io.PrintWriter;
 /**
  * Created by yujingyang on 2018/5/16.
  */
+@Component
 public class AccountInterceptor implements HandlerInterceptor {
-    private static final String MANAGE_PATH = "/api/manage";
 
-    private static final String LOGIN_PATH = "/api/manage/login";
+    private static final String LOGIN_PATH = "/api/manage/account/login";
 
     @Autowired
     Gson gson;
@@ -35,8 +36,6 @@ public class AccountInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         AccountUtil.unbind();
         String URI = request.getRequestURI();
-        if(!URI.startsWith(MANAGE_PATH))
-            return true;
         String loginCookie = getCookie(request, LoginConstants.SCHOOL_MANAGE_COOKIE);
         HttpSession session = request.getSession();
         AccountInfo accountInfo = (AccountInfo) session.getAttribute(loginCookie);

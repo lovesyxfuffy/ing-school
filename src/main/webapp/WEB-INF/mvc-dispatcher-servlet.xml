@@ -55,6 +55,11 @@
             <mvc:mapping path="/api/**"/>
             <bean class="com.ing.school.controller.interceptor.LoginInterceptor"/>
         </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/api/manage/**"/>
+            <bean class="com.ing.school.controller.manage.interceptor.AccountInterceptor"/>
+        </mvc:interceptor>
+
     </mvc:interceptors>
     <mvc:default-servlet-handler/>
 
