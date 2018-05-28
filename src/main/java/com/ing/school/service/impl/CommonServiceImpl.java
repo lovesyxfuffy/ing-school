@@ -18,6 +18,7 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -117,7 +118,9 @@ public class CommonServiceImpl implements CommonService {
     public List<Map> getChoicestSchool() {
         ChoicestSchoolExample choicestSchoolExample = new ChoicestSchoolExample();
         List<ChoicestSchool> choicestSchoolList = choicestSchoolMapper.selectByExampleWithBLOBs(choicestSchoolExample);
-        List<Integer> schoolIdList = choicestSchoolList.stream().map(ChoicestSchool::getSchoolId).collect(Collectors.toList());
+        List<Integer> schoolIdList = choicestSchoolList.stream()
+                .map(ChoicestSchool::getSchoolId)
+                .collect(Collectors.toList());
         Map<Integer, ChoicestSchool> tmpMap = new HashMap<>();
         for (ChoicestSchool choicestSchool : choicestSchoolList) {
             tmpMap.put(choicestSchool.getSchoolId(), choicestSchool);
@@ -177,6 +180,7 @@ public class CommonServiceImpl implements CommonService {
     }
 
     @Override
+    @Transactional
     public void resolveExcel(MultipartFile file) throws Exception {
         Sheet sheet = WorkbookFactory.create(file.getInputStream()).getSheetAt(0);
         Map<String, String> continentMap = commonService.getEnumByCategoryXargs(EnumConstants.CONTINENT);
@@ -191,6 +195,9 @@ public class CommonServiceImpl implements CommonService {
             if (row.getRowNum() == 0)
                 continue;
             School school = new School();
+            if (row.getCell(0) == null)
+                continue;
+            System.out.println(row.getCell(0).getStringCellValue());
             school.setSchoolName(row.getCell(0).getStringCellValue());
             school.setSchoolEnglishName(row.getCell(1).getStringCellValue());
             school.setContinentCode(continentMap.get(row.getCell(2).getStringCellValue()));
