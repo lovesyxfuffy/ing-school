@@ -68,9 +68,17 @@ public class UserServiceImpl implements UserService, ApplicationContextAware {
             UserExample userExample = new UserExample();
             userExample.createCriteria().andTelephoneEqualTo(telephone);
             List<User> userList = userMapper.selectByExample(userExample);
-            if (userList.size() > 0 )
-                throw new RuntimeException("该手机号已注册");
             User user = new User();
+            if (userList.size() > 0) {
+                user = userList.get(0);
+                if (UserStatusConstants.AFTER_REGISTERED.equals(user.getStatus())) {
+                    throw new RuntimeException("该手机号已注册");
+                }else{
+                    user.setTelephone(telephone);
+                    user.setStatus(UserStatusConstants.WAIT_FOR_REGISTER);
+                    return user.getId();
+                }
+            }
             user.setTelephone(telephone);
             user.setStatus(UserStatusConstants.WAIT_FOR_REGISTER);
             userMapper.insertSelective(user);
@@ -86,7 +94,7 @@ public class UserServiceImpl implements UserService, ApplicationContextAware {
 
     @Override
     public UserInfo editUserInfo(User user, Integer registerId) {
-        user.setId(AuthUtil.getUserId());
+        user.setId(registerId);
         user.setStatus(UserStatusConstants.AFTER_REGISTERED);
         userMapper.updateByPrimaryKeySelective(user);
         UserInfo userInfo = new UserInfo();
@@ -96,8 +104,6 @@ public class UserServiceImpl implements UserService, ApplicationContextAware {
         userInfo.setUserId(user.getId());
         return userInfo;
     }
-
-
 
 
     @Override

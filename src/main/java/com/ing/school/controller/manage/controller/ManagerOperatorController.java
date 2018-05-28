@@ -4,6 +4,7 @@ import com.ing.school.controller.utils.Result;
 import com.ing.school.dao.po.ChoicestSchool;
 import com.ing.school.dao.po.SchoolInfo;
 import com.ing.school.dto.PageDto;
+import com.ing.school.service.CommonService;
 import com.ing.school.service.RecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -23,6 +24,8 @@ import java.util.Date;
 public class ManagerOperatorController {
     @Autowired
     RecordService recordService;
+    @Autowired
+    CommonService commonService;
 
     @RequestMapping(value = "/apply/getApplyList", method = RequestMethod.POST)
     public Result getApplyList(PageDto pageDto, @RequestParam(value = "startTime", required = false) Date startTime
@@ -85,6 +88,15 @@ public class ManagerOperatorController {
 
     @RequestMapping(value = "/file/upload", method = RequestMethod.POST)
     public Result uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("resolver") String tag) {
+        if ("school".equals(tag)){
+            try {
+                commonService.resolveExcel(file);
+                return Result.builder().data("").successTrue().build();
+            }catch (Exception e){
+                e.printStackTrace();
+                throw new RuntimeException("解析失败");
+            }
+        }
         return Result.builder().data(recordService.uploadFile(file)).successTrue().build();
     }
 
@@ -96,6 +108,6 @@ public class ManagerOperatorController {
 
     @RequestMapping(value = "/apply/getCollectionByUserId", method = RequestMethod.POST)
     public Result getApplyListByUserId(PageDto pageDto, @RequestParam("userId") Integer userId) {
-        return Result.builder().data(recordService.getCollectionList(pageDto.getPageNo(),pageDto.getPageSize(), userId)).successTrue().build();
+        return Result.builder().data(recordService.getCollectionList(pageDto.getPageNo(), pageDto.getPageSize(), userId)).successTrue().build();
     }
 }

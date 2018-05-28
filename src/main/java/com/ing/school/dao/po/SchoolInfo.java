@@ -9,8 +9,6 @@ public class SchoolInfo {
 
     private String classess;
 
-    private String afterGraduation;
-
     private String synopsis;
 
     private String badge;
@@ -18,6 +16,8 @@ public class SchoolInfo {
     private String applicationGuide;
 
     private String advantage;
+
+    private String afterGraduation;
 
     private String applyCondition;
 
@@ -59,14 +59,6 @@ public class SchoolInfo {
         this.classess = classess == null ? null : classess.trim();
     }
 
-    public String getAfterGraduation() {
-        return afterGraduation;
-    }
-
-    public void setAfterGraduation(String afterGraduation) {
-        this.afterGraduation = afterGraduation == null ? null : afterGraduation.trim();
-    }
-
     public String getSynopsis() {
         return synopsis;
     }
@@ -97,6 +89,14 @@ public class SchoolInfo {
 
     public void setAdvantage(String advantage) {
         this.advantage = advantage == null ? null : advantage.trim();
+    }
+
+    public String getAfterGraduation() {
+        return afterGraduation;
+    }
+
+    public void setAfterGraduation(String afterGraduation) {
+        this.afterGraduation = afterGraduation == null ? null : afterGraduation.trim();
     }
 
     public String getApplyCondition() {

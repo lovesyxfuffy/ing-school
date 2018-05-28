@@ -11,7 +11,7 @@
             <property name="suppressDate" value="true"/>
         </commentGenerator>
         <!--数据库链接URL，用户名、密码 -->
-        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://103.202.123.220:3306/school" userId="root" password="123">
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://103.202.123.220:3306/school" userId="root" password="lovesyxfuffy21">
         </jdbcConnection>
         <javaTypeResolver>
             <property name="forceBigDecimals" value="false"/>
@@ -56,17 +56,17 @@
 
         <!--</table>-->
 
-        <table tableName="apply" domainObjectName="Apply"
-               enableCountByExample="false"
-               enableUpdateByExample="false"
-               enableDeleteByExample="false"
-               enableSelectByExample="true"
-               selectByExampleQueryId="false">
-            <property name="useActualColumnNames" value="true"/>
-            <ignoreColumn column="UpdateTime"></ignoreColumn>
-            <ignoreColumn column="AddTime"></ignoreColumn>
+        <!--<table tableName="apply" domainObjectName="Apply"-->
+               <!--enableCountByExample="false"-->
+               <!--enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false"-->
+               <!--enableSelectByExample="true"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--<property name="useActualColumnNames" value="true"/>-->
+            <!--<ignoreColumn column="UpdateTime"></ignoreColumn>-->
+            <!--<ignoreColumn column="AddTime"></ignoreColumn>-->
 
-        </table>
+        <!--</table>-->
 
         <!--<table tableName="applyInfo" domainObjectName="ApplyInfo"-->
                <!--enableCountByExample="false"-->
@@ -139,17 +139,17 @@
             <!--<ignoreColumn column="AddTime"></ignoreColumn>-->
 
         <!--</table>-->
-        <!--<table tableName="schoolInfo" domainObjectName="SchoolInfo"-->
-               <!--enableCountByExample="false"-->
-               <!--enableUpdateByExample="true"-->
-               <!--enableDeleteByExample="true"-->
-               <!--enableSelectByExample="true"-->
-               <!--selectByExampleQueryId="false">-->
-            <!--<property name="useActualColumnNames" value="true"/>-->
-            <!--<ignoreColumn column="UpdateTime"></ignoreColumn>-->
-            <!--<ignoreColumn column="AddTime"></ignoreColumn>-->
+        <table tableName="schoolInfo" domainObjectName="SchoolInfo"
+               enableCountByExample="false"
+               enableUpdateByExample="true"
+               enableDeleteByExample="true"
+               enableSelectByExample="true"
+               selectByExampleQueryId="false">
+            <property name="useActualColumnNames" value="true"/>
+            <ignoreColumn column="UpdateTime"></ignoreColumn>
+            <ignoreColumn column="AddTime"></ignoreColumn>
 
-        <!--</table>-->
+        </table>
         <!--<table tableName="user" domainObjectName="User"-->
                <!--enableCountByExample="false"-->
                <!--enableUpdateByExample="false"-->
