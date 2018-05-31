@@ -294,7 +294,7 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
     public Map<String, Object> getApplyInfo() {
         ApplyInfoExample applyInfoExample = new ApplyInfoExample();
         applyInfoExample.createCriteria().andUserIdEqualTo(AuthUtil.getUserId());
-        List<ApplyInfo> applyInfoResult = applyInfoMapper.selectByExample(applyInfoExample);
+        List<ApplyInfo> applyInfoResult = applyInfoMapper.selectByExampleWithBLOBs(applyInfoExample);
         ApplyInfo applyInfo;
         Map<String, Object> resultMap = new HashMap<>();
         try {
@@ -378,7 +378,7 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
     public Map<String, Object> getApplyInfoById(Integer userId) {
         ApplyInfoExample applyInfoExample = new ApplyInfoExample();
         applyInfoExample.createCriteria().andUserIdEqualTo(userId);
-        List<ApplyInfo> applyInfoResult = applyInfoMapper.selectByExample(applyInfoExample);
+        List<ApplyInfo> applyInfoResult = applyInfoMapper.selectByExampleWithBLOBs(applyInfoExample);
         ApplyInfo applyInfo;
         Map<String, Object> resultMap = new HashMap<>();
         try {
@@ -410,7 +410,7 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
         List<SchoolInfo> row;
         if ((row = schoolInfoMapper.selectByExample(schoolInfoExample)).size() > 0) {
             schoolInfo.setId(row.get(0).getId());
-            schoolInfoMapper.updateByExample(schoolInfo, schoolInfoExample);
+            schoolInfoMapper.updateByExampleWithBLOBs(schoolInfo, schoolInfoExample);
         } else {
             schoolInfoMapper.insertSelective(schoolInfo);
         }

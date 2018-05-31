@@ -41,7 +41,7 @@ public class ApplyInfo {
 
     private String applyingGradeCode;
 
-    private String currendGradeCode;
+    private String currentGradeCode;
 
     private String studentEmail;
 
@@ -225,12 +225,12 @@ public class ApplyInfo {
         this.applyingGradeCode = applyingGradeCode == null ? null : applyingGradeCode.trim();
     }
 
-    public String getCurrendGradeCode() {
-        return currendGradeCode;
+    public String getCurrentGradeCode() {
+        return currentGradeCode;
     }
 
-    public void setCurrendGradeCode(String currendGradeCode) {
-        this.currendGradeCode = currendGradeCode == null ? null : currendGradeCode.trim();
+    public void setCurrentGradeCode(String currentGradeCode) {
+        this.currentGradeCode = currentGradeCode == null ? null : currentGradeCode.trim();
     }
 
     public String getStudentEmail() {

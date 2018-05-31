@@ -21,7 +21,7 @@
     <result column="skypeId" property="skypeId" jdbcType="VARCHAR" />
     <result column="passportNumber" property="passportNumber" jdbcType="VARCHAR" />
     <result column="applyingGradeCode" property="applyingGradeCode" jdbcType="VARCHAR" />
-    <result column="currendGradeCode" property="currendGradeCode" jdbcType="VARCHAR" />
+    <result column="currentGradeCode" property="currentGradeCode" jdbcType="VARCHAR" />
     <result column="studentEmail" property="studentEmail" jdbcType="VARCHAR" />
     <result column="secondLanguageCode" property="secondLanguageCode" jdbcType="VARCHAR" />
     <result column="nativeLanguageCode" property="nativeLanguageCode" jdbcType="VARCHAR" />
@@ -73,7 +73,7 @@
     id, applyId, userId, studentName, age, genderCode, telephone, address, attendanceDate, 
     englishLevelTypeCode, englishLevelScore, currentSchoolEmail, currentSchoolPhone, 
     currentSchoolAddress, currentSchoolName, wechatId, skypeId, passportNumber, applyingGradeCode, 
-    currendGradeCode, studentEmail, secondLanguageCode, nativeLanguageCode, cityzenshipCode, 
+    currentGradeCode, studentEmail, secondLanguageCode, nativeLanguageCode, cityzenshipCode, 
     homePhone, countryCode, zip, cityCode, stateCode, motherLand, birthDay, currentSchoolCounselorEmail, 
     currentSchoolCounselor, currentSchoolGuidancePhone
   </sql>
@@ -132,7 +132,7 @@
       currentSchoolEmail, currentSchoolPhone, 
       currentSchoolAddress, currentSchoolName, 
       wechatId, skypeId, passportNumber, 
-      applyingGradeCode, currendGradeCode, studentEmail, 
+      applyingGradeCode, currentGradeCode, studentEmail, 
       secondLanguageCode, nativeLanguageCode, 
       cityzenshipCode, homePhone, countryCode, 
       zip, cityCode, stateCode, 
@@ -146,7 +146,7 @@
       #{currentSchoolEmail,jdbcType=VARCHAR}, #{currentSchoolPhone,jdbcType=VARCHAR}, 
       #{currentSchoolAddress,jdbcType=VARCHAR}, #{currentSchoolName,jdbcType=VARCHAR}, 
       #{wechatId,jdbcType=VARCHAR}, #{skypeId,jdbcType=VARCHAR}, #{passportNumber,jdbcType=VARCHAR}, 
-      #{applyingGradeCode,jdbcType=VARCHAR}, #{currendGradeCode,jdbcType=VARCHAR}, #{studentEmail,jdbcType=VARCHAR}, 
+      #{applyingGradeCode,jdbcType=VARCHAR}, #{currentGradeCode,jdbcType=VARCHAR}, #{studentEmail,jdbcType=VARCHAR}, 
       #{secondLanguageCode,jdbcType=VARCHAR}, #{nativeLanguageCode,jdbcType=VARCHAR}, 
       #{cityzenshipCode,jdbcType=VARCHAR}, #{homePhone,jdbcType=VARCHAR}, #{countryCode,jdbcType=VARCHAR}, 
       #{zip,jdbcType=VARCHAR}, #{cityCode,jdbcType=VARCHAR}, #{stateCode,jdbcType=VARCHAR}, 
@@ -154,7 +154,7 @@
       #{currentSchoolCounselor,jdbcType=VARCHAR}, #{currentSchoolGuidancePhone,jdbcType=VARCHAR}, 
       #{attendanceGrades,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" parameterType="com.ing.school.dao.po.ApplyInfo" >
+  <insert id="insertSelective" parameterType="com.ing.school.dao.po.ApplyInfo" >
     insert into applyInfo
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -214,8 +214,8 @@
       <if test="applyingGradeCode != null" >
         applyingGradeCode,
       </if>
-      <if test="currendGradeCode != null" >
-        currendGradeCode,
+      <if test="currentGradeCode != null" >
+        currentGradeCode,
       </if>
       <if test="studentEmail != null" >
         studentEmail,
@@ -321,8 +321,8 @@
       <if test="applyingGradeCode != null" >
         #{applyingGradeCode,jdbcType=VARCHAR},
       </if>
-      <if test="currendGradeCode != null" >
-        #{currendGradeCode,jdbcType=VARCHAR},
+      <if test="currentGradeCode != null" >
+        #{currentGradeCode,jdbcType=VARCHAR},
       </if>
       <if test="studentEmail != null" >
         #{studentEmail,jdbcType=VARCHAR},
@@ -428,8 +428,8 @@
       <if test="applyingGradeCode != null" >
         applyingGradeCode = #{applyingGradeCode,jdbcType=VARCHAR},
       </if>
-      <if test="currendGradeCode != null" >
-        currendGradeCode = #{currendGradeCode,jdbcType=VARCHAR},
+      <if test="currentGradeCode != null" >
+        currentGradeCode = #{currentGradeCode,jdbcType=VARCHAR},
       </if>
       <if test="studentEmail != null" >
         studentEmail = #{studentEmail,jdbcType=VARCHAR},
@@ -499,7 +499,7 @@
       skypeId = #{skypeId,jdbcType=VARCHAR},
       passportNumber = #{passportNumber,jdbcType=VARCHAR},
       applyingGradeCode = #{applyingGradeCode,jdbcType=VARCHAR},
-      currendGradeCode = #{currendGradeCode,jdbcType=VARCHAR},
+      currentGradeCode = #{currentGradeCode,jdbcType=VARCHAR},
       studentEmail = #{studentEmail,jdbcType=VARCHAR},
       secondLanguageCode = #{secondLanguageCode,jdbcType=VARCHAR},
       nativeLanguageCode = #{nativeLanguageCode,jdbcType=VARCHAR},
@@ -537,7 +537,7 @@
       skypeId = #{skypeId,jdbcType=VARCHAR},
       passportNumber = #{passportNumber,jdbcType=VARCHAR},
       applyingGradeCode = #{applyingGradeCode,jdbcType=VARCHAR},
-      currendGradeCode = #{currendGradeCode,jdbcType=VARCHAR},
+      currentGradeCode = #{currentGradeCode,jdbcType=VARCHAR},
       studentEmail = #{studentEmail,jdbcType=VARCHAR},
       secondLanguageCode = #{secondLanguageCode,jdbcType=VARCHAR},
       nativeLanguageCode = #{nativeLanguageCode,jdbcType=VARCHAR},
