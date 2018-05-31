@@ -287,6 +287,14 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
 
             return schoolInfoDto;
         }
+        if (result.size() == 0) {
+            SchoolInfoDto schoolInfoDto = new SchoolInfoDto();
+            BeanUtils.copyProperties(school, schoolInfoDto);
+            CollectionExample collectionExample = new CollectionExample();
+            collectionExample.createCriteria().andUserIdEqualTo(AuthUtil.getUserId());
+            schoolInfoDto.setIsCollected(collectionMapper.selectByExample(collectionExample).size() > 0);
+            return schoolInfoDto;
+        }
         return null;
     }
 
