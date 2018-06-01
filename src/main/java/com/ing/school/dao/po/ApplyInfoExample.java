@@ -1375,73 +1375,73 @@ public class ApplyInfoExample {
             return (Criteria) this;
         }
 
-        public Criteria andCurrendGradeCodeIsNull() {
-            addCriterion("currendGradeCode is null");
+        public Criteria andCurrentGradeCodeIsNull() {
+            addCriterion("currentGradeCode is null");
             return (Criteria) this;
         }
 
-        public Criteria andCurrendGradeCodeIsNotNull() {
-            addCriterion("currendGradeCode is not null");
+        public Criteria andCurrentGradeCodeIsNotNull() {
+            addCriterion("currentGradeCode is not null");
             return (Criteria) this;
         }
 
-        public Criteria andCurrendGradeCodeEqualTo(String value) {
-            addCriterion("currendGradeCode =", value, "currendGradeCode");
+        public Criteria andCurrentGradeCodeEqualTo(String value) {
+            addCriterion("currentGradeCode =", value, "currentGradeCode");
             return (Criteria) this;
         }
 
-        public Criteria andCurrendGradeCodeNotEqualTo(String value) {
-            addCriterion("currendGradeCode <>", value, "currendGradeCode");
+        public Criteria andCurrentGradeCodeNotEqualTo(String value) {
+            addCriterion("currentGradeCode <>", value, "currentGradeCode");
             return (Criteria) this;
         }
 
-        public Criteria andCurrendGradeCodeGreaterThan(String value) {
-            addCriterion("currendGradeCode >", value, "currendGradeCode");
+        public Criteria andCurrentGradeCodeGreaterThan(String value) {
+            addCriterion("currentGradeCode >", value, "currentGradeCode");
             return (Criteria) this;
         }
 
-        public Criteria andCurrendGradeCodeGreaterThanOrEqualTo(String value) {
-            addCriterion("currendGradeCode >=", value, "currendGradeCode");
+        public Criteria andCurrentGradeCodeGreaterThanOrEqualTo(String value) {
+            addCriterion("currentGradeCode >=", value, "currentGradeCode");
             return (Criteria) this;
         }
 
-        public Criteria andCurrendGradeCodeLessThan(String value) {
-            addCriterion("currendGradeCode <", value, "currendGradeCode");
+        public Criteria andCurrentGradeCodeLessThan(String value) {
+            addCriterion("currentGradeCode <", value, "currentGradeCode");
             return (Criteria) this;
         }
 
-        public Criteria andCurrendGradeCodeLessThanOrEqualTo(String value) {
-            addCriterion("currendGradeCode <=", value, "currendGradeCode");
+        public Criteria andCurrentGradeCodeLessThanOrEqualTo(String value) {
+            addCriterion("currentGradeCode <=", value, "currentGradeCode");
             return (Criteria) this;
         }
 
-        public Criteria andCurrendGradeCodeLike(String value) {
-            addCriterion("currendGradeCode like", value, "currendGradeCode");
+        public Criteria andCurrentGradeCodeLike(String value) {
+            addCriterion("currentGradeCode like", value, "currentGradeCode");
             return (Criteria) this;
         }
 
-        public Criteria andCurrendGradeCodeNotLike(String value) {
-            addCriterion("currendGradeCode not like", value, "currendGradeCode");
+        public Criteria andCurrentGradeCodeNotLike(String value) {
+            addCriterion("currentGradeCode not like", value, "currentGradeCode");
             return (Criteria) this;
         }
 
-        public Criteria andCurrendGradeCodeIn(List<String> values) {
-            addCriterion("currendGradeCode in", values, "currendGradeCode");
+        public Criteria andCurrentGradeCodeIn(List<String> values) {
+            addCriterion("currentGradeCode in", values, "currentGradeCode");
             return (Criteria) this;
         }
 
-        public Criteria andCurrendGradeCodeNotIn(List<String> values) {
-            addCriterion("currendGradeCode not in", values, "currendGradeCode");
+        public Criteria andCurrentGradeCodeNotIn(List<String> values) {
+            addCriterion("currentGradeCode not in", values, "currentGradeCode");
             return (Criteria) this;
         }
 
-        public Criteria andCurrendGradeCodeBetween(String value1, String value2) {
-            addCriterion("currendGradeCode between", value1, value2, "currendGradeCode");
+        public Criteria andCurrentGradeCodeBetween(String value1, String value2) {
+            addCriterion("currentGradeCode between", value1, value2, "currentGradeCode");
             return (Criteria) this;
         }
 
-        public Criteria andCurrendGradeCodeNotBetween(String value1, String value2) {
-            addCriterion("currendGradeCode not between", value1, value2, "currendGradeCode");
+        public Criteria andCurrentGradeCodeNotBetween(String value1, String value2) {
+            addCriterion("currentGradeCode not between", value1, value2, "currentGradeCode");
             return (Criteria) this;
         }
 

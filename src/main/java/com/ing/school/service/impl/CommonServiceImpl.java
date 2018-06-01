@@ -197,7 +197,6 @@ public class CommonServiceImpl implements CommonService {
             School school = new School();
             if (row.getCell(0) == null)
                 continue;
-            System.out.println(row.getCell(0).getStringCellValue());
             school.setSchoolName(row.getCell(0).getStringCellValue());
             school.setSchoolEnglishName(row.getCell(1).getStringCellValue());
             school.setContinentCode(continentMap.get(row.getCell(2).getStringCellValue()));
@@ -208,11 +207,10 @@ public class CommonServiceImpl implements CommonService {
             school.setSchoolGenderTypeCode(genderTypeMap.get(row.getCell(7).getStringCellValue()));
             school.setReligionTypeCode(religionTypeMap.get(row.getCell(8).getStringCellValue()));
             school.setCost((int) row.getCell(9).getNumericCellValue());
-            school.setMainPicture(row.getCell(10) != null ? row.getCell(10).getStringCellValue() : null);
-            school.setPositionX(row.getCell(11).getNumericCellValue());
-            school.setPositionY(row.getCell(12).getNumericCellValue());
-            school.setHasEsl("是".equals(row.getCell(13).getStringCellValue()));
-            school.setPassingScore(row.getCell(14).getNumericCellValue());
+            school.setPositionX(row.getCell(10).getNumericCellValue());
+            school.setPositionY(row.getCell(11).getNumericCellValue());
+            school.setHasEsl("是".equals(row.getCell(12).getStringCellValue()));
+            school.setPassingScore(row.getCell(13).getNumericCellValue());
             school.setCollectionCount(0);
             schoolMapper.insertSelective(school);
         }
