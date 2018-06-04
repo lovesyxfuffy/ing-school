@@ -739,9 +739,6 @@ status枚举如下:
   },
   "response":{
     "data":{
-        "schoolId":11,
-        "schoolName":"学校名称",
-        "schoolTypeCode":"2222",//学校类型枚举
         "studentName":"学生姓名",
         "age":22,
         "genderCode":"性别枚举值",
@@ -782,6 +779,7 @@ status枚举如下:
   "method":"post",
   "request":{
     "schoolId":4,
+    "mainPictureUrl":"xxxxx",
     "headPictureUrl":"xxxx",
     "synopsis":"xxx",
     "badge":"xxxx",

@@ -106,12 +106,18 @@ public class CommonServiceImpl implements CommonService {
 
     @Override
     public void setAdConfig(String text) {
-        Config config = new Config();
-        config.setConfigKey(ConfigConstants.ADVERTISEMENT);
-        config.setConfigValue(text);
-        config.setType(ConfigConstants.ADVERTISEMENT);
-
-        configMapper.updateByPrimaryKeySelective(config);
+        Config config = configMapper.selectByPrimaryKey(ConfigConstants.ADVERTISEMENT);
+        if (config == null) {
+            config = new Config();
+            config.setConfigKey(ConfigConstants.ADVERTISEMENT);
+            config.setConfigValue(text);
+            config.setType(ConfigConstants.ADVERTISEMENT);
+            configMapper.insertSelective(config);
+        } else {
+            config.setConfigValue(text);
+            config.setType(ConfigConstants.ADVERTISEMENT);
+            configMapper.updateByPrimaryKeySelective(config);
+        }
     }
 
     @Override

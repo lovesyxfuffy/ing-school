@@ -9,7 +9,6 @@
     <result column="schoolTypeCode" property="schoolTypeCode" jdbcType="VARCHAR" />
     <result column="schoolName" property="schoolName" jdbcType="VARCHAR" />
     <result column="applyTime" property="applyTime" jdbcType="TIMESTAMP" />
-    <result column="telephone" property="telephone" jdbcType="VARCHAR" />
     <result column="schoolEnglishName" property="schoolEnglishName" jdbcType="VARCHAR" />
     <result column="followUpContent" property="followUpContent" jdbcType="VARCHAR" />
     <result column="followUpStatus" property="followUpStatus" jdbcType="INTEGER" />
@@ -44,8 +43,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, userId, userName, schoolId, schoolTypeCode, schoolName, applyTime, telephone, 
-    schoolEnglishName, followUpContent, followUpStatus
+    id, userId, userName, schoolId, schoolTypeCode, schoolName, applyTime, schoolEnglishName, 
+    followUpContent, followUpStatus
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ing.school.dao.po.ApplyExample" >
     select
@@ -75,14 +74,14 @@
   <insert id="insert" parameterType="com.ing.school.dao.po.Apply" >
     insert into apply (id, userId, userName, 
       schoolId, schoolTypeCode, schoolName, 
-      applyTime, telephone, schoolEnglishName, 
-      followUpContent, followUpStatus)
+      applyTime, schoolEnglishName, followUpContent, 
+      followUpStatus)
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, 
       #{schoolId,jdbcType=INTEGER}, #{schoolTypeCode,jdbcType=VARCHAR}, #{schoolName,jdbcType=VARCHAR}, 
-      #{applyTime,jdbcType=TIMESTAMP}, #{telephone,jdbcType=VARCHAR}, #{schoolEnglishName,jdbcType=VARCHAR}, 
-      #{followUpContent,jdbcType=VARCHAR}, #{followUpStatus,jdbcType=INTEGER})
+      #{applyTime,jdbcType=TIMESTAMP}, #{schoolEnglishName,jdbcType=VARCHAR}, #{followUpContent,jdbcType=VARCHAR}, 
+      #{followUpStatus,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" parameterType="com.ing.school.dao.po.Apply" >
+  <insert id="insertSelective" parameterType="com.ing.school.dao.po.Apply" >
     insert into apply
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -105,9 +104,6 @@
       </if>
       <if test="applyTime != null" >
         applyTime,
-      </if>
-      <if test="telephone != null" >
-        telephone,
       </if>
       <if test="schoolEnglishName != null" >
         schoolEnglishName,
@@ -141,9 +137,6 @@
       <if test="applyTime != null" >
         #{applyTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="telephone != null" >
-        #{telephone,jdbcType=VARCHAR},
-      </if>
       <if test="schoolEnglishName != null" >
         #{schoolEnglishName,jdbcType=VARCHAR},
       </if>
@@ -176,9 +169,6 @@
       <if test="applyTime != null" >
         applyTime = #{applyTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="telephone != null" >
-        telephone = #{telephone,jdbcType=VARCHAR},
-      </if>
       <if test="schoolEnglishName != null" >
         schoolEnglishName = #{schoolEnglishName,jdbcType=VARCHAR},
       </if>
@@ -199,7 +189,6 @@
       schoolTypeCode = #{schoolTypeCode,jdbcType=VARCHAR},
       schoolName = #{schoolName,jdbcType=VARCHAR},
       applyTime = #{applyTime,jdbcType=TIMESTAMP},
-      telephone = #{telephone,jdbcType=VARCHAR},
       schoolEnglishName = #{schoolEnglishName,jdbcType=VARCHAR},
       followUpContent = #{followUpContent,jdbcType=VARCHAR},
       followUpStatus = #{followUpStatus,jdbcType=INTEGER}

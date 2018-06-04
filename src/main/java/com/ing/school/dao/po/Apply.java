@@ -17,8 +17,6 @@ public class Apply {
 
     private Date applyTime;
 
-    private String telephone;
-
     private String schoolEnglishName;
 
     private String followUpContent;
@@ -79,14 +77,6 @@ public class Apply {
 
     public void setApplyTime(Date applyTime) {
         this.applyTime = applyTime;
-    }
-
-    public String getTelephone() {
-        return telephone;
-    }
-
-    public void setTelephone(String telephone) {
-        this.telephone = telephone == null ? null : telephone.trim();
     }
 
     public String getSchoolEnglishName() {

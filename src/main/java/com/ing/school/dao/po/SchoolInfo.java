@@ -27,6 +27,16 @@ public class SchoolInfo {
 
     private String accommodation;
 
+    private String mainPictureUrl;
+
+    public String getMainPictureUrl() {
+        return mainPictureUrl;
+    }
+
+    public void setMainPictureUrl(String mainPictureUrl) {
+        this.mainPictureUrl = mainPictureUrl;
+    }
+
     public Integer getId() {
         return id;
     }

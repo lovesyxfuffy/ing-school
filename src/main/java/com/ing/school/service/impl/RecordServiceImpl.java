@@ -395,10 +395,10 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
             if (applyInfoResult.size() == 1) {
                 PropertyDescriptor[] applyInfoDescriptors = BeanUtils.getPropertyDescriptors(ApplyInfo.class);
 
-
                 applyInfo = applyInfoResult.get(0);
                 for (PropertyDescriptor applyInfoDescriptor : applyInfoDescriptors) {
-                    resultMap.put(applyInfoDescriptor.getName(), applyInfoDescriptor.getReadMethod().invoke(applyInfo));
+                    if (!"class".equals(applyInfoDescriptor.getName()))
+                        resultMap.put(applyInfoDescriptor.getName(), applyInfoDescriptor.getReadMethod().invoke(applyInfo));
                 }
 
             }
@@ -413,15 +413,23 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
     @Override
     @Transactional
     public void addSchoolInfo(SchoolInfo schoolInfo) {
+        School school = schoolMapper.selectByPrimaryKey(schoolInfo.getSchoolId());
+        if (school == null)
+            throw new RuntimeException("查询无此学校");
+        if (schoolInfo.getMainPictureUrl() != null) {
+            school.setMainPicture(schoolInfo.getMainPictureUrl());
+            schoolMapper.updateByPrimaryKeySelective(school);
+        }
         SchoolInfoExample schoolInfoExample = new SchoolInfoExample();
         schoolInfoExample.createCriteria().andSchoolIdEqualTo(schoolInfo.getSchoolId());
         List<SchoolInfo> row;
         if ((row = schoolInfoMapper.selectByExample(schoolInfoExample)).size() > 0) {
             schoolInfo.setId(row.get(0).getId());
-            schoolInfoMapper.updateByExampleWithBLOBs(schoolInfo, schoolInfoExample);
+            schoolInfoMapper.updateByExampleSelective(schoolInfo, schoolInfoExample);
         } else {
             schoolInfoMapper.insertSelective(schoolInfo);
         }
+
     }
 
 
