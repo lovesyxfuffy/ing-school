@@ -60,9 +60,9 @@ public class UserController {
     }
 
     @RequestMapping(value = "/perfect", method = RequestMethod.POST)
-    public Result perfectUser(User user, HttpSession httpSession,HttpServletResponse response) {
-        Object registerId =  httpSession.getAttribute("register-id");
-        if(registerId == null)
+    public Result perfectUser(User user, HttpSession httpSession, HttpServletResponse response) {
+        Object registerId = httpSession.getAttribute("register-id");
+        if (registerId == null)
             throw new RuntimeException("请先验证手机号");
         UserInfo userInfo = userService.editUserInfo(user, (Integer) registerId);
         httpSession.removeAttribute("register-id");
@@ -82,8 +82,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
-    public Result logout(HttpServletResponse response,HttpSession session) {
-	    session.invalidate();
+    public Result logout(HttpServletResponse response, HttpSession session) {
+        session.invalidate();
         Cookie cookie = new Cookie(LoginConstants.SCHOOL_COOKIE, null);
         cookie.setMaxAge(LoginConstants.EXPIRE_TIME);
         cookie.setPath("/");
@@ -93,7 +93,8 @@ public class UserController {
 
     @RequestMapping(value = "/getCheckCode", method = RequestMethod.POST)
     public Result getCheckCode(@RequestParam("telephone") String telephone) {
-        String checkCode = userService.pushPermissionCode(telephone);
+        //String checkCode = userService.pushPermissionCode(telephone);
+        String checkCode = "123456";
         CacheUtils.put(LoginConstants.TELEPHONE_KEY + telephone, checkCode);
         return Result.builder().data(checkCode).successTrue().build();
     }
