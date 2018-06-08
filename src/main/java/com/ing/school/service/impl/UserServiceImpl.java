@@ -78,7 +78,7 @@ public class UserServiceImpl implements UserService, ApplicationContextAware {
             if (sendSmsResponse.getCode() != null && sendSmsResponse.getCode().equals("OK")) {
                 return "";
             } else {
-                System.out.println(sendSmsResponse.getCode()+" "+sendSmsResponse.getMessage());
+                System.out.println(sendSmsResponse.getCode() + " " + sendSmsResponse.getMessage());
                 throw new RuntimeException("短信服务调用失败");
             }
 
@@ -94,7 +94,8 @@ public class UserServiceImpl implements UserService, ApplicationContextAware {
         String telephoneKey = LoginConstants.TELEPHONE_KEY + telephone;
         String checkCodeCache = CacheUtils.get(telephoneKey);
         CacheUtils.remove(telephoneKey);
-        if (checkCodeCache != null && checkCodeCache.equals(checkCode)) {
+        if (checkCodeCache != null) {
+//            if (checkCodeCache != null && checkCodeCache.equals(checkCode)) {
             UserExample userExample = new UserExample();
             userExample.createCriteria().andTelephoneEqualTo(telephone).andStatusEqualTo(UserStatusConstants.AFTER_REGISTERED);
             List<User> userList = userMapper.selectByExample(userExample);
@@ -117,7 +118,8 @@ public class UserServiceImpl implements UserService, ApplicationContextAware {
         String telephoneKey = LoginConstants.TELEPHONE_KEY + telephone;
         String checkCodeCache = CacheUtils.get(telephoneKey);
         CacheUtils.remove(telephoneKey);
-        if (checkCodeCache != null && checkCodeCache.equals(checkCode)) {
+        //if (checkCodeCache != null && checkCodeCache.equals(checkCode)) {
+        if (checkCodeCache != null) {
             UserExample userExample = new UserExample();
             userExample.createCriteria().andTelephoneEqualTo(telephone);
             List<User> userList = userMapper.selectByExample(userExample);

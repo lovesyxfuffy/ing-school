@@ -511,4 +511,17 @@ public class RecordServiceImpl implements RecordService, ApplicationContextAware
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
     }
+
+    public void test(){
+        applyMapper.selectByPrimaryKey(1);
+        doSomething();
+        applyInfoMapper.selectByPrimaryKey(2);
+        doSomething();
+        choicestSchoolMapper.selectByPrimaryKey(3);
+        doSomething();
+    }
+
+    public void doSomething(){
+
+    }
 }
