@@ -111,6 +111,7 @@ public class CommonServiceImpl implements CommonService {
             config = new Config();
             config.setConfigKey(ConfigConstants.ADVERTISEMENT);
             config.setConfigValue(text);
+            config.setConfigName("广告位");
             config.setType(ConfigConstants.ADVERTISEMENT);
             configMapper.insertSelective(config);
         } else {
